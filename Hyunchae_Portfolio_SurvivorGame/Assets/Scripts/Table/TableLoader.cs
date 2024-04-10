@@ -5,32 +5,29 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
+using System.IO;
 
 public class TableLoader
 {
-    public async UniTask<T> LoadFromURI<T>(Uri _uri) where T : struct
+    private readonly string APP_PATH = Application.dataPath;    
+    private readonly string JSON_DATA_PATH = "JsonData";
+
+    public void SaveToJson(string _directory,object _data,string _fileName)
     {
-        //.. TODO :: WEB Request
+        string json = JsonConvert.SerializeObject(_data);
 
+        string path = Path.Combine(APP_PATH, JSON_DATA_PATH ,_directory,_fileName); // File Name?
 
-        var resource = await Resources.LoadAsync(_uri.ToString());
+        File.WriteAllText(path, json);
 
-        return JsonConvert.DeserializeObject<T>("");
     }
 
-    public bool SaveFromFile(string _stringData)
+    public object LoadFromFile(string _filePath)
     {
-        JsonConvert.SerializeObject(_stringData);
+        string path = Path.Combine(APP_PATH, JSON_DATA_PATH, _filePath);
 
-        //Todo :: FileSave
+        var json = File.ReadAllText(path);
 
-        return false;
-    }
-
-    public async UniTask<T> LoadFromFile<T>(string _filePath) where T : struct
-    {
-        var resource = await Resources.LoadAsync(_filePath) as TextAsset;
-
-        return JsonConvert.DeserializeObject<T>(resource.text);
+        return JsonConvert.DeserializeObject(json);
     }
 }
