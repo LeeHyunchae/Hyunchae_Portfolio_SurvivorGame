@@ -7,27 +7,39 @@ using Newtonsoft.Json;
 using System.Net;
 using System.IO;
 
-public class TableLoader
+public static class TableLoader
 {
-    private readonly string APP_PATH = Application.dataPath;    
-    private readonly string JSON_DATA_PATH = "JsonData";
+    private static readonly string APP_PATH = Application.dataPath;    
+    private static readonly string JSON_DATA_PATH = "JsonData";
+    private static readonly string EXTENSION = ".json";
 
-    public void SaveToJson(string _directory,object _data,string _fileName)
+    public static void SaveToJson<T>(string _directory,T _data,string _fileName)
     {
         string json = JsonConvert.SerializeObject(_data);
 
-        string path = Path.Combine(APP_PATH, JSON_DATA_PATH ,_directory,_fileName); // File Name?
+        Debug.Log(json);
 
-        File.WriteAllText(path, json);
+        string path = Path.Combine(APP_PATH, JSON_DATA_PATH ,_directory,_fileName+EXTENSION);
 
+        FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate,FileAccess.Write);
+        StreamWriter writer = new StreamWriter(fileStream);
+
+        writer.Write(json);
+        
+        writer.Close();
     }
 
-    public object LoadFromFile(string _filePath)
+    public static T LoadFromFile<T>(string _directory)
     {
-        string path = Path.Combine(APP_PATH, JSON_DATA_PATH, _filePath);
+        string path = Path.Combine(APP_PATH, JSON_DATA_PATH, _directory+EXTENSION);
 
-        var json = File.ReadAllText(path);
+        FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+        StreamReader reader = new StreamReader(fileStream);
 
-        return JsonConvert.DeserializeObject(json);
+        string json = reader.ReadToEnd();
+
+        reader.Close();
+
+        return JsonConvert.DeserializeObject<T>(json);
     }
 }

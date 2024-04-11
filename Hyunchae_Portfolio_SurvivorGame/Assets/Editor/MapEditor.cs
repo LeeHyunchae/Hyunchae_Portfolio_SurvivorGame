@@ -9,73 +9,130 @@ using UnityEngine.Tilemaps;
 public class MapEditor : Editor
 {
     private MapSetting mapSetting;
+    private MapCreator mapCreator = new MapCreator();
 
-    private ReorderableList mapList;
+    private Tilemap tilemap;
 
     public void OnEnable()
     {
+        tilemap = FindObjectOfType<Tilemap>();
         mapSetting = target as MapSetting;
-
-        mapList = new ReorderableList(
-            serializedObject,
-            serializedObject.FindProperty("mapDatas"),
-            true,
-            true,
-            true,
-            true);
-
-        mapList.drawHeaderCallback = rect =>
-        {
-            EditorGUI.LabelField(rect, "Map Data");
-        };
-
-        mapList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-        {
-            var element = mapList.serializedProperty.GetArrayElementAtIndex(index);
-            EditorGUI.PropertyField(rect, element.FindPropertyRelative("outlineTile"));
-            EditorGUI.PropertyField(rect, element.FindPropertyRelative("innerTile"));
-            EditorGUI.PropertyField(rect, element.FindPropertyRelative("mapWidth"));
-            EditorGUI.PropertyField(rect, element.FindPropertyRelative("mapHeight"));
-            rect.y += 2;
-            EditorGUI.PropertyField(new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("stage"), GUIContent.none);
-            EditorGUI.PropertyField(new Rect(rect.x + 60, rect.y, rect.width - 60 - 30, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("stageName"), GUIContent.none);
-            EditorGUI.PropertyField(new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("stageTime"), GUIContent.none);
-            EditorGUI.PropertyField(new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("enemies"), GUIContent.none);
-        };
+        mapCreator.Init(tilemap);
     }
 
 
     public override void OnInspectorGUI()
     {
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("- 맵 정보 입력툴 -");
+        EditorGUILayout.LabelField("- 맵 정보 입력 -");
         EditorGUILayout.Space();
-
-        //base.OnInspectorGUI();
-
-        //selected.monsterType = (MonsterType)EditorGUILayout.EnumPopup("몬스터 종류", selected.monsterType);
 
         mapSetting.mapDatas.mapWidth = EditorGUILayout.IntField("맵 가로길이",mapSetting.mapDatas.mapWidth);
         mapSetting.mapDatas.mapHeight = EditorGUILayout.IntField("맵 세로길이", mapSetting.mapDatas.mapHeight);
 
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("맵 생성", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth,mapSetting.mapDatas.mapHeight);
+        }
+
+        if (GUILayout.Button("맵 제거", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            tilemap.ClearAllTiles();
+        }
+
+        //if (GUILayout.Button("맵 저저저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        //{
+        //    //mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
+        //    SaveMapData();
+        //}
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
         if (GUILayout.Button("맵 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            TableLoader tl = new TableLoader();
+            SetTileData();
 
-            tl.SaveToJson("Map", mapSetting.mapDatas, "MapData");
+            TableLoader.SaveToJson("Map", mapSetting.mapDatas, "MapData");
         }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
 
         if (GUILayout.Button("맵 데이터 읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            TableLoader tl = new TableLoader();
+            MapData mapData = TableLoader.LoadFromFile<MapData>("Map/MapData");
 
-            object asd = tl.LoadFromFile("Map/MapData");
+            mapSetting.mapDatas = mapData;
 
-            Debug.Log(asd);
+            mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
         }
+
+        //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        //{
+        //    TableLoader tl = new TableLoader();
+
+        //    TileBase[] allTile = tl.LoadFromFile<TileBase[]>("Map/AllTileMap");
+
+        //}
+    }
+
+    private void SaveMapData()
+    {
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+        //TableLoader tl = new TableLoader();
+        //tl.SaveToJson("Map", tilemap, "AllTileMap");
+
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile != null)
+                {
+                    Debug.Log("Tile at position (" + (x + bounds.xMin) + ", " + (y + bounds.yMin) + "): " + tile.name);
+                }
+            }
+        }
+    }
+
+    private void SetTileData()
+    {
+        int halfWidth = (int)(mapSetting.mapDatas.mapWidth * 0.5f);
+        int halfHeight = (int)(mapSetting.mapDatas.mapHeight * 0.5f);
+
+        TileData[] tileDatas = new TileData[mapSetting.mapDatas.mapWidth * mapSetting.mapDatas.mapHeight];
+
+        int tileCount = 0;
+
+        for (int i = -halfWidth; i < halfWidth; i++)
+        {
+            for (int j = -halfHeight; j < halfHeight; j++)
+            {
+                TileData tileData = new TileData();
+
+                if(i == -halfWidth || i == halfWidth -1 || j == -halfHeight || j == halfHeight-1)
+                {
+                    tileData.isMove = false;
+                }
+                else
+                {
+                    tileData.isMove = true;
+                }
+
+                tileData.tilePos = new Vector3Int(i, j, 0);
+
+                tileDatas[tileCount] = tileData;
+                Debug.Log(tileCount);
+                tileCount++;
+            }
+        }
+
+        mapSetting.mapDatas.tileDatas = tileDatas;
     }
 }

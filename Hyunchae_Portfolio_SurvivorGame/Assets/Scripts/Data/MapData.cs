@@ -7,10 +7,8 @@ using System;
 [Serializable]
 public class MapData
 {
-    public Tile outlineTile;
-    public Tile innerTile;
-
     public int mapWidth;
     public int mapHeight;
 
+    public TileData[] tileDatas;
 }
