@@ -41,7 +41,6 @@ public class MapCreator
             for(int j = -halfHeight; j < halfHeight; j++)
             {
                 tilemap.SetTile(new Vector3Int(i, j,0), tileBase);
-                Debug.Log(i+""+ j);
             }
         }
     }

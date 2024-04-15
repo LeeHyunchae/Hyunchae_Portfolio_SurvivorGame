@@ -1,0 +1,19 @@
+{
+  "character_Name": "테스트캐릭터",
+  "maxHP": 15.0,
+  "hpRegen": 0.0,
+  "lifesteal": 0.0,
+  "damage_Magnification": 0.0,
+  "melee_Flat_Damage": 0.0,
+  "range_Flat_Damage": 0.0,
+  "attack_Speed": 0.0,
+  "critical": 0.0,
+  "range": 0.0,
+  "armour": 0.0,
+  "evasion": 0.0,
+  "move_Speed": 0.0,
+  "luck": 0.0,
+  "harvest": 0.0,
+  "ability_Info": "무능합니다",
+  "thumbnail_image": "Assets/Resources/Sprites/Enemy 0.png"
+}

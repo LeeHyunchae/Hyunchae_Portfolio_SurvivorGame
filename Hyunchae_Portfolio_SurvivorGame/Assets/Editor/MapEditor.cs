@@ -135,4 +135,30 @@ public class MapEditor : Editor
 
         mapSetting.mapDatas.tileDatas = tileDatas;
     }
+
+    //private void Test()
+    //{
+    //    BaseCharacter baseCharacter = new BaseCharacter
+    //    {
+    //        character_Name = "테스트캐릭터",
+    //        maxHP = 15,
+    //        hpRegen = 0,
+    //        lifesteal = 0,
+    //        damage_Magnification = 0,
+    //        melee_Flat_Damage = 0,
+    //        range_Flat_Damage = 0,
+    //        attack_Speed = 0,
+    //        critical = 0,
+    //        range = 0,
+    //        armour = 0,
+    //        evasion = 0,
+    //        move_Speed = 0,
+    //        luck = 0,
+    //        harvest = 0,
+    //        ability_Info = "무능합니다",
+    //        thumbnail_image = "Assets/Resources/Sprites/Enemy 0.png"
+    //    };
+
+    //    TableLoader.SaveToJson("Character", baseCharacter, "TestCharacter");
+    //}
 }

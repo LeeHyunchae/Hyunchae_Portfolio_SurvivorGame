@@ -15,8 +15,7 @@ public static class TableLoader
 
     public static void SaveToJson<T>(string _directory,T _data,string _fileName)
     {
-        string json = JsonConvert.SerializeObject(_data);
-
+        string json = JsonConvert.SerializeObject(_data,Formatting.Indented);
         Debug.Log(json);
 
         string path = Path.Combine(APP_PATH, JSON_DATA_PATH ,_directory,_fileName+EXTENSION);
@@ -24,9 +23,11 @@ public static class TableLoader
         FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate,FileAccess.Write);
         StreamWriter writer = new StreamWriter(fileStream);
 
+        writer.Write(string.Empty);
         writer.Write(json);
         
         writer.Close();
+        fileStream.Close();
     }
 
     public static T LoadFromFile<T>(string _directory)
@@ -39,6 +40,7 @@ public static class TableLoader
         string json = reader.ReadToEnd();
 
         reader.Close();
+        fileStream.Close();
 
         return JsonConvert.DeserializeObject<T>(json);
     }

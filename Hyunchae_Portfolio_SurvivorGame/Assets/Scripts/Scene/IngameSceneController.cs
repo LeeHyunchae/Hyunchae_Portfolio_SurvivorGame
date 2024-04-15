@@ -20,4 +20,6 @@ public class IngameSceneController : MonoBehaviour
         mapCreator.Init(tilemap);
         mapCreator.GenerateMap(mapData.mapWidth, mapData.mapHeight);
     }
+
+    
 }
