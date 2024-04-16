@@ -6,11 +6,27 @@ using UnityEngine.Tilemaps;
 public class IngameSceneController : MonoBehaviour
 {
     [SerializeField] Tilemap tilemap;
-    private MapCreator mapCreator;
+    [SerializeField] GameObject originPlayerObj;
+    [SerializeField] JoystickControlller joystickControlller;
+    [SerializeField] FollowCamera followCam;
 
-    private void Start()
+    private MapCreator mapCreator;
+    private PlayerControlller playerControlller;
+
+    private void Awake()
     {
         InitMapCreator();
+        InitPlayerControlller();
+    }
+
+    private void InitPlayerControlller()
+    {
+        playerControlller = new PlayerControlller();
+        GameObject playerObj = (Instantiate<GameObject>(originPlayerObj));
+        playerControlller.Init(playerObj);
+        playerControlller.SetJoystick(joystickControlller);
+
+        followCam.SetTarget(playerObj.transform);
     }
 
     private void InitMapCreator()

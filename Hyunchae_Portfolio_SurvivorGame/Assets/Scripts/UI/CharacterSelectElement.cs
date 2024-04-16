@@ -11,7 +11,7 @@ public class CharacterSelectElement : MonoBehaviour
     private Button button;
     public Button.ButtonClickedEvent GetButtonClickedEvent => button.onClick;
 
-    private void Awake()
+    public void Init()
     {
         button = GetComponent<Button>();
     }

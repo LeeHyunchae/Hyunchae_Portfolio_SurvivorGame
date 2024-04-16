@@ -5,77 +5,76 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class JoystickController : MonoBehaviour, IPointerDownHandler,IPointerMoveHandler,IPointerUpHandler
+public class JoystickControlller : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    private const float RADIUS_COLLECT_VALUE = 0.3f;
+    [SerializeField] private GameObject joystickFrame;
+    [SerializeField] private RectTransform LeverTransform;
 
-    [SerializeField] private Image joystick_Frame;
-    [SerializeField] private Image joystick_Lever;
+    private RectTransform FrameTransform;
 
-    private bool isDown = false;
     private float radius;
 
-    private RectTransform frameTransform;
-    private RectTransform leverTransform;
+    private Vector2 moveValue;
+    private bool isDown = false;
 
-    public Action<Vector2> OnJoystickDown;
+    public Action<Vector2> OnPointerDownAction;
+    public Action OnPointerUpAction;
 
     private void Awake()
     {
-        frameTransform = joystick_Frame.GetComponent<RectTransform>();
-        leverTransform = joystick_Lever.GetComponent<RectTransform>();
+        Init();
+    }
 
-        radius = frameTransform.rect.width * RADIUS_COLLECT_VALUE;
+    private void Init()
+    {
+        FrameTransform = joystickFrame.GetComponent<RectTransform>();
+        radius = FrameTransform.rect.width * 0.3f;
+    }
+
+    public Action<Vector2> GetDownAction => OnPointerDownAction;
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        moveValue = eventData.position - (Vector2)FrameTransform.position;
+        LeverTransform.localPosition = Vector2.ClampMagnitude(moveValue, radius);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        frameTransform.position = eventData.position;
-
-        joystick_Frame.enabled = true;
-        joystick_Lever.enabled = true;
+        joystickFrame.SetActive(true);
+        FrameTransform.position = eventData.position;
+        LeverTransform.position = eventData.position;
 
         isDown = true;
-
-        OnTouch(eventData.position);
-    }
-
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        if(!isDown)
-        {
-            return;
-        }
-
-
-        OnTouch(eventData.position);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        joystick_Frame.enabled = false;
-        joystick_Lever.enabled = false;
-
-        leverTransform.position = Vector2.zero;
+        joystickFrame.SetActive(false);
+        LeverTransform.position = Vector3.zero;
+        FrameTransform.position = Vector3.zero;
 
         isDown = false;
+        moveValue = Vector2.zero;
+
+        OnPointerUpAction?.Invoke();
     }
 
-    private void OnTouch(Vector2 _pos)
+    private void Update()
     {
-        leverTransform.position = _pos - frameTransform.anchoredPosition;
+        if (isDown)
+        {
+            SendDirectionToTarget();
+        }
+    }
 
-        Vector2 leverPos = new Vector2(_pos.x - frameTransform.position.x, _pos.y - frameTransform.position.y);
+    private void SendDirectionToTarget()
+    {
+        if (moveValue == Vector2.zero)
+        {
+            return;
+        }
 
-        leverPos = Vector2.ClampMagnitude(leverPos, radius);
-
-        leverTransform.localPosition = leverPos;
-
-        //float sqr = (frameTransform.position - leverTransform.position).sqrMagnitude / (radius * radius);
-        //Vector2 vecNormal = leverPos.normalized;
-
-        //Vector3 move = new Vector3(vecNormal.x, 0f, vecNormal.y);
-
-        OnJoystickDown?.Invoke(leverPos.normalized);
+        OnPointerDownAction?.Invoke(moveValue);
     }
 }

@@ -13,6 +13,13 @@ public class UIBaseController : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         raycaster = GetComponent<GraphicRaycaster>();
+
+        Init();
+    }
+
+    protected virtual void Init()
+    {
+
     }
 
     public void Show()

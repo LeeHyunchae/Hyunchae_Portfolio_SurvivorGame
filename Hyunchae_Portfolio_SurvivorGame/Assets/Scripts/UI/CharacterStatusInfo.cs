@@ -10,6 +10,17 @@ public class CharacterStatusInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI character_name;
     [SerializeField] TextMeshProUGUI character_Info;
 
+    private GameObject _gameObject;
+
+    public void SetActiveInfo(bool _isActive) => _gameObject.SetActive(_isActive);
+
+    private void Awake()
+    {
+        _gameObject = this.gameObject;
+
+        SetActiveInfo(false);
+    }
+
     public void SetCharacterTumbnail(Sprite _image)
     {
         character_Thumbnail.sprite = _image;

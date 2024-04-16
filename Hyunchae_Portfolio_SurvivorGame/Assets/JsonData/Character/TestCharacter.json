@@ -1,19 +1,76 @@
-{
-  "character_Name": "테스트캐릭터",
-  "maxHP": 15.0,
-  "hpRegen": 0.0,
-  "lifesteal": 0.0,
-  "damage_Magnification": 0.0,
-  "melee_Flat_Damage": 0.0,
-  "range_Flat_Damage": 0.0,
-  "attack_Speed": 0.0,
-  "critical": 0.0,
-  "range": 0.0,
-  "armour": 0.0,
-  "evasion": 0.0,
-  "move_Speed": 0.0,
-  "luck": 0.0,
-  "harvest": 0.0,
-  "ability_Info": "무능합니다",
-  "thumbnail_image": "Assets/Resources/Sprites/Enemy 0.png"
-}
+[
+  {
+    "character_Name": "테스트캐릭터",
+    "character_StatuArr": [
+      10.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "ability_Info": "무능합니다",
+    "thumbnail_image": "Sprites/Enemy 0",
+    "variances": [
+      {
+        "characterStatus": 0,
+        "variance": 5.0
+      },
+      {
+        "characterStatus": 7,
+        "variance": 3.0
+      },
+      {
+        "characterStatus": 6,
+        "variance": -5.0
+      },
+      {
+        "characterStatus": 11,
+        "variance": 50.0
+      }
+    ]
+  },
+  {
+    "character_Name": "테스트캐릭터2",
+    "character_StatuArr": [
+      10.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "ability_Info": "무능123123",
+    "thumbnail_image": "Sprites/Enemy 1",
+    "variances": [
+      {
+        "characterStatus": 0,
+        "variance": -5.0
+      },
+      {
+        "characterStatus": 3,
+        "variance": 25.0
+      },
+      {
+        "characterStatus": 11,
+        "variance": 30.0
+      }
+    ]
+  }
+]

@@ -71,6 +71,11 @@ public class MapEditor : Editor
             mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
         }
 
+        if (GUILayout.Button("캐릭터", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            Test();
+        }
+
         //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         //{
         //    TableLoader tl = new TableLoader();
@@ -136,29 +141,71 @@ public class MapEditor : Editor
         mapSetting.mapDatas.tileDatas = tileDatas;
     }
 
-    //private void Test()
-    //{
-    //    BaseCharacter baseCharacter = new BaseCharacter
-    //    {
-    //        character_Name = "테스트캐릭터",
-    //        maxHP = 15,
-    //        hpRegen = 0,
-    //        lifesteal = 0,
-    //        damage_Magnification = 0,
-    //        melee_Flat_Damage = 0,
-    //        range_Flat_Damage = 0,
-    //        attack_Speed = 0,
-    //        critical = 0,
-    //        range = 0,
-    //        armour = 0,
-    //        evasion = 0,
-    //        move_Speed = 0,
-    //        luck = 0,
-    //        harvest = 0,
-    //        ability_Info = "무능합니다",
-    //        thumbnail_image = "Assets/Resources/Sprites/Enemy 0.png"
-    //    };
+    private void Test()
+    {
+        List<CharacterModel> characters = new List<CharacterModel>();
+        CharacterStatus_Variance variance = new CharacterStatus_Variance();
 
-    //    TableLoader.SaveToJson("Character", baseCharacter, "TestCharacter");
-    //}
+        CharacterModel characterModel = new CharacterModel
+        {
+            character_Name = "테스트캐릭터",
+            ability_Info = "무능합니다",
+            thumbnail_image = "Assets/Resources/Sprites/Enemy 0.png"
+        };
+
+        variance.characterStatus = ECharacterStatus.MAXHP;
+        variance.variance = 5;
+
+        characterModel.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        variance.characterStatus = ECharacterStatus.CRITICAL_CHANCE;
+        variance.variance = 3;
+
+        characterModel.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        variance.characterStatus = ECharacterStatus.ATTACK_SPEED;
+        variance.variance = -5;
+
+        characterModel.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        variance.characterStatus = ECharacterStatus.MOVE_SPEED;
+        variance.variance = 50;
+
+        characterModel.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        characters.Add(characterModel);
+
+        CharacterModel characterModel2 = new CharacterModel
+        {
+            character_Name = "테스트캐릭터2",
+            
+            ability_Info = "무능123123",
+            thumbnail_image = "Assets/Resources/Sprites/Enemy 1.png"
+        };
+
+        variance.characterStatus = ECharacterStatus.MAXHP;
+        variance.variance = -5;
+
+        characterModel2.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        variance.characterStatus = ECharacterStatus.DAMAGE_MAGNIFICATION;
+        variance.variance = 25;
+
+        characterModel2.variances.Add(variance);
+        variance = new CharacterStatus_Variance();
+
+        variance.characterStatus = ECharacterStatus.MOVE_SPEED;
+        variance.variance = 30;
+
+        characterModel2.variances.Add(variance);
+
+        characters.Add(characterModel2);
+
+        TableLoader.SaveToJson("Character", characters, "TestCharacter");
+    }
 }
