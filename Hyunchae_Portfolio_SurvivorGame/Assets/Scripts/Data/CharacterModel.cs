@@ -24,26 +24,8 @@ public enum ECharacterStatus
 public class CharacterModel
 {
     public string character_Name;
-    //public float maxHP = 10;
-    //public float hpRegen;
-    //public float lifesteal;
-    //public float damage_Magnification;
-    //public float melee_Flat_Damage;
-    //public float range_Flat_Damage;
-    //public float attack_Speed;
-    //public float critical_Chance;
-    //public float range;
-    //public float armour;
-    //public float evasion;
-    //public float move_Speed;
-    //public float luck;
-    //public float harvest;
-
     public float[] character_StatusArr = new float[(int)ECharacterStatus.END];
     public string ability_Info;
-
-    // ??
-
     public string thumbnail_image;
 
     public List<CharacterStatus_Variance> variances = new List<CharacterStatus_Variance>();

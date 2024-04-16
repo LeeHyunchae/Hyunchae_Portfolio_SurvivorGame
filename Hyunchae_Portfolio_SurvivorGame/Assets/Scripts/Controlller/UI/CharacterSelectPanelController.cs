@@ -20,13 +20,14 @@ public class CharacterSelectPanelController : UIBaseController
         closeButton.onClick.AddListener(OnClickCloseButton);
 
         InitData();
+
+        CreateSelectButton();
     }
 
     private void InitData()
     {
         characters = TableLoader.LoadFromFile<List<CharacterModel>>("Character/TestCharacter");
 
-        CreateSelectButton();
     }
 
     private void CreateSelectButton()

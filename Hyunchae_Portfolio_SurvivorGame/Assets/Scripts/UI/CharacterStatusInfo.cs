@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 
 public class CharacterStatusInfo : MonoBehaviour
@@ -16,6 +17,9 @@ public class CharacterStatusInfo : MonoBehaviour
 
     private void Awake()
     {
+        //Enum.TryParse<ECharacterStatus>(value, out var res);
+
+
         _gameObject = this.gameObject;
 
         SetActiveInfo(false);
