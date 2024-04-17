@@ -19,8 +19,7 @@ public class Character
         characterStatus[(int)ECharacterStatus.MAXHP].baseStatus = 10;
     }
 
-    //무기아이템[]
-    //List<장비아이템ID>
+    //List<스텟증감형장비아이템ID>
 }
 
 public enum ECharacterStatus
@@ -64,21 +63,5 @@ public class BaseCharacterStatus
 {
     public float baseStatus;
     public float status_Multiplier;
-    public float multiplier_Apply_status;
-
-    //public float max_HP;
-    //public float hp_Regen;
-    //public float life_Steal;
-    //public float damage_Multiplier;
-    //public float melee_Flat_Damage;
-    //public float range_Flat_Damage;
-    //public float attack_Speed;
-    //public float critical_Chance;
-    //public float range;
-    //public float armour;
-    //public float evasion;
-    //public float move_Speed;
-    //public float luck;
-    //public float harvest;
-
+    public float multiplier_Apply_status;]
 }
