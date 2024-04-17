@@ -2,55 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Character
+{
+    private CharacterModel characterModel;
+    private BaseCharacterStatus[] characterStatus = new BaseCharacterStatus[(int)ECharacterStatus.END];
+
+    public Character()
+    {
+        int count = (int)ECharacterStatus.END;
+
+        for(int i = 0; i < count; i++)
+        {
+            characterStatus[i] = new BaseCharacterStatus();
+        }
+
+        characterStatus[(int)ECharacterStatus.MAXHP].baseStatus = 10;
+    }
+
+    //무기아이템[]
+    //List<장비아이템ID>
+}
+
 public enum ECharacterStatus
 {
     MAXHP = 0,
-    HP_REGEN = 1,
-    LIFE_STEAL = 2,
-    DAMAGE_MAGNIFICATION = 3,
-    MELEE_FLAT_DAMAGE = 4,
-    RANGE_FLAT_DAMAGE = 5,
-    ATTACK_SPEED = 6,
-    CRITICAL_CHANCE = 7,
-    RANGE = 8,
-    ARMOUR = 9,
-    EVASION = 10,
-    MOVE_SPEED = 11,
-    LUCK = 12,
-    HARVEST = 13,
-    END = 14
+    HP_REGEN,
+    LIFE_STEAL,
+    DAMAGE_MULITPLIER,
+    MELEE_FLAT_DAMAGE,
+    RANGE_FLAT_DAMAGE,
+    ATTACK_SPEED,
+    CRITICAL_CHANCE,
+    ATTACK_RANGE,
+    ARMOUR,
+    EVASION,
+    MOVE_SPEED,
+    LUCK,
+    HARVEST,
+    END
 }
 
 public class CharacterModel
 {
+    public int characterUid;
     public string character_Name;
-    public float[] character_StatusArr = new float[(int)ECharacterStatus.END];
-    public string ability_Info;
-    public string thumbnail_image;
+    public int unlockID;
+    public int[] unique_Ability_IDArr;
+    public string character_thumbnail;
 
-    public List<CharacterStatus_Variance> variances = new List<CharacterStatus_Variance>();
+    public List<Status_Variance> variances = new List<Status_Variance>();
 
-    public CharacterModel()
-    {
-        character_StatusArr[(int)ECharacterStatus.MAXHP] = 10;
-        character_StatusArr[(int)ECharacterStatus.HP_REGEN] = 0;
-        character_StatusArr[(int)ECharacterStatus.LIFE_STEAL] = 0;
-        character_StatusArr[(int)ECharacterStatus.DAMAGE_MAGNIFICATION] = 0;
-        character_StatusArr[(int)ECharacterStatus.MELEE_FLAT_DAMAGE] = 0;
-        character_StatusArr[(int)ECharacterStatus.RANGE_FLAT_DAMAGE] = 0;
-        character_StatusArr[(int)ECharacterStatus.ATTACK_SPEED] = 0;
-        character_StatusArr[(int)ECharacterStatus.CRITICAL_CHANCE] = 0;
-        character_StatusArr[(int)ECharacterStatus.RANGE] = 0;
-        character_StatusArr[(int)ECharacterStatus.ARMOUR] = 0;
-        character_StatusArr[(int)ECharacterStatus.EVASION] = 0;
-        character_StatusArr[(int)ECharacterStatus.MOVE_SPEED] = 0;
-        character_StatusArr[(int)ECharacterStatus.LUCK] = 0;
-        character_StatusArr[(int)ECharacterStatus.HARVEST] = 0;
-    }
 }
 
-public class CharacterStatus_Variance
+public class Status_Variance
 {
     public ECharacterStatus characterStatus;
     public float variance;
+}
+
+public class BaseCharacterStatus
+{
+    public float baseStatus;
+    public float status_Multiplier;
+    public float multiplier_Apply_status;
+
+    //public float max_HP;
+    //public float hp_Regen;
+    //public float life_Steal;
+    //public float damage_Multiplier;
+    //public float melee_Flat_Damage;
+    //public float range_Flat_Damage;
+    //public float attack_Speed;
+    //public float critical_Chance;
+    //public float range;
+    //public float armour;
+    //public float evasion;
+    //public float move_Speed;
+    //public float luck;
+    //public float harvest;
+
 }

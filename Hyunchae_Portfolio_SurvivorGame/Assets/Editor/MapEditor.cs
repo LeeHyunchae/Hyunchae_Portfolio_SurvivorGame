@@ -144,60 +144,61 @@ public class MapEditor : Editor
     private void Test()
     {
         List<CharacterModel> characters = new List<CharacterModel>();
-        CharacterStatus_Variance variance = new CharacterStatus_Variance();
+        Status_Variance variance = new Status_Variance();
 
         CharacterModel characterModel = new CharacterModel
         {
             character_Name = "테스트캐릭터",
-            ability_Info = "무능합니다",
-            thumbnail_image = "Assets/Resources/Sprites/Enemy 0.png"
+            unlockID = 1,
+            unique_Ability_IDArr = new int[]{ 1, 2 },
+            character_thumbnail = "Assets/Resources/Sprites/Enemy 0.png"
         };
 
         variance.characterStatus = ECharacterStatus.MAXHP;
         variance.variance = 5;
 
         characterModel.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
         variance.characterStatus = ECharacterStatus.CRITICAL_CHANCE;
         variance.variance = 3;
 
         characterModel.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
         variance.characterStatus = ECharacterStatus.ATTACK_SPEED;
         variance.variance = -5;
 
         characterModel.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
         variance.characterStatus = ECharacterStatus.MOVE_SPEED;
         variance.variance = 50;
 
         characterModel.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
         characters.Add(characterModel);
 
         CharacterModel characterModel2 = new CharacterModel
         {
             character_Name = "테스트캐릭터2",
-            
-            ability_Info = "무능123123",
-            thumbnail_image = "Assets/Resources/Sprites/Enemy 1.png"
+            unlockID = 2,
+            unique_Ability_IDArr = new int[] { 3, 4 },
+            character_thumbnail = "Assets/Resources/Sprites/Enemy 1.png"
         };
 
         variance.characterStatus = ECharacterStatus.MAXHP;
         variance.variance = -5;
 
         characterModel2.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.DAMAGE_MAGNIFICATION;
+        variance.characterStatus = ECharacterStatus.DAMAGE_MULITPLIER;
         variance.variance = 25;
 
         characterModel2.variances.Add(variance);
-        variance = new CharacterStatus_Variance();
+        variance = new Status_Variance();
 
         variance.characterStatus = ECharacterStatus.MOVE_SPEED;
         variance.variance = 30;

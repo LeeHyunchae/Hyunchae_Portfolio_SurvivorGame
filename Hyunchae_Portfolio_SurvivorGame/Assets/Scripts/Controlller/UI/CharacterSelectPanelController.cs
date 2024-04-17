@@ -42,7 +42,7 @@ public class CharacterSelectPanelController : UIBaseController
 
             element.Init();
 
-            element.SetThumbnail(Resources.Load<Sprite>(characters[i].thumbnail_image));
+            element.SetThumbnail(Resources.Load<Sprite>(characters[i].character_thumbnail));
             element.GetButtonClickedEvent.AddListener(() => OnClickCharacterButton(index));
 
             element.gameObject.SetActive(true);
@@ -56,7 +56,7 @@ public class CharacterSelectPanelController : UIBaseController
 
         statusInfo.SetActiveInfo(true);
         statusInfo.SetCharacterName(model.character_Name);
-        statusInfo.SetCharacterTumbnail(Resources.Load<Sprite>(model.thumbnail_image));
+        statusInfo.SetCharacterTumbnail(Resources.Load<Sprite>(model.character_thumbnail));
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -64,10 +64,9 @@ public class CharacterSelectPanelController : UIBaseController
 
         for(int i = 0; i <count; i++)
         {
-            stringBuilder.Append(model.variances[i].characterStatus + " : " + model.variances[i].variance + "\n");
+            string varianceInfo = model.variances[i].characterStatus + " : " + model.variances[i].variance + "\n";
+            stringBuilder.Append(varianceInfo);
         }
-
-        stringBuilder.Append(model.ability_Info);
 
         statusInfo.SetCharacterInfo(stringBuilder.ToString());
 

@@ -1,23 +1,11 @@
 [
   {
     "character_Name": "테스트캐릭터",
-    "character_StatuArr": [
-      10.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "unlockID": 1,
+    "abilityIDArr": [
+      1,
+      2
     ],
-    "ability_Info": "무능합니다",
     "thumbnail_image": "Sprites/Enemy 0",
     "variances": [
       {
@@ -40,23 +28,11 @@
   },
   {
     "character_Name": "테스트캐릭터2",
-    "character_StatuArr": [
-      10.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "unlockID": 2,
+    "abilityIDArr": [
+      3,
+      4
     ],
-    "ability_Info": "무능123123",
     "thumbnail_image": "Sprites/Enemy 1",
     "variances": [
       {
