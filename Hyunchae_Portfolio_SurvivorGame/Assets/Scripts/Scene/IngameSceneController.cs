@@ -5,28 +5,60 @@ using UnityEngine.Tilemaps;
 
 public class IngameSceneController : MonoBehaviour
 {
-    [SerializeField] Tilemap tilemap;
-    [SerializeField] GameObject originPlayerObj;
-    [SerializeField] JoystickControlller joystickControlller;
-    [SerializeField] FollowCamera followCam;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private JoystickControlller joystickControlller;
+    [SerializeField] private FollowCamera followCam;
+    [SerializeField] private GameObject originPlayerObj;
+    [SerializeField] private GameObject originPlayerWeaponObj;
+    [SerializeField] private GameObject tempTarget;
 
     private MapCreator mapCreator;
-    private PlayerControlller playerControlller;
+
+    private CharacterManager playerMgr;
+    private ItemManager itemManager;
+
+    private PlayerControlller playerController;
+    private ItemController itemController;
 
     private void Awake()
     {
         InitMapCreator();
-        InitPlayerControlller();
+        InitPlayer();
+        InitCamera();
+        InitItemController();
     }
 
-    private void InitPlayerControlller()
+    private void InitPlayer()
     {
-        playerControlller = new PlayerControlller();
-        GameObject playerObj = (Instantiate<GameObject>(originPlayerObj));
-        playerControlller.Init(playerObj);
-        playerControlller.SetJoystick(joystickControlller);
+        playerMgr = CharacterManager.getInstance;
 
-        followCam.SetTarget(playerObj.transform);
+        playerController = new PlayerControlller();
+        playerController.Init(Instantiate<GameObject>(originPlayerObj));
+        playerController.SetJoystick(joystickControlller);
+    }
+
+    private void InitCamera()
+    {
+        followCam.SetTarget(playerController.GetPlayerTransform);
+    }
+
+    private void InitItemController()
+    {
+        itemManager = ItemManager.getInstance;
+
+        GameObject[] weaponObjArr = new GameObject[ItemManager.WEAPON_CAPACITY];
+
+        for (int i = 0; i < ItemManager.WEAPON_CAPACITY; i++)
+        {
+            weaponObjArr[i] = Instantiate<GameObject>(originPlayerWeaponObj);
+        }
+
+        itemController = new ItemController();
+        itemController.SetTarget(playerController.GetPlayerTransform);
+
+        itemController.Init(weaponObjArr);
+
+        itemController.SetTempEnemy(tempTarget.transform);
     }
 
     private void InitMapCreator()
@@ -37,5 +69,8 @@ public class IngameSceneController : MonoBehaviour
         mapCreator.GenerateMap(mapData.mapWidth, mapData.mapHeight);
     }
 
-    
+    private void Update()
+    {
+        itemController.Update();
+    }
 }

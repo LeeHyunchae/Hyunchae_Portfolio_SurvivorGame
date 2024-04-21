@@ -1,0 +1,34 @@
+[
+  {
+    "status": {
+      "damage": 5.0,
+      "attack_speed": 5.0
+    },
+    "itemUid": 0,
+    "itemType": 0,
+    "itemPrice": 3.0,
+    "itemThumbnail": "Sprites/Props_Weapon3",
+    "itemName": "Gun",
+    "unique_Ability_IDArr": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "status": {
+      "damage": 0.0,
+      "attack_speed": 0.0
+    },
+    "itemUid": 1,
+    "itemType": 0,
+    "itemPrice": 8.0,
+    "itemThumbnail": "Sprites/Props_Weapon2",
+    "itemName": "Gun2",
+    "unique_Ability_IDArr": [
+      3,
+      4,
+      5
+    ]
+  }
+]

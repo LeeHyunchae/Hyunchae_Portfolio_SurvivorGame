@@ -1,12 +1,13 @@
 [
   {
+    "characterUid": 0,
     "character_Name": "테스트캐릭터",
     "unlockID": 1,
-    "abilityIDArr": [
+    "unique_Ability_IDArr": [
       1,
       2
     ],
-    "thumbnail_image": "Sprites/Enemy 0",
+    "characterThumbnail": "Sprites/Enemy 0",
     "variances": [
       {
         "characterStatus": 0,
@@ -27,13 +28,14 @@
     ]
   },
   {
+    "characterUid": 1,
     "character_Name": "테스트캐릭터2",
     "unlockID": 2,
-    "abilityIDArr": [
+    "unique_Ability_IDArr": [
       3,
       4
     ],
-    "thumbnail_image": "Sprites/Enemy 1",
+    "characterThumbnail": "Sprites/Enemy 1",
     "variances": [
       {
         "characterStatus": 0,

@@ -19,6 +19,6 @@ public class MainPanelController : UIBaseController
 
     private void OnClickGameStart()
     {
-        uiManager.Show<CharacterSelectPanelController>("UI/CharacterSelectPanel");
+        uiManager.Show<SelectPanelController>("UI/SelectPanel");
     }
 }

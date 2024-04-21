@@ -73,7 +73,12 @@ public class MapEditor : Editor
 
         if (GUILayout.Button("캐릭터", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            Test();
+            CharacterTest();
+        }
+
+        if (GUILayout.Button("무기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            WeaponTest();
         }
 
         //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
@@ -141,17 +146,18 @@ public class MapEditor : Editor
         mapSetting.mapDatas.tileDatas = tileDatas;
     }
 
-    private void Test()
+    private void CharacterTest()
     {
         List<CharacterModel> characters = new List<CharacterModel>();
         Status_Variance variance = new Status_Variance();
 
         CharacterModel characterModel = new CharacterModel
         {
+            characterUid = 0,
             character_Name = "테스트캐릭터",
             unlockID = 1,
             unique_Ability_IDArr = new int[]{ 1, 2 },
-            character_thumbnail = "Assets/Resources/Sprites/Enemy 0.png"
+            characterThumbnail = "Sprites/Enemy 0"
         };
 
         variance.characterStatus = ECharacterStatus.MAXHP;
@@ -182,10 +188,11 @@ public class MapEditor : Editor
 
         CharacterModel characterModel2 = new CharacterModel
         {
+            characterUid = 1,
             character_Name = "테스트캐릭터2",
             unlockID = 2,
             unique_Ability_IDArr = new int[] { 3, 4 },
-            character_thumbnail = "Assets/Resources/Sprites/Enemy 1.png"
+            characterThumbnail = "Sprites/Enemy 1"
         };
 
         variance.characterStatus = ECharacterStatus.MAXHP;
@@ -208,5 +215,49 @@ public class MapEditor : Editor
         characters.Add(characterModel2);
 
         TableLoader.SaveToJson("Character", characters, "TestCharacter");
+    }
+
+    private void WeaponTest()
+    {
+        List<WeaponItemModel> itemModels = new List<WeaponItemModel>();
+        WeaponItemModel itemModel = new WeaponItemModel
+        {
+            itemUid = 1,
+            itemType = EItemType.ATTACKABLE,
+            itemPrice = 3,
+            itemThumbnail = "Assets/Resources/Sprites/Props/Weapon3",
+            itemName = "Gun",
+            unique_Ability_IDArr = new int[] { 1, 2, 3 }
+
+        };
+
+        WeaponStatus weaponStatus = new WeaponStatus();
+        weaponStatus.damage = 3;
+        weaponStatus.attack_speed = 3;
+
+        itemModel.status = weaponStatus;
+
+        itemModels.Add(itemModel);
+
+        WeaponItemModel itemModel2 = new WeaponItemModel
+        {
+            itemUid = 6,
+            itemType = EItemType.ATTACKABLE,
+            itemPrice = 8,
+            itemThumbnail = "Assets/Resources/Sprites/Props/Weapon3",
+            itemName = "Gun2",
+            unique_Ability_IDArr = new int[] { 3, 4, 5 }
+
+        };
+
+        WeaponStatus weaponStatus2 = new WeaponStatus();
+        weaponStatus.damage = 5;
+        weaponStatus.attack_speed = 5;
+
+        itemModel2.status = weaponStatus2;
+
+        itemModels.Add(itemModel2);
+
+        TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
     }
 }

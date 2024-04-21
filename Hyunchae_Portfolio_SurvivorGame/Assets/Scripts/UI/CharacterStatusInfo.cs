@@ -13,7 +13,7 @@ public class CharacterStatusInfo : MonoBehaviour
 
     private GameObject _gameObject;
 
-    public void SetActiveInfo(bool _isActive) => _gameObject.SetActive(_isActive);
+    public void SetActive(bool _isActive) => _gameObject.SetActive(_isActive);
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class CharacterStatusInfo : MonoBehaviour
 
         _gameObject = this.gameObject;
 
-        SetActiveInfo(false);
+        SetActive(false);
     }
 
     public void SetCharacterTumbnail(Sprite _image)
@@ -30,7 +30,7 @@ public class CharacterStatusInfo : MonoBehaviour
         character_Thumbnail.sprite = _image;
     }
 
-    public void SetCharacterName(string _name)
+    public void SetName(string _name)
     {
         character_name.text = _name;
     }

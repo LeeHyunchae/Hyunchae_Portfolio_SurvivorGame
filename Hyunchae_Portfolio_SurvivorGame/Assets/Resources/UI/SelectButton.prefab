@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1048595984294500438}
   - component: {fileID: 5434127750699852043}
   - component: {fileID: 37268304284785661}
-  - component: {fileID: 5652353262229357123}
+  - component: {fileID: 4922417580809367701}
   m_Layer: 5
-  m_Name: CharacterSelectButton
+  m_Name: SelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5652353262229357123
+--- !u!114 &4922417580809367701
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4710802754226078798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273527ce1df40c74baf54163d00234a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c3da419e018afd4ab4142541f69d7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thumbnail: {fileID: 5320291792696626521}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 62940824404073188}
   - component: {fileID: 5320291792696626521}
   m_Layer: 5
-  m_Name: CharacterThumbnail
+  m_Name: ThumbnailImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,17 +4,38 @@ using UnityEngine;
 
 public class PlayerControlller
 {
+    private GameObject playerObj;
+
     private Transform playerTM;
     private SpriteRenderer playerSprite;
 
     private Vector2 pos = Vector2.zero;
 
+    public Transform GetPlayerTransform => playerTM;
+
+    private CharacterManager characterManager;
+    private float moveSpeed;
+
     public void Init(GameObject _playerObj)
     {
-        playerTM = _playerObj.GetComponent<Transform>();
-        playerSprite = _playerObj.GetComponent<SpriteRenderer>();
+        characterManager = CharacterManager.getInstance;
 
-        pos = playerTM.position; ;
+        playerObj = _playerObj;
+
+        playerTM = playerObj.GetComponent<Transform>();
+        playerSprite = playerObj.GetComponent<SpriteRenderer>();
+
+        pos = playerTM.position;
+
+        InitCharacter();
+    }
+
+    private void InitCharacter()
+    {
+        Character playerCharacter = characterManager.GetPlayerCharacter;
+
+        playerSprite.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
+        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.MOVE_SPEED).baseStatus;
     }
 
     public void SetJoystick(JoystickControlller moveJoystick)
@@ -24,7 +45,7 @@ public class PlayerControlller
 
     public void OnMoveJoystickDown(Vector2 _dir)
     {
-        pos += _dir.normalized * 1 * Time.deltaTime;
+        pos += _dir.normalized * moveSpeed * Time.deltaTime;
 
         playerTM.position = pos;
 
