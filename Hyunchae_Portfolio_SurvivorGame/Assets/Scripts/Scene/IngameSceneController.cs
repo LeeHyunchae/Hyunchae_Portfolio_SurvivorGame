@@ -9,7 +9,6 @@ public class IngameSceneController : MonoBehaviour
     [SerializeField] private JoystickControlller joystickControlller;
     [SerializeField] private FollowCamera followCam;
     [SerializeField] private GameObject originPlayerObj;
-    [SerializeField] private GameObject originPlayerWeaponObj;
     [SerializeField] private GameObject tempTarget;
 
     private MapCreator mapCreator;
@@ -33,7 +32,10 @@ public class IngameSceneController : MonoBehaviour
         playerMgr = CharacterManager.getInstance;
 
         playerController = new PlayerControlller();
-        playerController.Init(Instantiate<GameObject>(originPlayerObj));
+
+        GameObject playerobj = Instantiate<GameObject>(originPlayerObj);
+
+        playerController.Init(playerobj);
         playerController.SetJoystick(joystickControlller);
     }
 
@@ -46,17 +48,9 @@ public class IngameSceneController : MonoBehaviour
     {
         itemManager = ItemManager.getInstance;
 
-        GameObject[] weaponObjArr = new GameObject[ItemManager.WEAPON_CAPACITY];
-
-        for (int i = 0; i < ItemManager.WEAPON_CAPACITY; i++)
-        {
-            weaponObjArr[i] = Instantiate<GameObject>(originPlayerWeaponObj);
-        }
-
         itemController = new ItemController();
-        itemController.SetTarget(playerController.GetPlayerTransform);
 
-        itemController.Init(weaponObjArr);
+        itemController.Init(playerController.GetPlayerTransform);
 
         itemController.SetTempEnemy(tempTarget.transform);
     }

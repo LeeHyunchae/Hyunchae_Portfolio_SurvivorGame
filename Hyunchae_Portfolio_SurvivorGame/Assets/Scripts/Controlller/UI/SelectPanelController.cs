@@ -129,7 +129,7 @@ public class SelectPanelController : UIBaseController
         statusInfo.SetCharacterTumbnail(ItemManager.getInstance.GetWeaponItemSprite(model.itemUid));
         statusInfo.SetActive(true);
 
-        string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.attack_speed;
+        string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.cooldown;
 
         statusInfo.SetCharacterInfo(weaponInfo);
     }
@@ -138,7 +138,7 @@ public class SelectPanelController : UIBaseController
     {
         if(selectCharacter != null && selectWeapon != null)
         {
-            //게임시작
+            //????
             ItemManager.getInstance.SetEquipWeaponItem(selectWeapon);
             CharacterManager.getInstance.SelectCharacterModel(selectCharacter.characterUid);
             SceneChanger.getInstance.ChangeScene("IngameScene");

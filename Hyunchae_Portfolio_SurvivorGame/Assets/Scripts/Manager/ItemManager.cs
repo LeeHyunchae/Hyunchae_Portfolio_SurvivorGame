@@ -7,8 +7,8 @@ public class ItemManager : Singleton<ItemManager>
     public const int WEAPON_CAPACITY = 6;
 
     private WeaponItemModel[] equipWeaponModelArr = new WeaponItemModel[6];
-    private List<Baseitem> attackableItemList = new List<Baseitem>();
-    private List<Baseitem> supportableItemList = new List<Baseitem>();
+    private List<BaseitemModel> attackableItemList = new List<BaseitemModel>();
+    private List<BaseitemModel> supportableItemList = new List<BaseitemModel>();
 
     private List<WeaponItemModel> weaponItemModels = new List<WeaponItemModel>();
     private Dictionary<int, WeaponItemModel> weaponItemDict = new Dictionary<int, WeaponItemModel>();

@@ -22,6 +22,13 @@ using UnityEngine;
 //    END = 15
 //}
 
+public enum EWeaponAttackType
+{
+    STING = 0,
+    SWING,
+    SHOOT
+}
+
 public enum EWeaponStatus
 {
     WEAPON_TIER = 0,
@@ -44,8 +51,9 @@ public enum EWeaponStatus
     END
 }
 
-public class WeaponItemModel : Baseitem
+public class WeaponItemModel : BaseitemModel
 {
+    public EWeaponAttackType attackType;
     public WeaponStatus status;
 
 }
@@ -53,14 +61,13 @@ public class WeaponItemModel : Baseitem
 public class WeaponStatus
 {
     public float damage;
-    public float attack_speed;
-
+    public float cooldown;
+    public float range;
     //status,Type, etc,,
 }
 
 public class WeaponItem
 {
-    private GameObject weaponObj;
     private SpriteRenderer spriteRenderer;
     private WeaponItemModel itemModel;
     private Transform _transform;
@@ -68,20 +75,32 @@ public class WeaponItem
 
     public Transform GetTransform => _transform;
 
-    public void SetWeaponObject(GameObject _obj)
+    private float curCooldown;
+    private Vector2 targetDirection;
+    private Vector3 originPos;
+    private bool isAttackReady;
+
+    public void SetWeaponTransform(Transform _weaponTransform)
     {
-        weaponObj = _obj;
-        _transform = _obj.transform;
-        spriteRenderer = _obj.GetComponent<SpriteRenderer>();
+        _transform = _weaponTransform;
+        spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+
+        SetOriginPosition(_weaponTransform);
     }
 
     public void SetWeaponItemModel(WeaponItemModel _itemModel)
     {
         itemModel = _itemModel;
 
-        //Todo Table
         spriteRenderer.sprite = ItemManager.getInstance.GetWeaponItemSprite(itemModel.itemUid);
 
+        curCooldown = itemModel.status.cooldown;
+    }
+
+    public void SetOriginPosition(Transform _originTransform)
+    {
+        originPos = _originTransform.position;
+        _transform.position = originPos;
     }
 
     public void SetTarget(Transform _target)
@@ -91,19 +110,42 @@ public class WeaponItem
 
     public void Update()
     {
-        if(itemModel == null)
+        if(itemModel == null || targetTransform == null)
         {
             return;
         }
 
         RotatToTarget();
-        Fire();
-    }
 
-    public void Fire()
-    {
 
     }
+
+    //public void Fire()
+    //{
+    //    if(isAttackReady)
+    //    {
+    //        curCooldown += Time.deltaTime;
+    //    }
+
+    //    if (curCooldown >= itemModel.status.cooldown)
+    //    {
+    //        isAttackReady = false;
+    //        Debug.Log(isAttackReady);
+
+    //        switch (itemModel.attackType)
+    //        {
+    //            case EWeaponAttackType.STING:
+    //                Sting();
+    //                break;
+    //            case EWeaponAttackType.SWING:
+    //                Swing();
+    //                break;
+    //            case EWeaponAttackType.SHOOT:
+    //                Shoot();
+    //                break;
+    //        }
+    //    }
+    //}
 
     private void RotatToTarget()
     {
@@ -112,11 +154,45 @@ public class WeaponItem
             return;
         }
 
-        Vector2 direction = (targetTransform.position - _transform.position).normalized;
+        targetDirection = (targetTransform.position - _transform.position).normalized;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90;
 
         _transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
+
+    //private void Sting()
+    //{
+    //    float pingPong = Mathf.PingPong(Time.deltaTime * 10, 2 * 2) - 2;
+    //    //Debug.Log(pingPong);
+    //    _transform.position = originPos + Vector3.forward * pingPong;
+
+    //    //Debug.Log("Sting!");
+
+    //    //Todo damage
+
+
+    //    if(_transform.position == originPos)
+    //    {
+    //        EndFire();
+    //    }
+    //}
+
+    //private void Swing()
+    //{
+    //    Debug.Log("Swing!");
+    //}
+
+    //private void Shoot()
+    //{
+    //    Debug.Log("Shoot!");
+    //}
+
+    //private void EndFire()
+    //{
+    //    curCooldown = 0;
+    //    isAttackReady = true;
+    //    Debug.Log(isAttackReady);
+    //}
 }

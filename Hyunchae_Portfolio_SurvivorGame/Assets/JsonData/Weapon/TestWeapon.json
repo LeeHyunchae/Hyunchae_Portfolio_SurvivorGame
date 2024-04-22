@@ -1,13 +1,15 @@
 [
   {
+    "attackType": 2,
     "status": {
       "damage": 5.0,
-      "attack_speed": 5.0
+      "cooldown": 5.0,
+      "range": 0.0
     },
-    "itemUid": 0,
+    "itemUid": 1,
     "itemType": 0,
     "itemPrice": 3.0,
-    "itemThumbnail": "Sprites/Props_Weapon3",
+    "itemThumbnail": "Sprites/Props/Weapon3",
     "itemName": "Gun",
     "unique_Ability_IDArr": [
       1,
@@ -16,14 +18,16 @@
     ]
   },
   {
+    "attackType": 0,
     "status": {
       "damage": 0.0,
-      "attack_speed": 0.0
+      "cooldown": 5.0,
+      "range": 0.0
     },
-    "itemUid": 1,
+    "itemUid": 6,
     "itemType": 0,
     "itemPrice": 8.0,
-    "itemThumbnail": "Sprites/Props_Weapon2",
+    "itemThumbnail": "Sprites/Props/Weapon3",
     "itemName": "Gun2",
     "unique_Ability_IDArr": [
       3,

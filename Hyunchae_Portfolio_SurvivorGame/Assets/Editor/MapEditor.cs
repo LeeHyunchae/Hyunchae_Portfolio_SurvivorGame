@@ -225,15 +225,16 @@ public class MapEditor : Editor
             itemUid = 1,
             itemType = EItemType.ATTACKABLE,
             itemPrice = 3,
-            itemThumbnail = "Assets/Resources/Sprites/Props/Weapon3",
+            itemThumbnail = "Sprites/Props/Weapon3",
             itemName = "Gun",
+            attackType = EWeaponAttackType.SHOOT,
             unique_Ability_IDArr = new int[] { 1, 2, 3 }
 
         };
 
         WeaponStatus weaponStatus = new WeaponStatus();
         weaponStatus.damage = 3;
-        weaponStatus.attack_speed = 3;
+        weaponStatus.cooldown = 3;
 
         itemModel.status = weaponStatus;
 
@@ -244,15 +245,16 @@ public class MapEditor : Editor
             itemUid = 6,
             itemType = EItemType.ATTACKABLE,
             itemPrice = 8,
-            itemThumbnail = "Assets/Resources/Sprites/Props/Weapon3",
+            itemThumbnail = "Sprites/Props/Weapon3",
             itemName = "Gun2",
+            attackType = EWeaponAttackType.STING,
             unique_Ability_IDArr = new int[] { 3, 4, 5 }
 
         };
 
         WeaponStatus weaponStatus2 = new WeaponStatus();
         weaponStatus.damage = 5;
-        weaponStatus.attack_speed = 5;
+        weaponStatus.cooldown = 5;
 
         itemModel2.status = weaponStatus2;
 
