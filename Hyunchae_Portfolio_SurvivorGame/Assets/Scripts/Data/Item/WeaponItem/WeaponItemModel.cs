@@ -70,22 +70,29 @@ public class WeaponItem
 {
     private SpriteRenderer spriteRenderer;
     private WeaponItemModel itemModel;
-    private Transform _transform;
     private Transform targetTransform;
 
-    public Transform GetTransform => _transform;
-
-    private float curCooldown;
-    private Vector2 targetDirection;
     private Vector3 originPos;
-    private bool isAttackReady;
+
+    private BaseAttack attackType;
+    private Sting stingAttack;
+    private Swing swingAttack;
+    private Shoot shootAttack;
+
+    public WeaponItem()
+    {
+        stingAttack = new Sting();
+        swingAttack = new Swing();
+        shootAttack = new Shoot();
+    }
 
     public void SetWeaponTransform(Transform _weaponTransform)
     {
-        _transform = _weaponTransform;
-        spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        spriteRenderer = _weaponTransform.GetComponent<SpriteRenderer>();
 
-        SetOriginPosition(_weaponTransform);
+        stingAttack.SetInitPos(_weaponTransform);
+        swingAttack.SetInitPos(_weaponTransform);
+        shootAttack.SetInitPos(_weaponTransform);
     }
 
     public void SetWeaponItemModel(WeaponItemModel _itemModel)
@@ -94,18 +101,29 @@ public class WeaponItem
 
         spriteRenderer.sprite = ItemManager.getInstance.GetWeaponItemSprite(itemModel.itemUid);
 
-        curCooldown = itemModel.status.cooldown;
-    }
+        switch(itemModel.attackType)
+        {
+            case EWeaponAttackType.STING:
+                attackType = stingAttack;
+                break;
+            case EWeaponAttackType.SWING:
+                attackType = swingAttack;
+                break;
+            case EWeaponAttackType.SHOOT:
+                attackType = shootAttack;
+                break;
+        }
 
-    public void SetOriginPosition(Transform _originTransform)
-    {
-        originPos = _originTransform.position;
-        _transform.position = originPos;
+        attackType.SetInfo(itemModel);
     }
 
     public void SetTarget(Transform _target)
     {
         targetTransform = _target;
+
+        stingAttack.SetTarget(_target);
+        swingAttack.SetTarget(_target);
+        shootAttack.SetTarget(_target);
     }
 
     public void Update()
@@ -115,84 +133,6 @@ public class WeaponItem
             return;
         }
 
-        RotatToTarget();
-
-
+        attackType.Update();
     }
-
-    //public void Fire()
-    //{
-    //    if(isAttackReady)
-    //    {
-    //        curCooldown += Time.deltaTime;
-    //    }
-
-    //    if (curCooldown >= itemModel.status.cooldown)
-    //    {
-    //        isAttackReady = false;
-    //        Debug.Log(isAttackReady);
-
-    //        switch (itemModel.attackType)
-    //        {
-    //            case EWeaponAttackType.STING:
-    //                Sting();
-    //                break;
-    //            case EWeaponAttackType.SWING:
-    //                Swing();
-    //                break;
-    //            case EWeaponAttackType.SHOOT:
-    //                Shoot();
-    //                break;
-    //        }
-    //    }
-    //}
-
-    private void RotatToTarget()
-    {
-        if (targetTransform == null)
-        {
-            return;
-        }
-
-        targetDirection = (targetTransform.position - _transform.position).normalized;
-
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90;
-
-        _transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-    }
-
-    //private void Sting()
-    //{
-    //    float pingPong = Mathf.PingPong(Time.deltaTime * 10, 2 * 2) - 2;
-    //    //Debug.Log(pingPong);
-    //    _transform.position = originPos + Vector3.forward * pingPong;
-
-    //    //Debug.Log("Sting!");
-
-    //    //Todo damage
-
-
-    //    if(_transform.position == originPos)
-    //    {
-    //        EndFire();
-    //    }
-    //}
-
-    //private void Swing()
-    //{
-    //    Debug.Log("Swing!");
-    //}
-
-    //private void Shoot()
-    //{
-    //    Debug.Log("Shoot!");
-    //}
-
-    //private void EndFire()
-    //{
-    //    curCooldown = 0;
-    //    isAttackReady = true;
-    //    Debug.Log(isAttackReady);
-    //}
 }

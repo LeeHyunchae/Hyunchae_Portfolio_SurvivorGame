@@ -6,10 +6,11 @@
       "cooldown": 5.0,
       "range": 0.0
     },
-    "itemUid": 1,
+    "itemUid": 0,
     "itemType": 0,
     "itemPrice": 3.0,
-    "itemThumbnail": "Sprites/Props/Weapon3",
+    "itemThumbnail": "Weapon 3",
+    "bulletImage": "Bullet 3",
     "itemName": "Gun",
     "unique_Ability_IDArr": [
       1,
@@ -21,14 +22,30 @@
     "attackType": 0,
     "status": {
       "damage": 0.0,
-      "cooldown": 5.0,
+      "cooldown": 0.0,
       "range": 0.0
     },
-    "itemUid": 6,
+    "itemUid": 1,
     "itemType": 0,
     "itemPrice": 8.0,
-    "itemThumbnail": "Sprites/Props/Weapon3",
-    "itemName": "Gun2",
+    "itemThumbnail": "Weapon 1",
+    "bulletImage": "",
+    "itemName": "Spear",
+    "unique_Ability_IDArr": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "attackType": 1,
+    "status": null,
+    "itemUid": 2,
+    "itemType": 0,
+    "itemPrice": 8.0,
+    "itemThumbnail": "Weapon 2",
+    "bulletImage": "",
+    "itemName": "Scythe",
     "unique_Ability_IDArr": [
       3,
       4,

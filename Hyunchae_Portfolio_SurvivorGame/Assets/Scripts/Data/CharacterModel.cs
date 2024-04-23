@@ -53,9 +53,9 @@ public enum ECharacterStatus
 public class CharacterModel
 {
     public int characterUid;
-    public string character_Name;
+    public string characterName;
     public int unlockID;
-    public int[] unique_Ability_IDArr;
+    public int[] uniqueAbilityIDArr;
     public string characterThumbnail;
 
     public List<Status_Variance> variances = new List<Status_Variance>();
@@ -71,6 +71,6 @@ public class Status_Variance
 public class BaseCharacterStatus
 {
     public float baseStatus;
-    public float status_Multiplier;
-    public float multiplier_Apply_status;
+    public float statusMultiplier;
+    public float multiplierApplyStatus;
 }

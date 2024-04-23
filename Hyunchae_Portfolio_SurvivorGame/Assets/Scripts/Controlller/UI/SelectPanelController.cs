@@ -101,7 +101,7 @@ public class SelectPanelController : UIBaseController
 
         selectCharacter = model;
 
-        statusInfo.SetName(model.character_Name);
+        statusInfo.SetName(model.characterName);
         statusInfo.SetCharacterTumbnail(CharacterManager.getInstance.GetCharacterSprite(model.characterUid));
         statusInfo.SetActive(true);
 

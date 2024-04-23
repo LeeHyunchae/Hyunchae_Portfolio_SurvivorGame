@@ -14,19 +14,8 @@ public class BaseitemModel
     public EItemType itemType;
     public float itemPrice;
     public string itemThumbnail;
+    public string bulletImage;
     public string itemName;
-    public int[] unique_Ability_IDArr;
+    public int[] uniqueAbilityIDArr;
 
-    public void Update()
-    {
-        Fire();
-    }
-
-    public virtual void Fire() 
-    {
-        if(itemType == EItemType.SUPPORTABLE)
-        {
-            return;
-        }
-    }
 }

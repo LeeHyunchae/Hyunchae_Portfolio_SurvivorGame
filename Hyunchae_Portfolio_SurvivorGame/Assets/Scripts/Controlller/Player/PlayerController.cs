@@ -6,12 +6,12 @@ public class PlayerControlller
 {
     private GameObject playerObj;
 
-    private Transform playerTM;
+    private Transform playerTransform;
     private SpriteRenderer playerSprite;
 
     private Vector2 pos = Vector2.zero;
 
-    public Transform GetPlayerTransform => playerTM;
+    public Transform GetPlayerTransform => playerTransform;
 
     private CharacterManager characterManager;
     private float moveSpeed;
@@ -22,10 +22,10 @@ public class PlayerControlller
 
         playerObj = _playerObj;
 
-        playerTM = playerObj.GetComponent<Transform>();
+        playerTransform = playerObj.GetComponent<Transform>();
         playerSprite = playerObj.GetComponent<SpriteRenderer>();
 
-        pos = playerTM.position;
+        pos = playerTransform.position;
 
         InitCharacter();
     }
@@ -47,7 +47,7 @@ public class PlayerControlller
     {
         pos += _dir.normalized * moveSpeed * Time.deltaTime;
 
-        playerTM.position = pos;
+        playerTransform.position = pos;
 
         playerSprite.flipX = _dir.x < 0;
 

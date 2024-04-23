@@ -154,9 +154,9 @@ public class MapEditor : Editor
         CharacterModel characterModel = new CharacterModel
         {
             characterUid = 0,
-            character_Name = "테스트캐릭터",
+            characterName = "테스트캐릭터",
             unlockID = 1,
-            unique_Ability_IDArr = new int[]{ 1, 2 },
+            uniqueAbilityIDArr = new int[]{ 1, 2 },
             characterThumbnail = "Sprites/Enemy 0"
         };
 
@@ -189,9 +189,9 @@ public class MapEditor : Editor
         CharacterModel characterModel2 = new CharacterModel
         {
             characterUid = 1,
-            character_Name = "테스트캐릭터2",
+            characterName = "테스트캐릭터2",
             unlockID = 2,
-            unique_Ability_IDArr = new int[] { 3, 4 },
+            uniqueAbilityIDArr = new int[] { 3, 4 },
             characterThumbnail = "Sprites/Enemy 1"
         };
 
@@ -222,13 +222,14 @@ public class MapEditor : Editor
         List<WeaponItemModel> itemModels = new List<WeaponItemModel>();
         WeaponItemModel itemModel = new WeaponItemModel
         {
-            itemUid = 1,
+            itemUid = 0,
             itemType = EItemType.ATTACKABLE,
             itemPrice = 3,
-            itemThumbnail = "Sprites/Props/Weapon3",
+            itemThumbnail = "Weapon 3",
+            bulletImage = "Bullet 3",
             itemName = "Gun",
             attackType = EWeaponAttackType.SHOOT,
-            unique_Ability_IDArr = new int[] { 1, 2, 3 }
+            uniqueAbilityIDArr = new int[] { 1, 2, 3 }
 
         };
 
@@ -242,13 +243,14 @@ public class MapEditor : Editor
 
         WeaponItemModel itemModel2 = new WeaponItemModel
         {
-            itemUid = 6,
+            itemUid = 1,
             itemType = EItemType.ATTACKABLE,
             itemPrice = 8,
-            itemThumbnail = "Sprites/Props/Weapon3",
-            itemName = "Gun2",
+            itemThumbnail = "Weapon 1",
+            bulletImage = string.Empty,
+            itemName = "Spear",
             attackType = EWeaponAttackType.STING,
-            unique_Ability_IDArr = new int[] { 3, 4, 5 }
+            uniqueAbilityIDArr = new int[] { 3, 4, 5 }
 
         };
 
@@ -259,6 +261,27 @@ public class MapEditor : Editor
         itemModel2.status = weaponStatus2;
 
         itemModels.Add(itemModel2);
+
+        WeaponItemModel itemModel3 = new WeaponItemModel
+        {
+            itemUid = 2,
+            itemType = EItemType.ATTACKABLE,
+            itemPrice = 8,
+            itemThumbnail = "Weapon 2",
+            bulletImage = string.Empty,
+            itemName = "Scythe",
+            attackType = EWeaponAttackType.SWING,
+            uniqueAbilityIDArr = new int[] { 3, 4, 5 }
+
+        };
+
+        WeaponStatus weaponStatus3 = new WeaponStatus();
+        weaponStatus.damage = 5;
+        weaponStatus.cooldown = 5;
+
+        itemModel2.status = weaponStatus3;
+
+        itemModels.Add(itemModel3);
 
         TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
     }
