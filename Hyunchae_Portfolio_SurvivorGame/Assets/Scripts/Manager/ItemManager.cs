@@ -14,13 +14,20 @@ public class ItemManager : Singleton<ItemManager>
     private Dictionary<int, WeaponItemModel> weaponItemDict = new Dictionary<int, WeaponItemModel>();
     private Dictionary<int, Sprite> weaponSpriteDict = new Dictionary<int, Sprite>();
     private Sprite[] itemSprites;
+    private ObjectPool<Projectile> projectilePool;
 
 
     public override bool Initialize()
     {
         LoadData();
-       
+
         return base.Initialize();
+    }
+
+    private void InitProjectilePool()
+    {
+        projectilePool = PoolManager.getInstance.GetObjectPool<Projectile>();
+        projectilePool.Init("Prefabs/Projectile");
     }
 
     private void LoadData()
@@ -48,13 +55,10 @@ public class ItemManager : Singleton<ItemManager>
 
     public WeaponItemModel GetWeaponItemModel(int _itemUid)
     {
-        if (weaponItemDict.TryGetValue(_itemUid, out WeaponItemModel itemModel))
-        {
-            return itemModel;
-        }
+        weaponItemDict.TryGetValue(_itemUid, out WeaponItemModel itemModel);
 
-        Debug.Log("Not Exist Item");
-        return null;
+        //Debug.Log("Not Exist Item");
+        return itemModel;
     }
 
     public Sprite GetWeaponItemSprite(int _itemUid)
@@ -86,6 +90,23 @@ public class ItemManager : Singleton<ItemManager>
 
     }
 
+    public Sprite GetSpriteToName(string _name)
+    {
+        int count = itemSprites.Length;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (_name.Equals(itemSprites[i].name))
+            {
+                return itemSprites[i];
+            }
+        }
+
+        Debug.Log("Not Exist Sprite");
+        return null;
+    }
+
+
     public void SetEquipWeaponItem(WeaponItemModel _model, int _slot = 0)
     {
         equipWeaponModelArr[_slot] = _model;
@@ -99,5 +120,20 @@ public class ItemManager : Singleton<ItemManager>
         }
 
         return equipWeaponModelArr[_slot];
+    }
+
+    public Projectile GetProjectile()
+    {
+        if(projectilePool == null)
+        {
+            InitProjectilePool();
+        }
+
+        return projectilePool.GetObject();
+    }
+
+    public void EnqueueProjectile(Projectile _projectile)
+    {
+        projectilePool.EnqueueObject(_projectile);
     }
 }

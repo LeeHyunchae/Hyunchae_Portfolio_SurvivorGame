@@ -72,8 +72,6 @@ public class WeaponItem
     private WeaponItemModel itemModel;
     private Transform targetTransform;
 
-    private Vector3 originPos;
-
     private BaseAttack attackType;
     private Sting stingAttack;
     private Swing swingAttack;
@@ -114,7 +112,7 @@ public class WeaponItem
                 break;
         }
 
-        attackType.SetInfo(itemModel);
+        attackType.SetModelInfo(itemModel);
     }
 
     public void SetTarget(Transform _target)

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
 {
-    private Dictionary<Type, ObjectPool<IPoolable>> poolDict = new Dictionary<Type, ObjectPool<IPoolable>>();
-    // TODO :: pool Init time?
+    private Dictionary<Type, IPool> poolDict = new Dictionary<Type, IPool>();
 
     ~PoolManager()
     {
@@ -14,7 +13,7 @@ public class PoolManager : Singleton<PoolManager>
         poolDict = null;
     }
 
-    public ObjectPool<IPoolable> GetObjectPool<T>() where T : IPoolable, new()
+    public ObjectPool<T> GetObjectPool<T>() where T : IPoolable, new()
     {
         poolDict.TryGetValue(typeof(T), out var pool);
 
@@ -23,12 +22,12 @@ public class PoolManager : Singleton<PoolManager>
             pool = CreateObjectPool<T>();
         }
 
-        return pool;
+        return (ObjectPool<T>)pool;
     }
 
-    private ObjectPool<IPoolable> CreateObjectPool<T>() where T : IPoolable, new()
+    private ObjectPool<T> CreateObjectPool<T>() where T : IPoolable, new()
     {
-        var pool = new ObjectPool<IPoolable>();
+        ObjectPool<T> pool = new ObjectPool<T>();
         Type type = typeof(T);
 
         poolDict.Add(type, pool);
@@ -41,7 +40,6 @@ public class PoolManager : Singleton<PoolManager>
         Type type = typeof(T);
         if(poolDict.TryGetValue(type, out var pool))
         {
-            pool.OnRelease();
             poolDict.Remove(type);
         }
         else
@@ -50,28 +48,4 @@ public class PoolManager : Singleton<PoolManager>
         }
     }
 
-    //private DataObjectPool<T> CreatePool<T>() where T : IPoolable, new()
-    //{
-    //    DataObjectPool<T> newPool = new DataObjectPool<T>(DEFAULT_POOL_SIZE);
-    //    poolList.Add(newPool);
-    //    return newPool;
-    //}
-
-    //public DataObjectPool<T> GetPool<T>() where T : IPoolable, new()
-    //{
-    //    int listSize = poolList.Capacity;
-
-    //    for(int i = 0; i <listSize; i++)
-    //    {
-    //        Type t = poolList[i].GetType();
-    //        if(typeof(DataObjectPool<T>).Equals(t))
-    //        {
-    //            Debug.Log("Already Create Pool");
-    //            return (DataObjectPool<T>)poolList[i];
-    //        }
-    //    }
-
-    //    Debug.Log("Create New Pool");
-    //    return CreatePool<T>();
-    //}
 }

@@ -3,8 +3,8 @@
     "attackType": 2,
     "status": {
       "damage": 5.0,
-      "cooldown": 5.0,
-      "range": 0.0
+      "cooldown": 3.0,
+      "range": 20.0
     },
     "itemUid": 0,
     "itemType": 0,

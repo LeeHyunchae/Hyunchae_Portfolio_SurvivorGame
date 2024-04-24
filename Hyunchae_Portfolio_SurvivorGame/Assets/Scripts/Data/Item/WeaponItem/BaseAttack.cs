@@ -29,7 +29,7 @@ public abstract class BaseAttack
         pos = initPos;
     }
 
-    public void SetInfo(WeaponItemModel _model)
+    public void SetModelInfo(WeaponItemModel _model)
     {
         cooldown = _model.status.cooldown;
         attackRange = _model.status.range;
@@ -125,8 +125,15 @@ public class Swing : BaseAttack
 
 public class Shoot : BaseAttack
 {
+    private ItemManager itemManager = ItemManager.getInstance;
+
     protected override void Fire()
     {
-        throw new System.NotImplementedException();
+        Projectile projectile = itemManager.GetProjectile();
+
+        projectile.SetSprite("as");
+        projectile.SetPrjectileInfo(targetDirection, damage, weaponTransform.position, attackRange);
+
+        EndFire();
     }
 }

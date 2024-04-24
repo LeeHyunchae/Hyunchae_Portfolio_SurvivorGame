@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IPoolable
 {
+    public void Init();
     public void OnEnqueue();
     public void OnDequeue();
 }

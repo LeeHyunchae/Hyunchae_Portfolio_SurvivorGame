@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class ObjectPool<T> where T : IPoolable
+public class ObjectPool<T> : IPool where T : IPoolable
 {
     private Queue<T> objectQueue = null;
 
@@ -48,15 +48,14 @@ public class ObjectPool<T> where T : IPoolable
     {
         T obj;
 
-        if (objectQueue.TryDequeue(out obj))
-        {
-            return obj;
-        }
-        else
+        if (!objectQueue.TryDequeue(out obj))
         {
             IncreasePool();
-            return objectQueue.Dequeue();
+            obj = objectQueue.Dequeue();
         }
+
+        obj.OnDequeue();
+        return obj;
     }
 
     private void IncreasePool()
@@ -65,6 +64,7 @@ public class ObjectPool<T> where T : IPoolable
         {
             GameObject obj = GameObject.Instantiate(originPrefab_GameObj);
             T componenet = obj.GetComponent<T>();
+            componenet.Init();
 
             EnqueueObject(componenet);
         }
