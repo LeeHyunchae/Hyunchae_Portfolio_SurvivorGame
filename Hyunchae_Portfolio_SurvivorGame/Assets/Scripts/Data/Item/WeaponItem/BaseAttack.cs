@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseAttack
+public abstract class BaseWeaponAttack
 {
     protected const float STING_SPEED = 15;
 
@@ -49,11 +49,15 @@ public abstract class BaseAttack
             RotatToTarget();
         }
 
-        if (curCooldown >= cooldown)
+        if(Vector2.Distance(targetPos,weaponTransform.position) > attackRange)
         {
-            isReady = false;
-            Fire();
+            if (curCooldown >= cooldown)
+            {
+                isReady = false;
+                Fire();
+            }
         }
+        
     }
 
     protected abstract void Fire();
@@ -78,10 +82,18 @@ public abstract class BaseAttack
 
         weaponTransform.rotation = quaternion;
     }
+
+    public abstract BaseWeaponAttack DeepCopy();
+
 }
 
-public class Sting : BaseAttack
+public class Sting : BaseWeaponAttack
 {
+    public override BaseWeaponAttack DeepCopy()
+    {
+        return new Sting();
+    }
+
     protected override void Fire()
     {
         if(!isReturn)
@@ -115,17 +127,27 @@ public class Sting : BaseAttack
     }
 }
 
-public class Swing : BaseAttack
+public class Swing : BaseWeaponAttack
 {
+    public override BaseWeaponAttack DeepCopy()
+    {
+        return new Swing();
+    }
+
     protected override void Fire()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 
-public class Shoot : BaseAttack
+public class Shoot : BaseWeaponAttack
 {
     private ItemManager itemManager = ItemManager.getInstance;
+
+    public override BaseWeaponAttack DeepCopy()
+    {
+        return new Shoot();
+    }
 
     protected override void Fire()
     {

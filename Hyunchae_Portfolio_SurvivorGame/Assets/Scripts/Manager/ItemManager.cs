@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,29 @@ public class ItemManager : Singleton<ItemManager>
     private List<WeaponItemModel> weaponItemModels = new List<WeaponItemModel>();
     private Dictionary<int, WeaponItemModel> weaponItemDict = new Dictionary<int, WeaponItemModel>();
     private Dictionary<int, Sprite> weaponSpriteDict = new Dictionary<int, Sprite>();
+    private Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>>();
     private Sprite[] itemSprites;
     private ObjectPool<Projectile> projectilePool;
+    private BaseWeaponAttack[] attackTypeArr = new BaseWeaponAttack[(int)EWeaponAttackType.END];
 
 
     public override bool Initialize()
     {
         LoadData();
+        InitAttackTypeArr();
 
         return base.Initialize();
+    }
+
+    private void InitAttackTypeArr()
+    {
+        attackTypeArr[(int)EWeaponAttackType.STING] = new Sting();
+        attackTypeArr[(int)EWeaponAttackType.SWING] = new Swing();
+        attackTypeArr[(int)EWeaponAttackType.SHOOT] = new Shoot();
+
+        attackTypeDict[EWeaponAttackType.STING] = new Queue<BaseWeaponAttack>();
+        attackTypeDict[EWeaponAttackType.SWING] = new Queue<BaseWeaponAttack>();
+        attackTypeDict[EWeaponAttackType.SHOOT] = new Queue<BaseWeaponAttack>();
     }
 
     private void InitProjectilePool()
@@ -135,5 +150,23 @@ public class ItemManager : Singleton<ItemManager>
     public void EnqueueProjectile(Projectile _projectile)
     {
         projectilePool.EnqueueObject(_projectile);
+    }
+
+    public BaseWeaponAttack GetAttackType(EWeaponAttackType _attackType)
+    {
+        BaseWeaponAttack weaponAttack = null;
+
+        if (attackTypeDict[_attackType].Count == 0)
+        {
+            weaponAttack = attackTypeArr[(int)_attackType].DeepCopy();
+            attackTypeDict[_attackType].Enqueue(weaponAttack);
+        }
+
+        return attackTypeDict[_attackType].Dequeue();
+    }
+
+    public void ReleaseWeaponAttackType(EWeaponAttackType _attackType, BaseWeaponAttack _attack)
+    {
+        attackTypeDict[_attackType].Enqueue(_attack);
     }
 }

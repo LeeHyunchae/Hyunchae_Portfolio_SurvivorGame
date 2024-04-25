@@ -26,7 +26,8 @@ public enum EWeaponAttackType
 {
     STING = 0,
     SWING,
-    SHOOT
+    SHOOT,
+    END
 }
 
 public enum EWeaponStatus
@@ -71,26 +72,15 @@ public class WeaponItem
     private SpriteRenderer spriteRenderer;
     private WeaponItemModel itemModel;
     private Transform targetTransform;
+    private Transform weaponTransform;
+    private BaseWeaponAttack attackType;
 
-    private BaseAttack attackType;
-    private Sting stingAttack;
-    private Swing swingAttack;
-    private Shoot shootAttack;
-
-    public WeaponItem()
-    {
-        stingAttack = new Sting();
-        swingAttack = new Swing();
-        shootAttack = new Shoot();
-    }
 
     public void SetWeaponTransform(Transform _weaponTransform)
     {
         spriteRenderer = _weaponTransform.GetComponent<SpriteRenderer>();
 
-        stingAttack.SetInitPos(_weaponTransform);
-        swingAttack.SetInitPos(_weaponTransform);
-        shootAttack.SetInitPos(_weaponTransform);
+        weaponTransform = _weaponTransform;
     }
 
     public void SetWeaponItemModel(WeaponItemModel _itemModel)
@@ -99,29 +89,23 @@ public class WeaponItem
 
         spriteRenderer.sprite = ItemManager.getInstance.GetWeaponItemSprite(itemModel.itemUid);
 
-        switch(itemModel.attackType)
-        {
-            case EWeaponAttackType.STING:
-                attackType = stingAttack;
-                break;
-            case EWeaponAttackType.SWING:
-                attackType = swingAttack;
-                break;
-            case EWeaponAttackType.SHOOT:
-                attackType = shootAttack;
-                break;
-        }
+        attackType = ItemManager.getInstance.GetAttackType(itemModel.attackType);
 
         attackType.SetModelInfo(itemModel);
+
+        Debug.Log(attackType);
+
+        attackType.SetInitPos(weaponTransform);
     }
 
     public void SetTarget(Transform _target)
     {
         targetTransform = _target;
 
-        stingAttack.SetTarget(_target);
-        swingAttack.SetTarget(_target);
-        shootAttack.SetTarget(_target);
+        Debug.Log(attackType);
+        Debug.Log(weaponTransform.name);
+
+        attackType.SetTarget(_target);
     }
 
     public void Update()
@@ -132,5 +116,13 @@ public class WeaponItem
         }
 
         attackType.Update();
+    }
+
+    public void UnEquipWeapon()
+    {
+        ItemManager.getInstance.ReleaseWeaponAttackType(itemModel.attackType, attackType);
+        attackType = null;
+        itemModel = null;
+        spriteRenderer.sprite = null;
     }
 }

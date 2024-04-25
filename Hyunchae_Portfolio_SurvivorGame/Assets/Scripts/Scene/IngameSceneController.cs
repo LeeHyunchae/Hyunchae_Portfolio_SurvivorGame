@@ -22,12 +22,12 @@ public class IngameSceneController : MonoBehaviour
     private void Awake()
     {
         InitMapCreator();
-        InitPlayer();
+        InitPlayerController();
         InitCamera();
         InitItemController();
     }
 
-    private void InitPlayer()
+    private void InitPlayerController()
     {
         playerMgr = CharacterManager.getInstance;
 
@@ -52,7 +52,6 @@ public class IngameSceneController : MonoBehaviour
 
         itemController.Init(playerController.GetPlayerTransform);
 
-        itemController.SetTempEnemy(tempTarget.transform);
     }
 
     private void InitMapCreator()
@@ -66,5 +65,11 @@ public class IngameSceneController : MonoBehaviour
     private void Update()
     {
         itemController.Update();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            itemController.SetTempEnemy(tempTarget.transform);
+
+        }
     }
 }

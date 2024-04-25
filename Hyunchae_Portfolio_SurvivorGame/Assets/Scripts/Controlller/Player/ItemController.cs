@@ -60,15 +60,16 @@ public class ItemController
         }
     }
 
-    public void EquipWeapon(int _itemUid)
+    public void EquipWeapon(int _itemSlot ,int _itemUid)
     {
         WeaponItemModel itemModel = itemManager.GetWeaponItemModel(_itemUid);
 
+        equipWeaponList[_itemSlot].SetWeaponItemModel(itemModel);
     }
 
-    public void UnEquipWeapon()
+    public void UnEquipWeapon(int _itemSlot)
     {
-
+        equipWeaponList[_itemSlot].UnEquipWeapon();
     }
 
     public void SwapWeaponSlot(int _itemSlot,int _chengedItemSlot ,int _itemUid)
