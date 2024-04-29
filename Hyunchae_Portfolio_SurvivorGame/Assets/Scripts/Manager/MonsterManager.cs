@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterManager : MonoBehaviour
+public class MonsterManager : Singleton<MonsterManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    private Dictionary<int, MonsterModel> monsterDict = new Dictionary<int, MonsterModel>();
+
+    public override bool Initialize()
     {
-        
+        return base.Initialize();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadData()
     {
-        
+
     }
 }

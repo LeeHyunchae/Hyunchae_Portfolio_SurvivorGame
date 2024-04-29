@@ -8,7 +8,7 @@ public enum EItemType
     SUPPORTABLE
 }
 
-public class BaseitemModel
+public class BaseItemModel
 {
     public int itemUid;
     public EItemType itemType;

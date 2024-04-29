@@ -7,7 +7,7 @@
       1,
       2
     ],
-    "characterThumbnail": "Sprites/Enemy 0",
+    "characterThumbnail": "Sprites/Farmer 0",
     "variances": [
       {
         "characterStatus": 0,
@@ -35,7 +35,7 @@
       3,
       4
     ],
-    "characterThumbnail": "Sprites/Enemy 1",
+    "characterThumbnail": "Sprites/Farmer 1",
     "variances": [
       {
         "characterStatus": 0,

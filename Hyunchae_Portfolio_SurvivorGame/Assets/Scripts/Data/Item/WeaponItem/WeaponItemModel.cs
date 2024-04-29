@@ -52,7 +52,7 @@ public enum EWeaponStatus
     END
 }
 
-public class WeaponItemModel : BaseitemModel
+public class WeaponItemModel : BaseItemModel
 {
     public EWeaponAttackType attackType;
     public WeaponStatus status;
@@ -93,17 +93,12 @@ public class WeaponItem
 
         attackType.SetModelInfo(itemModel);
 
-        Debug.Log(attackType);
-
         attackType.SetInitPos(weaponTransform);
     }
 
     public void SetTarget(Transform _target)
     {
         targetTransform = _target;
-
-        Debug.Log(attackType);
-        Debug.Log(weaponTransform.name);
 
         attackType.SetTarget(_target);
     }
