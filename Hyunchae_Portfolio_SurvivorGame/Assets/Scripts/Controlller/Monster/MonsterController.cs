@@ -9,7 +9,7 @@ public class MonsterController : MonoBehaviour , IPoolable
     private MonsterModel monsterModel;
     private Transform _transform;
     private Transform targetTransform;
-    private BaseMonsterBehaviourRoutine behaviourRoutine;
+    private BaseMonsterBehaviourLogic behaviourRoutine;
     public void Init()
     {
         _transform = this.transform;

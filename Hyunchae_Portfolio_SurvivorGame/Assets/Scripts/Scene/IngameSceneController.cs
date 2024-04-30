@@ -25,6 +25,8 @@ public class IngameSceneController : MonoBehaviour
         InitPlayerController();
         InitCamera();
         InitItemController();
+
+        MonsterManager.getInstance.GetMonster();
     }
 
     private void InitPlayerController()

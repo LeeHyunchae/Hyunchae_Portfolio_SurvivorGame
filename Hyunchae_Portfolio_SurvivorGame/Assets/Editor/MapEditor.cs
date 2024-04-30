@@ -81,6 +81,11 @@ public class MapEditor : Editor
             WeaponTest();
         }
 
+        if (GUILayout.Button("몬스터", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            MonsterTest();
+        }
+
         //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         //{
         //    TableLoader tl = new TableLoader();
@@ -284,5 +289,80 @@ public class MapEditor : Editor
         itemModels.Add(itemModel3);
 
         TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
+    }
+
+    private void MonsterTest()
+    {
+        List<MonsterModel> monsterModels = new List<MonsterModel>();
+
+        MonsterModel monsterModel1 = new MonsterModel()
+        {
+            monsterUid = 0,
+            monsterName = "followMon",
+            monsterThumbnail = "Enemy 0",
+            logicType = EMonsterLogicType.LOOP,
+            skillType = EMonsterSkillType.NONE,
+            moveType = EMonsterMoveType.FOLLOW
+        };
+
+        MonsterStatus monsterStatus = new MonsterStatus()
+        {
+            maxHP = 10,
+            damage = 1,
+            cooldown = 5,
+            moveSpeed = 2,
+            attackRange = 5
+        };
+
+        monsterModel1.status = monsterStatus;
+
+        monsterModels.Add(monsterModel1);
+
+        MonsterModel monsterModel2 = new MonsterModel()
+        {
+            monsterUid = 1,
+            monsterName = "dashMon",
+            monsterThumbnail = "Enemy 1",
+            logicType = EMonsterLogicType.SEQUENCE,
+            skillType = EMonsterSkillType.DASH,
+            moveType = EMonsterMoveType.FOLLOW
+        };
+
+        monsterStatus = new MonsterStatus()
+        {
+            maxHP = 10,
+            damage = 1,
+            cooldown = 5,
+            moveSpeed = 2,
+            attackRange = 5
+        };
+
+        monsterModel2.status = monsterStatus;
+        monsterModels.Add(monsterModel2);
+
+        MonsterModel monsterModel3 = new MonsterModel()
+        {
+            monsterUid = 2,
+            monsterName = "shootingmon",
+            monsterThumbnail = "Enemy 2",
+            logicType = EMonsterLogicType.LOOP,
+            skillType = EMonsterSkillType.SHOOTING,
+            moveType = EMonsterMoveType.FOLLOW
+        };
+
+        monsterStatus = new MonsterStatus()
+        {
+            maxHP = 10,
+            damage = 1,
+            cooldown = 5,
+            moveSpeed = 2,
+            attackRange = 5
+        };
+
+        monsterModel3.status = monsterStatus;
+        monsterModels.Add(monsterModel3);
+
+        TableLoader.SaveToJson("Monster", monsterModels, "TestMonster");
+
     }
 }

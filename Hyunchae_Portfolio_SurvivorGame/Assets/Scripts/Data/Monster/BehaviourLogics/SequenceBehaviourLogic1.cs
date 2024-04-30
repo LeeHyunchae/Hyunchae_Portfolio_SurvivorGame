@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoopBehaviourRoutine : BaseMonsterBehaviourRoutine
+public class SequenceBehaviourLogic : BaseMonsterBehaviourLogic
 {
     public override void Update()
     {
-        //Sequence
+        base.Update();
     }
 }

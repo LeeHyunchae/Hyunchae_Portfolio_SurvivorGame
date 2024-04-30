@@ -2,12 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EMonsterAttackType
+public enum EMonsterSkillType
 {
-    MELEE = 0,
-    RANGE,
+    NONE,
+    MELEE,
+    SHOOTING,
     DASH,
-    BOSS
+}
+
+public enum EMonsterMoveType
+{
+    FOLLOW = 0,
+    AWAY
+}
+
+public enum EMonsterLogicType
+{
+    SEQUENCE = 0,
+    LOOP
 }
 
 public class MonsterModel
@@ -16,7 +28,9 @@ public class MonsterModel
     public string monsterName;
     public string monsterThumbnail;
 
-    public EMonsterAttackType attackType;
+    public EMonsterLogicType logicType;
+    public EMonsterSkillType skillType;
+    public EMonsterMoveType moveType;
     public MonsterStatus status;
 }
 
