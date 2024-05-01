@@ -16,10 +16,10 @@
   },
   {
     "monsterUid": 1,
-    "monsterName": "dashMon",
+    "monsterName": "SeqdashMon",
     "monsterThumbnail": "Enemy 1",
     "logicType": 0,
-    "skillType": 3,
+    "skillType": 2,
     "moveType": 0,
     "status": {
       "maxHP": 10.0,
@@ -31,11 +31,11 @@
   },
   {
     "monsterUid": 2,
-    "monsterName": "shootingmon",
+    "monsterName": "Loopshootingmon",
     "monsterThumbnail": "Enemy 2",
     "logicType": 1,
-    "skillType": 2,
-    "moveType": 0,
+    "skillType": 1,
+    "moveType": 1,
     "status": {
       "maxHP": 10.0,
       "damage": 1.0,

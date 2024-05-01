@@ -14,10 +14,11 @@ public class ItemManager : Singleton<ItemManager>
     private List<WeaponItemModel> weaponItemModels = new List<WeaponItemModel>();
     private Dictionary<int, WeaponItemModel> weaponItemDict = new Dictionary<int, WeaponItemModel>();
     private Dictionary<int, Sprite> weaponSpriteDict = new Dictionary<int, Sprite>();
-    private Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>>();
     private Sprite[] itemSprites;
     private ObjectPool<Projectile> projectilePool;
+
     private BaseWeaponAttack[] attackTypeArr = new BaseWeaponAttack[(int)EWeaponAttackType.END];
+    private Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>>();
 
 
     public override bool Initialize()
@@ -154,11 +155,10 @@ public class ItemManager : Singleton<ItemManager>
 
     public BaseWeaponAttack GetAttackType(EWeaponAttackType _attackType)
     {
-        BaseWeaponAttack weaponAttack = null;
 
         if (attackTypeDict[_attackType].Count == 0)
         {
-            weaponAttack = attackTypeArr[(int)_attackType].DeepCopy();
+            BaseWeaponAttack weaponAttack = attackTypeArr[(int)_attackType].DeepCopy();
             attackTypeDict[_attackType].Enqueue(weaponAttack);
         }
 

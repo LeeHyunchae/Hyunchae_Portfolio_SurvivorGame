@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseMonsterBehaviourLogic
+public abstract class BaseMonsterBehaviourLogic
 {
     private MonsterBehaviour skillBehaviour;
     private MonsterBehaviour moveBehaviour;
@@ -19,6 +19,12 @@ public class BaseMonsterBehaviourLogic
 
     public virtual void Update()
     {
-
+        if(skillBehaviour != null)
+        {
+            skillBehaviour.Update();
+        }
+            moveBehaviour.Update();
     }
+
+    public abstract BaseMonsterBehaviourLogic DeepCopy();
 }

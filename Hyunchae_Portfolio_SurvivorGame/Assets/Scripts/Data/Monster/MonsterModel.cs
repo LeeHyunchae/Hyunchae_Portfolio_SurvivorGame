@@ -5,21 +5,23 @@ using UnityEngine;
 public enum EMonsterSkillType
 {
     NONE,
-    MELEE,
     SHOOTING,
     DASH,
+    END
 }
 
 public enum EMonsterMoveType
 {
     FOLLOW = 0,
-    AWAY
+    AWAY,
+    END
 }
 
 public enum EMonsterLogicType
 {
     SEQUENCE = 0,
-    LOOP
+    LOOP,
+    END
 }
 
 public class MonsterModel

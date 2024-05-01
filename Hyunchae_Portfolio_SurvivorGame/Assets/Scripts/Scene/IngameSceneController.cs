@@ -19,14 +19,15 @@ public class IngameSceneController : MonoBehaviour
     private PlayerControlller playerController;
     private ItemController itemController;
 
+    private StageController stageController;
+
     private void Awake()
     {
         InitMapCreator();
         InitPlayerController();
         InitCamera();
         InitItemController();
-
-        MonsterManager.getInstance.GetMonster();
+        InitStageController();
     }
 
     private void InitPlayerController()
@@ -62,6 +63,12 @@ public class IngameSceneController : MonoBehaviour
         mapCreator = new MapCreator();
         mapCreator.Init(tilemap);
         mapCreator.GenerateMap(mapData.mapWidth, mapData.mapHeight);
+    }
+
+    private void InitStageController()
+    {
+        stageController = new StageController();
+        stageController.Init(playerController.GetPlayerTransform);
     }
 
     private void Update()

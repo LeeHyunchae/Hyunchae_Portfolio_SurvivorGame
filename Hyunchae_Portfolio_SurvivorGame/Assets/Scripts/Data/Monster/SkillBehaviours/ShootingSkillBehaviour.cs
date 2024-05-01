@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ShootingSkillBehaviour : MonsterBehaviour
 {
+    public override MonsterBehaviour DeepCopy()
+    {
+        return new ShootingSkillBehaviour();
+    }
+
     public override void Update()
     {
         base.Update();
