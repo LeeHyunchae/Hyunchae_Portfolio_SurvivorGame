@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour , IPoolable
+public class MonsterController : MonoBehaviour
 {
 
     private SpriteRenderer spriteRenderer;
@@ -12,7 +12,9 @@ public class MonsterController : MonoBehaviour , IPoolable
     private Transform targetTransform;
     private BaseMonsterBehaviourLogic behaviourLogic;
 
-    private Action OnMonsterDieAction;
+    private Action<MonsterController> OnMonsterDieAction;
+
+    public Transform GetMonsterTransform => _transform;
 
     public void Init()
     {
@@ -41,12 +43,14 @@ public class MonsterController : MonoBehaviour , IPoolable
         {
             skill.SetMonsterTransform(_transform);
             skill.SetTarget(targetTransform);
+            skill.SetMonsterModel(monsterModel);
             behaviourLogic.SetSkillBehaviour(skill);
         }
         MonsterBehaviour move = MonsterManager.getInstance.GetMoveBehaviour(monsterModel.moveType);
         move.SetMonsterTransform(_transform);
-
         move.SetTarget(targetTransform);
+        move.SetMonsterModel(monsterModel);
+
         behaviourLogic.SetMoveBehaviour(move);
 
 
@@ -75,6 +79,10 @@ public class MonsterController : MonoBehaviour , IPoolable
     public void OnDequeue()
     {
         _transform.gameObject.SetActive(true);
-        OnMonsterDieAction?.Invoke();
+    }
+
+    private void OnDieMonster()
+    {
+        OnMonsterDieAction?.Invoke(this);
     }
 }

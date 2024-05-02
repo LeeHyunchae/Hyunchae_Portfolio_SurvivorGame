@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class FollowMoveBehaviour : MonsterBehaviour
 {
-    private Vector2 pos;
+    private float moveSpeed;
 
     public override MonsterBehaviour DeepCopy()
     {
         return new FollowMoveBehaviour();
+    }
+
+    public override void SetMonsterModel(MonsterModel _model)
+    {
+        moveSpeed = _model.status.moveSpeed;
     }
 
     public override void Update()
@@ -19,8 +24,8 @@ public class FollowMoveBehaviour : MonsterBehaviour
 
         Vector2 direction = (targetTransform.position - monsterTransform.position).normalized;
 
-        pos.x += direction.x * Time.deltaTime * 2;
-        pos.y += direction.y * Time.deltaTime * 2;
+        pos.x += direction.x * Time.deltaTime * moveSpeed;
+        pos.y += direction.y * Time.deltaTime * moveSpeed;
 
         monsterTransform.position = pos;
     }

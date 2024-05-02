@@ -22,8 +22,8 @@
     "attackType": 0,
     "status": {
       "damage": 0.0,
-      "cooldown": 0.0,
-      "range": 0.0
+      "cooldown": 5.0,
+      "range": 10.0
     },
     "itemUid": 1,
     "itemType": 0,

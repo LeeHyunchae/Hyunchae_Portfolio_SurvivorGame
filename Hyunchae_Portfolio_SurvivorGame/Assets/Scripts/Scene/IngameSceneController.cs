@@ -24,10 +24,14 @@ public class IngameSceneController : MonoBehaviour
     private void Awake()
     {
         InitMapCreator();
+
+        MonsterManager.getInstance.CreateMonsterObjects();
+
         InitPlayerController();
         InitCamera();
         InitItemController();
         InitStageController();
+
     }
 
     private void InitPlayerController()
@@ -75,10 +79,5 @@ public class IngameSceneController : MonoBehaviour
     {
         itemController.Update();
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            itemController.SetTempEnemy(tempTarget.transform);
-
-        }
     }
 }

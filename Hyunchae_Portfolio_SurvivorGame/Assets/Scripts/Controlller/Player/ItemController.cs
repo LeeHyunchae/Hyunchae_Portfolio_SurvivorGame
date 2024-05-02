@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemController
 {
-    private WeaponItem[] equipWeaponList;
+    private WeaponItemController[] equipWeaponList;
     private ItemManager itemManager;
 
     private int weaponCapacity;
@@ -14,27 +14,18 @@ public class ItemController
     {
         itemManager = ItemManager.getInstance;
         weaponCapacity = ItemManager.WEAPON_CAPACITY;
-        equipWeaponList = new WeaponItem[weaponCapacity];
+        equipWeaponList = new WeaponItemController[weaponCapacity];
 
         InitWeaponItem(_playerTransform);
         InitWeapon();
 
     }
 
-    public void SetTempEnemy(Transform _targetTransform)
-    {
-        // Todo Delete!!!!!!!!!!
-        for (int i = 0; i < weaponCapacity; i++)
-        {
-            equipWeaponList[i].SetTarget(_targetTransform);
-        }
-    }
-
     private void InitWeaponItem(Transform _playerTransform)
     {
         for (int i = 0; i < weaponCapacity; i++)
         {
-            equipWeaponList[i] = new WeaponItem();
+            equipWeaponList[i] = new WeaponItemController();
             equipWeaponList[i].SetWeaponTransform(_playerTransform.GetChild(i));
         }
     }
@@ -77,28 +68,3 @@ public class ItemController
         equipWeaponList[_itemSlot].SetWeaponItemModel(itemManager.GetWeaponItemModel(_itemUid));
     }
 }
-
-
-
-//private void InitWeaponPosition()
-//{
-//    Vector3 playerPosition = target.position;
-
-//    float radius = 1.0f;
-//    Vector3[] hexagonPoints = new Vector3[6];
-
-//    //Todo Refactoring
-
-//    hexagonPoints[0] = new Vector3(playerPosition.x + radius * 0.5f, playerPosition.y + Mathf.Sqrt(3) * radius * 0.5f, playerPosition.z);
-//    hexagonPoints[1] = new Vector3(playerPosition.x - radius * 0.5f, playerPosition.y + Mathf.Sqrt(3) * radius * 0.5f, playerPosition.z);
-//    hexagonPoints[2] = new Vector3(playerPosition.x + radius, playerPosition.y, playerPosition.z);
-//    hexagonPoints[3] = new Vector3(playerPosition.x - radius, playerPosition.y, playerPosition.z);
-//    hexagonPoints[4] = new Vector3(playerPosition.x + radius * 0.5f, playerPosition.y - Mathf.Sqrt(3) * radius * 0.5f, playerPosition.z);
-//    hexagonPoints[5] = new Vector3(playerPosition.x - radius * 0.5f, playerPosition.y - Mathf.Sqrt(3) * radius * 0.5f, playerPosition.z);
-
-//    for (int i = 0; i < 6; i++)
-//    {
-//        equipWeaponList[i].GetTransform.position = hexagonPoints[i];
-//        equipWeaponList[i].GetTransform.SetParent(target);
-//    }
-//}

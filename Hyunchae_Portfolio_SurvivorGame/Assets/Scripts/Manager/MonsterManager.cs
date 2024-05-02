@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MonsterManager : Singleton<MonsterManager>
 {
+    private const int MAX_MONSTER_CAPACITY = 100;
+
     private string SPRITELOADPATH = "Sprites/";
 
     private Dictionary<int, MonsterModel> monsterDict = new Dictionary<int, MonsterModel>();
     private List<MonsterModel> monsterModels = new List<MonsterModel>();
 
     private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
-
-    private ObjectPool<MonsterController> monsterPool;
 
     private BaseMonsterBehaviourLogic[] logicTypeArr = new BaseMonsterBehaviourLogic[(int)EMonsterLogicType.END];
     private Dictionary<EMonsterLogicType, Queue<BaseMonsterBehaviourLogic>> logicTypeDict = new Dictionary<EMonsterLogicType, Queue<BaseMonsterBehaviourLogic>>();
@@ -22,6 +22,9 @@ public class MonsterManager : Singleton<MonsterManager>
     private MonsterBehaviour[] moveTypeArr = new MonsterBehaviour[(int)EMonsterMoveType.END];
     private Dictionary<EMonsterMoveType, Queue<MonsterBehaviour>> moveTypeDict = new Dictionary<EMonsterMoveType, Queue<MonsterBehaviour>>();
 
+    private LinkedList<MonsterController> aliveMonsterLinkedList = new LinkedList<MonsterController>();
+    private Queue<LinkedListNode<MonsterController>> deadMonsterQueue = new Queue<LinkedListNode<MonsterController>>();
+
     public override bool Initialize()
     {
         LoadData();
@@ -30,10 +33,18 @@ public class MonsterManager : Singleton<MonsterManager>
         return base.Initialize();
     }
 
-    private void InitMonsterPool()
+    public void CreateMonsterObjects()
     {
-        monsterPool = PoolManager.getInstance.GetObjectPool<MonsterController>();
-        monsterPool.Init("Prefabs/Monster", 20);
+        MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
+
+        for(int i = 0; i<MAX_MONSTER_CAPACITY; i++)
+        {
+            MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster);
+            LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
+            deadMonsterQueue.Enqueue(monsterNode);
+            monster.Init();
+            monster.OnEnqueue();
+        }
     }
 
     private void InitMonsterBehaviours()
@@ -108,13 +119,30 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public MonsterController GetMonster()
     {
-        if(monsterPool == null)
+        MonsterController monster = null;
+
+        if(deadMonsterQueue.Count == 0)
         {
-            InitMonsterPool();
+            LinkedListNode<MonsterController> firstMonsterNode = aliveMonsterLinkedList.First;
+            aliveMonsterLinkedList.RemoveFirst();
+            aliveMonsterLinkedList.AddLast(firstMonsterNode);
+
+            monster = firstMonsterNode.Value;
+        }
+        else
+        {
+            LinkedListNode<MonsterController> monsterNode = deadMonsterQueue.Dequeue();
+            aliveMonsterLinkedList.AddLast(monsterNode);
+
+            monster = monsterNode.Value;
         }
 
-        return monsterPool.GetObject();
+        monster.OnDequeue();
+
+        return monster;
     }
+
+    public LinkedList<MonsterController> GetAllAliveMonsters => aliveMonsterLinkedList;
 
     public BaseMonsterBehaviourLogic GetBehaviourLogic(EMonsterLogicType _logicType)
     {
@@ -156,8 +184,20 @@ public class MonsterManager : Singleton<MonsterManager>
         return moveTypeDict[_moveType].Dequeue();
     }
 
-    public void OnMonsterDie()
+    public void OnMonsterDie(MonsterController _monster)
     {
+        MonsterController deadMonster = _monster;
+        LinkedListNode<MonsterController> currentNode = aliveMonsterLinkedList.First;
+        while (currentNode != null)
+        {
+            if (currentNode.Value == deadMonster)
+            {
+                deadMonsterQueue.Enqueue(currentNode);
+                deadMonster.OnEnqueue();
+                break;
+            }
+        }
 
+        aliveMonsterLinkedList.Remove(currentNode);
     }
 }

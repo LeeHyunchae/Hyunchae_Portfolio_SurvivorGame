@@ -9,6 +9,10 @@ public class ShootingSkillBehaviour : MonsterBehaviour
         return new ShootingSkillBehaviour();
     }
 
+    public override void SetMonsterModel(MonsterModel _model)
+    {
+    }
+
     public override void Update()
     {
         base.Update();

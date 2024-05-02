@@ -37,6 +37,11 @@ public abstract class BaseWeaponAttack
 
     public void SetTarget(Transform _target)
     {
+        if(!isReady)
+        {
+            return;
+        }
+
         targetTransform = _target;
         targetPos = _target.position;
     }
@@ -49,7 +54,7 @@ public abstract class BaseWeaponAttack
             RotatToTarget();
         }
 
-        if(Vector2.Distance(targetPos,weaponTransform.position) > attackRange)
+        if(Vector2.Distance(targetPos,weaponTransform.position) < attackRange)
         {
             if (curCooldown >= cooldown)
             {
