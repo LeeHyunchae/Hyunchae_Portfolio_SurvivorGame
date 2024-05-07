@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DashSkillBehaviour : MonsterBehaviour
 {
-
-
     public override MonsterBehaviour DeepCopy()
     {
         return new DashSkillBehaviour();
@@ -13,10 +11,20 @@ public class DashSkillBehaviour : MonsterBehaviour
 
     public override void SetMonsterModel(MonsterModel _model)
     {
+
     }
 
     public override void Update()
     {
-        base.Update();
+
+    }
+
+    protected override void Excute()
+    {
+        OnStartSkillAction?.Invoke();
+
+
+        //EndSkill
+        OnEndSkillAction?.Invoke();
     }
 }

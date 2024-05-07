@@ -20,11 +20,14 @@ public class AwayMoveBehaviour : MonsterBehaviour
 
     public override void Update()
     {
-        base.Update();
+        Excute();
+    }
 
+    protected override void Excute()
+    {
         float distance = Vector2.Distance(targetTransform.position, monsterTransform.position);
 
-        if(distance < awayRange)
+        if (distance < awayRange)
         {
             pos = monsterTransform.position;
 
@@ -36,6 +39,5 @@ public class AwayMoveBehaviour : MonsterBehaviour
             monsterTransform.position = pos;
         }
 
-        
     }
 }

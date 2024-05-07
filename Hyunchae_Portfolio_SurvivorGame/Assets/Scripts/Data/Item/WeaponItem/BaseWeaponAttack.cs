@@ -54,7 +54,7 @@ public abstract class BaseWeaponAttack
             RotatToTarget();
         }
 
-        if(Vector2.Distance(targetPos,weaponTransform.position) < attackRange)
+        if(Vector2.Distance(targetPos,weaponTransform.position) < attackRange || !isReady)
         {
             if (curCooldown >= cooldown)
             {
@@ -158,7 +158,7 @@ public class Shoot : BaseWeaponAttack
     {
         Projectile projectile = itemManager.GetProjectile();
 
-        projectile.SetSprite("as");
+        projectile.SetSprite("Bullet 3");
         projectile.SetPrjectileInfo(targetDirection, damage, weaponTransform.position, attackRange);
 
         EndFire();

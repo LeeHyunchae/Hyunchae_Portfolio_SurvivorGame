@@ -8,8 +8,8 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private string SPRITELOADPATH = "Sprites/";
 
-    private Dictionary<int, MonsterModel> monsterDict = new Dictionary<int, MonsterModel>();
-    private List<MonsterModel> monsterModels = new List<MonsterModel>();
+    private Dictionary<int, MonsterModel> monsterModelDict = new Dictionary<int, MonsterModel>();
+    private List<MonsterModel> monsterModelList = new List<MonsterModel>();
 
     private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
 
@@ -55,11 +55,11 @@ public class MonsterManager : Singleton<MonsterManager>
         logicTypeDict[EMonsterLogicType.SEQUENCE] = new Queue<BaseMonsterBehaviourLogic>();
         logicTypeDict[EMonsterLogicType.LOOP] = new Queue<BaseMonsterBehaviourLogic>();
 
-        skillTypeArr[(int)EMonsterSkillType.NONE] = null;
+        skillTypeArr[(int)EMonsterSkillType.NONE] = new NoneSkillBehabviour();
         skillTypeArr[(int)EMonsterSkillType.SHOOTING] = new ShootingSkillBehaviour();
         skillTypeArr[(int)EMonsterSkillType.DASH] = new DashSkillBehaviour();
 
-        skillTypeDict[EMonsterSkillType.NONE] = null;
+        skillTypeDict[EMonsterSkillType.NONE] = new Queue<MonsterBehaviour>();
         skillTypeDict[EMonsterSkillType.SHOOTING] = new Queue<MonsterBehaviour>();
         skillTypeDict[EMonsterSkillType.DASH] = new Queue<MonsterBehaviour>();
 
@@ -72,15 +72,15 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private void LoadData()
     {
-        monsterModels = TableLoader.LoadFromFile<List<MonsterModel>>("Monster/TestMonster");
+        monsterModelList = TableLoader.LoadFromFile<List<MonsterModel>>("Monster/TestMonster");
 
-        int count = monsterModels.Count;
+        int count = monsterModelList.Count;
 
         for(int i = 0;  i < count; i++)
         {
-            MonsterModel model = monsterModels[i];
+            MonsterModel model = monsterModelList[i];
 
-            monsterDict.Add(model.monsterUid, model);
+            monsterModelDict.Add(model.monsterUid, model);
             Sprite monsterSprite = Resources.Load<Sprite>(SPRITELOADPATH + model.monsterThumbnail);
             monsterSpriteDict.Add(model.monsterUid, monsterSprite);
         }
@@ -88,7 +88,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public MonsterModel GetMonsterModelToUid(int _uid)
     {
-        monsterDict.TryGetValue(_uid, out MonsterModel model);
+        monsterModelDict.TryGetValue(_uid, out MonsterModel model);
 
 #if UNITY_EDITOR
 
@@ -157,12 +157,6 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public MonsterBehaviour GetSkillBehaviour(EMonsterSkillType _skillType)
     {
-        if(skillTypeDict[_skillType] == null)
-        {
-            return null;
-        }
-
-
         if (skillTypeDict[_skillType].Count == 0)
         {
             MonsterBehaviour skill = skillTypeArr[(int)_skillType].DeepCopy();

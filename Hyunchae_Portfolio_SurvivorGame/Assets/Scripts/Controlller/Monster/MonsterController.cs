@@ -16,18 +16,21 @@ public class MonsterController : MonoBehaviour
 
     public Transform GetMonsterTransform => _transform;
 
+    private MonsterManager monsterManager;
+
     public void Init()
     {
         _transform = this.transform;
         spriteRenderer = _transform.GetComponent<SpriteRenderer>();
 
-        OnMonsterDieAction = MonsterManager.getInstance.OnMonsterDie;
+        monsterManager = MonsterManager.getInstance;
+        OnMonsterDieAction = monsterManager.OnMonsterDie;
     }
 
     public void SetMonsterModel(MonsterModel _monsterModel)
     {
         monsterModel = _monsterModel;
-        Sprite sprite = MonsterManager.getInstance.GetMonsterSpriteToUid(monsterModel.monsterUid);
+        Sprite sprite = monsterManager.GetMonsterSpriteToUid(monsterModel.monsterUid);
 
         spriteRenderer.sprite = sprite;
 
@@ -36,24 +39,21 @@ public class MonsterController : MonoBehaviour
 
     public void SetMonsterBehaviour()
     {
-        behaviourLogic = MonsterManager.getInstance.GetBehaviourLogic(monsterModel.logicType);
+        behaviourLogic = monsterManager.GetBehaviourLogic(monsterModel.logicType);
 
-        MonsterBehaviour skill = MonsterManager.getInstance.GetSkillBehaviour(monsterModel.skillType);
-        if (skill != null)
-        {
-            skill.SetMonsterTransform(_transform);
-            skill.SetTarget(targetTransform);
-            skill.SetMonsterModel(monsterModel);
-            behaviourLogic.SetSkillBehaviour(skill);
-        }
-        MonsterBehaviour move = MonsterManager.getInstance.GetMoveBehaviour(monsterModel.moveType);
+        Debug.Log(monsterModel.skillType);
+        MonsterBehaviour skill = monsterManager.GetSkillBehaviour(monsterModel.skillType);
+        skill.SetMonsterTransform(_transform);
+        skill.SetTarget(targetTransform);
+        skill.SetMonsterModel(monsterModel);
+        behaviourLogic.SetSkillBehaviour(skill);
+
+        MonsterBehaviour move = monsterManager.GetMoveBehaviour(monsterModel.moveType);
         move.SetMonsterTransform(_transform);
         move.SetTarget(targetTransform);
         move.SetMonsterModel(monsterModel);
 
         behaviourLogic.SetMoveBehaviour(move);
-
-
     }
 
     public void SetPlayerTransform(Transform _target)

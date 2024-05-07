@@ -18,8 +18,11 @@ public class FollowMoveBehaviour : MonsterBehaviour
 
     public override void Update()
     {
-        base.Update();
+        Excute();
+    }
 
+    protected override void Excute()
+    {
         pos = monsterTransform.position;
 
         Vector2 direction = (targetTransform.position - monsterTransform.position).normalized;

@@ -6,7 +6,9 @@ public class LoopBehaviourLogic : BaseMonsterBehaviourLogic
 {
     public override void Update()
     {
-        base.Update();
+        skillBehaviour.Update();
+
+        moveBehaviour.Update();
     }
 
     public override BaseMonsterBehaviourLogic DeepCopy()

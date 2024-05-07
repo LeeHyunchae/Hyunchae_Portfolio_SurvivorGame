@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingSkillBehaviour : MonsterBehaviour
+public class NoneSkillBehabviour : MonsterBehaviour
 {
     public override MonsterBehaviour DeepCopy()
     {
-        return new ShootingSkillBehaviour();
+        return new NoneSkillBehabviour();
     }
 
     public override void SetMonsterModel(MonsterModel _model)
@@ -15,6 +15,8 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
     public override void Update()
     {
+        // is NoneAction Monster only
+        return;
     }
 
     protected override void Excute()

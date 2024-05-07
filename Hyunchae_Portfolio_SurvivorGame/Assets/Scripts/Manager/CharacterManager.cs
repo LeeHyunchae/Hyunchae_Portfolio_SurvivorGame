@@ -9,7 +9,6 @@ public class CharacterManager : Singleton<CharacterManager>
     private Dictionary<int, Sprite> characterSpriteDict = new Dictionary<int, Sprite>();
 
     private Character playerCharacter;
-
     public Character GetPlayerCharacter => playerCharacter;
     public List<CharacterModel> GetAllCharacterModel => characterModels;
 

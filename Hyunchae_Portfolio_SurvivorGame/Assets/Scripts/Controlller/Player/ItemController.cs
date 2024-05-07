@@ -26,6 +26,7 @@ public class ItemController
         for (int i = 0; i < weaponCapacity; i++)
         {
             equipWeaponList[i] = new WeaponItemController();
+            equipWeaponList[i].Init();
             equipWeaponList[i].SetWeaponTransform(_playerTransform.GetChild(i));
         }
     }

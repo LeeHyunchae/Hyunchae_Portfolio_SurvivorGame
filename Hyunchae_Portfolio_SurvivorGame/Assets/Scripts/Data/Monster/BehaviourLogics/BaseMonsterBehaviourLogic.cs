@@ -4,27 +4,20 @@ using UnityEngine;
 
 public abstract class BaseMonsterBehaviourLogic
 {
-    private MonsterBehaviour skillBehaviour;
-    private MonsterBehaviour moveBehaviour;
+    protected MonsterBehaviour skillBehaviour;
+    protected MonsterBehaviour moveBehaviour;
 
-    public void SetSkillBehaviour(MonsterBehaviour _behaviour)
+    public virtual void SetSkillBehaviour(MonsterBehaviour _behaviour)
     {
         skillBehaviour = _behaviour;
     }
 
-    public void SetMoveBehaviour(MonsterBehaviour _behaviour)
+    public virtual void SetMoveBehaviour(MonsterBehaviour _behaviour)
     {
         moveBehaviour = _behaviour;
     }
 
-    public virtual void Update()
-    {
-        if(skillBehaviour != null)
-        {
-            skillBehaviour.Update();
-        }
-            moveBehaviour.Update();
-    }
+    public abstract void Update();
 
     public abstract BaseMonsterBehaviourLogic DeepCopy();
 }

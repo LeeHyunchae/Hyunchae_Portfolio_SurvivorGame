@@ -8,8 +8,13 @@ public class WeaponItemController
     private WeaponItemModel itemModel;
     private Transform weaponTransform;
     private BaseWeaponAttack attackType;
-
-
+    private MonsterManager monsterManager;
+    private ItemManager itemManager;
+    public void Init()
+    {
+        monsterManager = MonsterManager.getInstance;
+        itemManager = ItemManager.getInstance;
+    }
     public void SetWeaponTransform(Transform _weaponTransform)
     {
         spriteRenderer = _weaponTransform.GetComponent<SpriteRenderer>();
@@ -21,9 +26,9 @@ public class WeaponItemController
     {
         itemModel = _itemModel;
 
-        spriteRenderer.sprite = ItemManager.getInstance.GetWeaponItemSprite(itemModel.itemUid);
+        spriteRenderer.sprite = itemManager.GetWeaponItemSprite(itemModel.itemUid);
 
-        attackType = ItemManager.getInstance.GetAttackType(itemModel.attackType);
+        attackType = itemManager.GetAttackType(itemModel.attackType);
 
         attackType.SetModelInfo(itemModel);
 
@@ -43,7 +48,7 @@ public class WeaponItemController
 
     public void UnEquipWeapon()
     {
-        ItemManager.getInstance.ReleaseWeaponAttackType(itemModel.attackType, attackType);
+        itemManager.ReleaseWeaponAttackType(itemModel.attackType, attackType);
         attackType = null;
         itemModel = null;
         spriteRenderer.sprite = null;
@@ -51,7 +56,7 @@ public class WeaponItemController
 
     private void FindTarget()
     {
-        LinkedList<MonsterController> monsters = MonsterManager.getInstance.GetAllAliveMonsters;
+        LinkedList<MonsterController> monsters = monsterManager.GetAllAliveMonsters;
 
         float minDistance = float.MaxValue;
 

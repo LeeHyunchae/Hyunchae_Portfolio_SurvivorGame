@@ -78,6 +78,6 @@ public class Projectile : MonoBehaviour , IPoolable
 
     public void SetSprite(string _spriteName)
     {
-        spriteRenderer.sprite = itemManager.GetSpriteToName("Bullet 3");
+        spriteRenderer.sprite = itemManager.GetSpriteToName(_spriteName);
     }
 }

@@ -25,8 +25,14 @@ public class SelectPanelController : UIBaseController
     private CharacterModel selectCharacter = null;
     private WeaponItemModel selectWeapon = null;
 
+    private CharacterManager characterManager;
+    private ItemManager itemManager;
+
     private void Start()
     {
+        characterManager = CharacterManager.getInstance;
+        itemManager = ItemManager.getInstance;
+
         nextButton.onClick.AddListener(OnClickNextButton);
         prevButton.onClick.AddListener(OnClickPrevButton);
         closeButton.onClick.AddListener(OnClickCloseButton);
@@ -38,7 +44,7 @@ public class SelectPanelController : UIBaseController
 
     private void InitData()
     {
-        characters = CharacterManager.getInstance.GetAllCharacterModel;
+        characters = characterManager.GetAllCharacterModel;
         weapons = ItemManager.getInstance.GetAllWeaponModel();
     }
 
@@ -68,7 +74,7 @@ public class SelectPanelController : UIBaseController
 
             SelectButtonElement element = selectButtons[i];
 
-            element.SetThumbnail(CharacterManager.getInstance.GetCharacterSprite(characters[i].characterUid));
+            element.SetThumbnail(characterManager.GetCharacterSprite(characters[i].characterUid));
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickCharacterButton(index));
 
@@ -86,7 +92,7 @@ public class SelectPanelController : UIBaseController
 
             SelectButtonElement element = selectButtons[i];
 
-            element.SetThumbnail(ItemManager.getInstance.GetWeaponItemSprite(weapons[i].itemUid));
+            element.SetThumbnail(itemManager.GetWeaponItemSprite(weapons[i].itemUid));
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickWeaponButton(index));
 
@@ -102,7 +108,7 @@ public class SelectPanelController : UIBaseController
         selectCharacter = model;
 
         statusInfo.SetName(model.characterName);
-        statusInfo.SetCharacterTumbnail(CharacterManager.getInstance.GetCharacterSprite(model.characterUid));
+        statusInfo.SetCharacterTumbnail(characterManager.GetCharacterSprite(model.characterUid));
         statusInfo.SetActive(true);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -126,7 +132,7 @@ public class SelectPanelController : UIBaseController
         selectWeapon = model;
 
         statusInfo.SetName(model.itemName);
-        statusInfo.SetCharacterTumbnail(ItemManager.getInstance.GetWeaponItemSprite(model.itemUid));
+        statusInfo.SetCharacterTumbnail(itemManager.GetWeaponItemSprite(model.itemUid));
         statusInfo.SetActive(true);
 
         string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.cooldown;
@@ -138,9 +144,9 @@ public class SelectPanelController : UIBaseController
     {
         if(selectCharacter != null && selectWeapon != null)
         {
-            //????
-            ItemManager.getInstance.SetEquipWeaponItem(selectWeapon);
-            CharacterManager.getInstance.SelectCharacterModel(selectCharacter.characterUid);
+            //Game Start
+            itemManager.SetEquipWeaponItem(selectWeapon);
+            characterManager.SelectCharacterModel(selectCharacter.characterUid);
             SceneChanger.getInstance.ChangeScene("IngameScene");
         }
 

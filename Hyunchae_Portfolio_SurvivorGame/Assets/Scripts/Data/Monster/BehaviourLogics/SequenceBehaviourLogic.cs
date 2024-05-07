@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SequenceBehaviourLogic : BaseMonsterBehaviourLogic
 {
+    private bool isAction = false;
+
     public override BaseMonsterBehaviourLogic DeepCopy()
     {
         return new SequenceBehaviourLogic();
@@ -11,6 +13,11 @@ public class SequenceBehaviourLogic : BaseMonsterBehaviourLogic
 
     public override void Update()
     {
-        base.Update();
+        skillBehaviour.Update();
+
+        if (!isAction)
+        {
+            moveBehaviour.Update();
+        }
     }
 }
