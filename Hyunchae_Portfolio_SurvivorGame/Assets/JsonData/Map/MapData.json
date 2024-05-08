@@ -1,7 +1,1057 @@
 {
-  "mapWidth": 10,
-  "mapHeight": 10,
+  "mapWidth": 20,
+  "mapHeight": 20,
   "tileDatas": [
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -10,
+        "z": 0,
+        "magnitude": 14.1421356,
+        "sqrMagnitude": 200
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -9,
+        "z": 0,
+        "magnitude": 13.4536238,
+        "sqrMagnitude": 181
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -8,
+        "z": 0,
+        "magnitude": 12.8062487,
+        "sqrMagnitude": 164
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -7,
+        "z": 0,
+        "magnitude": 12.2065554,
+        "sqrMagnitude": 149
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -6,
+        "z": 0,
+        "magnitude": 11.6619034,
+        "sqrMagnitude": 136
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -5,
+        "z": 0,
+        "magnitude": 11.18034,
+        "sqrMagnitude": 125
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -4,
+        "z": 0,
+        "magnitude": 10.7703295,
+        "sqrMagnitude": 116
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -3,
+        "z": 0,
+        "magnitude": 10.4403067,
+        "sqrMagnitude": 109
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -2,
+        "z": 0,
+        "magnitude": 10.1980391,
+        "sqrMagnitude": 104
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": -1,
+        "z": 0,
+        "magnitude": 10.0498753,
+        "sqrMagnitude": 101
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 0,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 1,
+        "z": 0,
+        "magnitude": 10.0498753,
+        "sqrMagnitude": 101
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 2,
+        "z": 0,
+        "magnitude": 10.1980391,
+        "sqrMagnitude": 104
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 3,
+        "z": 0,
+        "magnitude": 10.4403067,
+        "sqrMagnitude": 109
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 4,
+        "z": 0,
+        "magnitude": 10.7703295,
+        "sqrMagnitude": 116
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 5,
+        "z": 0,
+        "magnitude": 11.18034,
+        "sqrMagnitude": 125
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 6,
+        "z": 0,
+        "magnitude": 11.6619034,
+        "sqrMagnitude": 136
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 7,
+        "z": 0,
+        "magnitude": 12.2065554,
+        "sqrMagnitude": 149
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 8,
+        "z": 0,
+        "magnitude": 12.8062487,
+        "sqrMagnitude": 164
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -10,
+        "y": 9,
+        "z": 0,
+        "magnitude": 13.4536238,
+        "sqrMagnitude": 181
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -10,
+        "z": 0,
+        "magnitude": 13.4536238,
+        "sqrMagnitude": 181
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -9,
+        "z": 0,
+        "magnitude": 12.7279224,
+        "sqrMagnitude": 162
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -8,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -7,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -6,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -5,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -4,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -3,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -2,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": -1,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 0,
+        "z": 0,
+        "magnitude": 9.0,
+        "sqrMagnitude": 81
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 1,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 2,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 3,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 4,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 5,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 6,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 7,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 8,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -9,
+        "y": 9,
+        "z": 0,
+        "magnitude": 12.7279224,
+        "sqrMagnitude": 162
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -10,
+        "z": 0,
+        "magnitude": 12.8062487,
+        "sqrMagnitude": 164
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -9,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -8,
+        "z": 0,
+        "magnitude": 11.3137083,
+        "sqrMagnitude": 128
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -7,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -6,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -5,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -4,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -3,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -2,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": -1,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 0,
+        "z": 0,
+        "magnitude": 8.0,
+        "sqrMagnitude": 64
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 1,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 2,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 3,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 4,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 5,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 6,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 7,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 8,
+        "z": 0,
+        "magnitude": 11.3137083,
+        "sqrMagnitude": 128
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -8,
+        "y": 9,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -10,
+        "z": 0,
+        "magnitude": 12.2065554,
+        "sqrMagnitude": 149
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -9,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -8,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -7,
+        "z": 0,
+        "magnitude": 9.899495,
+        "sqrMagnitude": 98
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -6,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -5,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -4,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -3,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -2,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": -1,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 0,
+        "z": 0,
+        "magnitude": 7.0,
+        "sqrMagnitude": 49
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 1,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 2,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 3,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 4,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 5,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 6,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 7,
+        "z": 0,
+        "magnitude": 9.899495,
+        "sqrMagnitude": 98
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 8,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -7,
+        "y": 9,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -10,
+        "z": 0,
+        "magnitude": 11.6619034,
+        "sqrMagnitude": 136
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -9,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -8,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -7,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -6,
+        "z": 0,
+        "magnitude": 8.485281,
+        "sqrMagnitude": 72
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -5,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -4,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -3,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -2,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": -1,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 0,
+        "z": 0,
+        "magnitude": 6.0,
+        "sqrMagnitude": 36
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 1,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 2,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 3,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 4,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 5,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 6,
+        "z": 0,
+        "magnitude": 8.485281,
+        "sqrMagnitude": 72
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 7,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 8,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -6,
+        "y": 9,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": -10,
+        "z": 0,
+        "magnitude": 11.18034,
+        "sqrMagnitude": 125
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": -9,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": -8,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": -7,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": -6,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
     {
       "tilePos": {
         "x": -5,
@@ -10,7 +1060,7 @@
         "magnitude": 7.071068,
         "sqrMagnitude": 50
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -20,7 +1070,7 @@
         "magnitude": 6.40312433,
         "sqrMagnitude": 41
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -30,7 +1080,7 @@
         "magnitude": 5.83095169,
         "sqrMagnitude": 34
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -40,7 +1090,7 @@
         "magnitude": 5.38516474,
         "sqrMagnitude": 29
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -50,7 +1100,7 @@
         "magnitude": 5.09901953,
         "sqrMagnitude": 26
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -60,7 +1110,7 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -70,7 +1120,7 @@
         "magnitude": 5.09901953,
         "sqrMagnitude": 26
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -80,7 +1130,7 @@
         "magnitude": 5.38516474,
         "sqrMagnitude": 29
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -90,7 +1140,7 @@
         "magnitude": 5.83095169,
         "sqrMagnitude": 34
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -100,7 +1150,107 @@
         "magnitude": 6.40312433,
         "sqrMagnitude": 41
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": 5,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": 6,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": 7,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": 8,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -5,
+        "y": 9,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.7703295,
+        "sqrMagnitude": 116
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": -7,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": -6,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -110,7 +1260,7 @@
         "magnitude": 6.40312433,
         "sqrMagnitude": 41
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -200,7 +1350,107 @@
         "magnitude": 5.656854,
         "sqrMagnitude": 32
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": 5,
+        "z": 0,
+        "magnitude": 6.40312433,
+        "sqrMagnitude": 41
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": 6,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": 7,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -4,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.4403067,
+        "sqrMagnitude": 109
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -210,7 +1460,7 @@
         "magnitude": 5.83095169,
         "sqrMagnitude": 34
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -300,7 +1550,107 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.83095169,
+        "sqrMagnitude": 34
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -3,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.1980391,
+        "sqrMagnitude": 104
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -310,7 +1660,7 @@
         "magnitude": 5.38516474,
         "sqrMagnitude": 29
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -400,7 +1750,107 @@
         "magnitude": 4.472136,
         "sqrMagnitude": 20
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.38516474,
+        "sqrMagnitude": 29
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -2,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.0498753,
+        "sqrMagnitude": 101
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -410,7 +1860,7 @@
         "magnitude": 5.09901953,
         "sqrMagnitude": 26
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -500,7 +1950,107 @@
         "magnitude": 4.12310553,
         "sqrMagnitude": 17
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.09901953,
+        "sqrMagnitude": 26
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": -1,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.0,
+        "sqrMagnitude": 81
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.0,
+        "sqrMagnitude": 64
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.0,
+        "sqrMagnitude": 49
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.0,
+        "sqrMagnitude": 36
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -510,7 +2060,7 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -600,7 +2150,107 @@
         "magnitude": 4.0,
         "sqrMagnitude": 16
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.0,
+        "sqrMagnitude": 25
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.0,
+        "sqrMagnitude": 36
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.0,
+        "sqrMagnitude": 49
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.0,
+        "sqrMagnitude": 64
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 0,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.0,
+        "sqrMagnitude": 81
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.0498753,
+        "sqrMagnitude": 101
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -610,7 +2260,7 @@
         "magnitude": 5.09901953,
         "sqrMagnitude": 26
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -700,7 +2350,107 @@
         "magnitude": 4.12310553,
         "sqrMagnitude": 17
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.09901953,
+        "sqrMagnitude": 26
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 1,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.1980391,
+        "sqrMagnitude": 104
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -710,7 +2460,7 @@
         "magnitude": 5.38516474,
         "sqrMagnitude": 29
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -800,7 +2550,107 @@
         "magnitude": 4.472136,
         "sqrMagnitude": 20
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.38516474,
+        "sqrMagnitude": 29
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 2,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.4403067,
+        "sqrMagnitude": 109
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": -7,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": -6,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -810,7 +2660,7 @@
         "magnitude": 5.83095169,
         "sqrMagnitude": 34
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -900,7 +2750,107 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": 5,
+        "z": 0,
+        "magnitude": 5.83095169,
+        "sqrMagnitude": 34
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": 6,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": 7,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 3,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
       "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": -10,
+        "z": 0,
+        "magnitude": 10.7703295,
+        "sqrMagnitude": 116
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": -9,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": -8,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": -7,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": -6,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
     },
     {
       "tilePos": {
@@ -910,7 +2860,7 @@
         "magnitude": 6.40312433,
         "sqrMagnitude": 41
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -920,7 +2870,7 @@
         "magnitude": 5.656854,
         "sqrMagnitude": 32
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -930,7 +2880,7 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -940,7 +2890,7 @@
         "magnitude": 4.472136,
         "sqrMagnitude": 20
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -950,7 +2900,7 @@
         "magnitude": 4.12310553,
         "sqrMagnitude": 17
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -960,7 +2910,7 @@
         "magnitude": 4.0,
         "sqrMagnitude": 16
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -970,7 +2920,7 @@
         "magnitude": 4.12310553,
         "sqrMagnitude": 17
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -980,7 +2930,7 @@
         "magnitude": 4.472136,
         "sqrMagnitude": 20
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -990,7 +2940,7 @@
         "magnitude": 5.0,
         "sqrMagnitude": 25
       },
-      "isMove": false
+      "isMove": true
     },
     {
       "tilePos": {
@@ -999,6 +2949,1056 @@
         "z": 0,
         "magnitude": 5.656854,
         "sqrMagnitude": 32
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": 5,
+        "z": 0,
+        "magnitude": 6.40312433,
+        "sqrMagnitude": 41
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": 6,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": 7,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": 8,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 4,
+        "y": 9,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -10,
+        "z": 0,
+        "magnitude": 11.18034,
+        "sqrMagnitude": 125
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -9,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -8,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -7,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -6,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -5,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -4,
+        "z": 0,
+        "magnitude": 6.40312433,
+        "sqrMagnitude": 41
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -3,
+        "z": 0,
+        "magnitude": 5.83095169,
+        "sqrMagnitude": 34
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -2,
+        "z": 0,
+        "magnitude": 5.38516474,
+        "sqrMagnitude": 29
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": -1,
+        "z": 0,
+        "magnitude": 5.09901953,
+        "sqrMagnitude": 26
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 0,
+        "z": 0,
+        "magnitude": 5.0,
+        "sqrMagnitude": 25
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 1,
+        "z": 0,
+        "magnitude": 5.09901953,
+        "sqrMagnitude": 26
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 2,
+        "z": 0,
+        "magnitude": 5.38516474,
+        "sqrMagnitude": 29
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 3,
+        "z": 0,
+        "magnitude": 5.83095169,
+        "sqrMagnitude": 34
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 4,
+        "z": 0,
+        "magnitude": 6.40312433,
+        "sqrMagnitude": 41
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 5,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 6,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 7,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 8,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 5,
+        "y": 9,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -10,
+        "z": 0,
+        "magnitude": 11.6619034,
+        "sqrMagnitude": 136
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -9,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -8,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -7,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -6,
+        "z": 0,
+        "magnitude": 8.485281,
+        "sqrMagnitude": 72
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -5,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -4,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -3,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -2,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": -1,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 0,
+        "z": 0,
+        "magnitude": 6.0,
+        "sqrMagnitude": 36
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 1,
+        "z": 0,
+        "magnitude": 6.08276272,
+        "sqrMagnitude": 37
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 2,
+        "z": 0,
+        "magnitude": 6.3245554,
+        "sqrMagnitude": 40
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 3,
+        "z": 0,
+        "magnitude": 6.708204,
+        "sqrMagnitude": 45
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 4,
+        "z": 0,
+        "magnitude": 7.21110249,
+        "sqrMagnitude": 52
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 5,
+        "z": 0,
+        "magnitude": 7.81025,
+        "sqrMagnitude": 61
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 6,
+        "z": 0,
+        "magnitude": 8.485281,
+        "sqrMagnitude": 72
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 7,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 8,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 6,
+        "y": 9,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -10,
+        "z": 0,
+        "magnitude": 12.2065554,
+        "sqrMagnitude": 149
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -9,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -8,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -7,
+        "z": 0,
+        "magnitude": 9.899495,
+        "sqrMagnitude": 98
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -6,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -5,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -4,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -3,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -2,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": -1,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 0,
+        "z": 0,
+        "magnitude": 7.0,
+        "sqrMagnitude": 49
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 1,
+        "z": 0,
+        "magnitude": 7.071068,
+        "sqrMagnitude": 50
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 2,
+        "z": 0,
+        "magnitude": 7.28011,
+        "sqrMagnitude": 53
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 3,
+        "z": 0,
+        "magnitude": 7.615773,
+        "sqrMagnitude": 58
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 4,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 5,
+        "z": 0,
+        "magnitude": 8.602325,
+        "sqrMagnitude": 74
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 6,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 7,
+        "z": 0,
+        "magnitude": 9.899495,
+        "sqrMagnitude": 98
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 8,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 7,
+        "y": 9,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -10,
+        "z": 0,
+        "magnitude": 12.8062487,
+        "sqrMagnitude": 164
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -9,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -8,
+        "z": 0,
+        "magnitude": 11.3137083,
+        "sqrMagnitude": 128
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -7,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -6,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -5,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -4,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -3,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -2,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": -1,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 0,
+        "z": 0,
+        "magnitude": 8.0,
+        "sqrMagnitude": 64
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 1,
+        "z": 0,
+        "magnitude": 8.062258,
+        "sqrMagnitude": 65
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 2,
+        "z": 0,
+        "magnitude": 8.246211,
+        "sqrMagnitude": 68
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 3,
+        "z": 0,
+        "magnitude": 8.54400349,
+        "sqrMagnitude": 73
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 4,
+        "z": 0,
+        "magnitude": 8.944272,
+        "sqrMagnitude": 80
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 5,
+        "z": 0,
+        "magnitude": 9.433981,
+        "sqrMagnitude": 89
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 6,
+        "z": 0,
+        "magnitude": 10.0,
+        "sqrMagnitude": 100
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 7,
+        "z": 0,
+        "magnitude": 10.630146,
+        "sqrMagnitude": 113
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 8,
+        "z": 0,
+        "magnitude": 11.3137083,
+        "sqrMagnitude": 128
+      },
+      "isMove": true
+    },
+    {
+      "tilePos": {
+        "x": 8,
+        "y": 9,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -10,
+        "z": 0,
+        "magnitude": 13.4536238,
+        "sqrMagnitude": 181
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -9,
+        "z": 0,
+        "magnitude": 12.7279224,
+        "sqrMagnitude": 162
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -8,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -7,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -6,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -5,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -4,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -3,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -2,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": -1,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 0,
+        "z": 0,
+        "magnitude": 9.0,
+        "sqrMagnitude": 81
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 1,
+        "z": 0,
+        "magnitude": 9.055386,
+        "sqrMagnitude": 82
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 2,
+        "z": 0,
+        "magnitude": 9.219544,
+        "sqrMagnitude": 85
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 3,
+        "z": 0,
+        "magnitude": 9.486833,
+        "sqrMagnitude": 90
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 4,
+        "z": 0,
+        "magnitude": 9.848858,
+        "sqrMagnitude": 97
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 5,
+        "z": 0,
+        "magnitude": 10.29563,
+        "sqrMagnitude": 106
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 6,
+        "z": 0,
+        "magnitude": 10.8166542,
+        "sqrMagnitude": 117
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 7,
+        "z": 0,
+        "magnitude": 11.4017544,
+        "sqrMagnitude": 130
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 8,
+        "z": 0,
+        "magnitude": 12.0415945,
+        "sqrMagnitude": 145
+      },
+      "isMove": false
+    },
+    {
+      "tilePos": {
+        "x": 9,
+        "y": 9,
+        "z": 0,
+        "magnitude": 12.7279224,
+        "sqrMagnitude": 162
       },
       "isMove": false
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class MonsterController : MonoBehaviour
 
         monsterManager = MonsterManager.getInstance;
         OnMonsterDieAction = monsterManager.OnMonsterDie;
+
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     public void SetMonsterModel(MonsterModel _monsterModel)
@@ -41,7 +46,6 @@ public class MonsterController : MonoBehaviour
     {
         behaviourLogic = monsterManager.GetBehaviourLogic(monsterModel.logicType);
 
-        Debug.Log(monsterModel.skillType);
         MonsterBehaviour skill = monsterManager.GetSkillBehaviour(monsterModel.skillType);
         skill.SetMonsterTransform(_transform);
         skill.SetTarget(targetTransform);

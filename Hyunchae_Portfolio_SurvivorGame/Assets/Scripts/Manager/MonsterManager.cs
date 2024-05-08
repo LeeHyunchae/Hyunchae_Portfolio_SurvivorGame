@@ -6,7 +6,8 @@ public class MonsterManager : Singleton<MonsterManager>
 {
     private const int MAX_MONSTER_CAPACITY = 100;
 
-    private string SPRITELOADPATH = "Sprites/";
+    private const string SPRITELOADPATH = "Sprites/";
+    private const string MONSTER_PARENT = "Monsters";
 
     private Dictionary<int, MonsterModel> monsterModelDict = new Dictionary<int, MonsterModel>();
     private List<MonsterModel> monsterModelList = new List<MonsterModel>();
@@ -25,6 +26,8 @@ public class MonsterManager : Singleton<MonsterManager>
     private LinkedList<MonsterController> aliveMonsterLinkedList = new LinkedList<MonsterController>();
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue = new Queue<LinkedListNode<MonsterController>>();
 
+    private Transform parentTransform;
+
     public override bool Initialize()
     {
         LoadData();
@@ -35,11 +38,13 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public void CreateMonsterObjects()
     {
+        parentTransform = new GameObject(MONSTER_PARENT).GetComponent<Transform>();
+
         MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
 
         for(int i = 0; i<MAX_MONSTER_CAPACITY; i++)
         {
-            MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster);
+            MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster,parentTransform);
             LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
             deadMonsterQueue.Enqueue(monsterNode);
             monster.Init();

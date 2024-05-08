@@ -13,6 +13,8 @@ public class ObjectPool<T> : IPool where T : IPoolable
     private bool isInitilaze = false;
 
     private int increaseSize;
+    private Transform parentTransform;
+
 
     public ObjectPool()
     {
@@ -23,6 +25,8 @@ public class ObjectPool<T> : IPool where T : IPoolable
     public void Init(string _prefabPath, int _increaseSize = 4)
     {
         var originPrefab = Resources.Load(_prefabPath);
+
+        parentTransform = new GameObject(originPrefab.name).GetComponent<Transform>();
 
         originPrefab_GameObj = originPrefab as GameObject;
         increaseSize = _increaseSize;
@@ -62,7 +66,7 @@ public class ObjectPool<T> : IPool where T : IPoolable
     {
         for(int i = 0; i<increaseSize;i++)
         {
-            GameObject obj = GameObject.Instantiate(originPrefab_GameObj);
+            GameObject obj = GameObject.Instantiate(originPrefab_GameObj,parentTransform);
             T componenet = obj.GetComponent<T>();
             componenet.Init();
 
