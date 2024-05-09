@@ -40,6 +40,29 @@ public class StageController
 
 
         }
+
+        MonsterModel model2 = monsterManager.GetMonsterModelToUid(0);
+
+        MonsterController monster2 = monsterManager.GetMonster();
+
+        monster2.SetPlayerTransform(playerTransform);
+
+        monster2.SetMonsterModel(model2);
+
+        model2 = monsterManager.GetMonsterModelToUid(0);
+
+        monster2 = monsterManager.GetMonster();
+
+        monster2.SetPlayerTransform(playerTransform);
+
+        monster2.SetMonsterModel(model2);
+
+        monster2 = monsterManager.GetMonster();
+
+        monster2.SetPlayerTransform(playerTransform);
+
+        monster2.SetMonsterModel(model2);
+
     }
 
     public void Update()

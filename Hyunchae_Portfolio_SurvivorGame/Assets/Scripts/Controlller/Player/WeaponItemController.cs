@@ -77,6 +77,15 @@ public class WeaponItemController
             }
         }
 
+        //Temp Code.. Need WeaponSprite
+        if(targetMonster.GetMonsterTransform.position.x < myPos.x)
+        {
+            spriteRenderer.flipY = true;
+        }else
+        {
+            spriteRenderer.flipY = false;
+        }
+
         attackType.SetTarget(targetMonster.GetMonsterTransform);
 
     }
