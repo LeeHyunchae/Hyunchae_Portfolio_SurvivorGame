@@ -65,6 +65,11 @@ public class MonsterController : MonoBehaviour
         targetTransform = _target;
     }
 
+    public void SetMonsterPosition(Vector2 _pos)
+    {
+        _transform.position = _pos;
+    }
+
     public void Update()
     {
         if (monsterModel == null || targetTransform == null)

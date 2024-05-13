@@ -10,6 +10,8 @@ public class WeaponItemController
     private BaseWeaponAttack attackType;
     private MonsterManager monsterManager;
     private ItemManager itemManager;
+    private MonsterController targetMonster = null;
+
     public void Init()
     {
         monsterManager = MonsterManager.getInstance;
@@ -37,7 +39,7 @@ public class WeaponItemController
 
     public void Update()
     {
-        if (itemModel == null)
+        if (itemModel == null || targetMonster == null)
         {
             return;
         }
@@ -62,10 +64,14 @@ public class WeaponItemController
 
         Vector2 myPos = weaponTransform.position;
 
-        MonsterController targetMonster = null;
-
         foreach(MonsterController monster in monsters)
         {
+            if(!monster.GetMonsterTransform.gameObject.activeSelf)
+            {
+                Debug.Log("continue");
+                continue;
+            }
+
             Vector2 monsterPos = monster.GetMonsterTransform.position;
 
             float distance = Vector2.Distance(monsterPos, myPos);
@@ -75,6 +81,11 @@ public class WeaponItemController
                 minDistance = distance;
                 targetMonster = monster;
             }
+        }
+
+        if(targetMonster == null)
+        {
+            return;
         }
 
         //Temp Code.. Need WeaponSprite
