@@ -24,44 +24,46 @@ public class StageController
 
     private void TestMonster()
     {
-        //int count = 3;
+        /*
+        int count = 3;
 
-        //for(int i = 0; i < count; i++)
-        //{
-        //    int monsterUid = i;
+        for(int i = 0; i < count; i++)
+        {
+            int monsterUid = i;
 
-        //    MonsterModel model = monsterManager.GetMonsterModelToUid(monsterUid);
+            MonsterModel model = monsterManager.GetMonsterModelToUid(monsterUid);
 
-        //    MonsterController monster = monsterManager.GetMonster();
+            MonsterController monster = monsterManager.GetMonster();
 
-        //    monster.SetPlayerTransform(playerTransform);
+            monster.SetPlayerTransform(playerTransform);
 
-        //    monster.SetMonsterModel(model);
+            monster.SetMonsterModel(model);
 
 
-        //}
+        }
 
-        //MonsterModel model2 = monsterManager.GetMonsterModelToUid(0);
+        MonsterModel model2 = monsterManager.GetMonsterModelToUid(0);
 
-        //MonsterController monster2 = monsterManager.GetMonster();
+        MonsterController monster2 = monsterManager.GetMonster();
 
-        //monster2.SetPlayerTransform(playerTransform);
+        monster2.SetPlayerTransform(playerTransform);
 
-        //monster2.SetMonsterModel(model2);
+        monster2.SetMonsterModel(model2);
 
-        //model2 = monsterManager.GetMonsterModelToUid(0);
+        model2 = monsterManager.GetMonsterModelToUid(0);
 
-        //monster2 = monsterManager.GetMonster();
+        monster2 = monsterManager.GetMonster();
 
-        //monster2.SetPlayerTransform(playerTransform);
+        monster2.SetPlayerTransform(playerTransform);
 
-        //monster2.SetMonsterModel(model2);
+        monster2.SetMonsterModel(model2);
 
-        //monster2 = monsterManager.GetMonster();
+        monster2 = monsterManager.GetMonster();
 
-        //monster2.SetPlayerTransform(playerTransform);
+        monster2.SetPlayerTransform(playerTransform);
 
-        //monster2.SetMonsterModel(model2);
+        monster2.SetMonsterModel(model2);
+        */
 
 
         float threshold = 0.5f; // 임계값 설정

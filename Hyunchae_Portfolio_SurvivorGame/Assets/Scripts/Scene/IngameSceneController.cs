@@ -80,10 +80,4 @@ public class IngameSceneController : MonoBehaviour
         itemController.Update();
         stageController.Update();
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(playerController.GetPlayerTransform.position, 5);
-
-    }
 }
