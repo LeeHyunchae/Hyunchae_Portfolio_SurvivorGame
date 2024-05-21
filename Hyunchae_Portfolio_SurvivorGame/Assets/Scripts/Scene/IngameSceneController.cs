@@ -12,6 +12,7 @@ public class IngameSceneController : MonoBehaviour
     [SerializeField] private GameObject tempTarget;
 
     private MapCreator mapCreator;
+    private MapData mapData;
 
     private CharacterManager playerMgr;
     private ItemManager itemManager;
@@ -63,7 +64,7 @@ public class IngameSceneController : MonoBehaviour
 
     private void InitMapCreator()
     {
-        MapData mapData = TableLoader.LoadFromFile<MapData>("Map/MapData");
+        mapData = TableLoader.LoadFromFile<MapData>("Map/MapData");
         mapCreator = new MapCreator();
         mapCreator.Init(tilemap);
         mapCreator.GenerateMap(mapData.mapWidth, mapData.mapHeight);
@@ -73,6 +74,7 @@ public class IngameSceneController : MonoBehaviour
     {
         stageController = new StageController();
         stageController.Init(playerController.GetPlayerTransform);
+        stageController.SetMapData(mapData);
     }
 
     private void Update()

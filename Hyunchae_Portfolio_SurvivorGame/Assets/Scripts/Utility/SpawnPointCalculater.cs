@@ -126,7 +126,6 @@ public class SpawnPointCalculater
             if(CheckDotInLine(_mapLineFirstDot, _mapLineSecondDot, _intersectionPos) && CheckDotInLine(playerPos, randomDirectionPos, _intersectionPos))
             {
                 float distance = Vector2.Distance(playerPos, _intersectionPos);
-                Debug.Log("intersectionDistance : " + distance);
                 if (distance < CREATE_LIMIT_RANGE)
                 {
                     if(isTooClose)
@@ -173,13 +172,6 @@ public class SpawnPointCalculater
     private Vector2 CalculateSpawnPosition(float _distance)
     {
         float randomRange = Random.Range(CREATE_LIMIT_RANGE, _distance);
-        Debug.Log("Random Range : " + randomRange);
-
-        if(randomRange <= CREATE_LIMIT_RANGE)
-        {
-            float a = 10f;
-
-        }
 
         return playerPos + randomDirection * randomRange;
     }
