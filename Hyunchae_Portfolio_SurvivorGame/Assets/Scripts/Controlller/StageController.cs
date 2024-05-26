@@ -6,12 +6,12 @@ public class StageController
 {
     private MonsterManager monsterManager;
     private Transform playerTransform;
-    private SpawnPointCalculater spawnPointCalculater;
+    private SpawnPointCalculator spawnPointCalculater;
 
     public void Init(Transform _playerTransform)
     {
         monsterManager = MonsterManager.getInstance;
-        spawnPointCalculater = new SpawnPointCalculater();
+        spawnPointCalculater = new SpawnPointCalculator();
         SetPlayerTransform(_playerTransform);
 
         TestInputKey();

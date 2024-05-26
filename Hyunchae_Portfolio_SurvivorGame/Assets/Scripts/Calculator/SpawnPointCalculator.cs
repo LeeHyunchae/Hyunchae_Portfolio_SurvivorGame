@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPointCalculater
+public class SpawnPointCalculator
 {
     private const int CREATE_LIMIT_RANGE = 3;
     private const int RANDOM_DIRECTION_LINE_LENGTH = 100;

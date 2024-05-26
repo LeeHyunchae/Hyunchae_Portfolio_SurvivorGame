@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct ObbInfo
+public struct TestObbInfo
 {
     public Vector2 center; // Transform Position
     public Vector2 size; // Image Width, Height
@@ -15,7 +15,7 @@ public class ObbTest : MonoBehaviour
 {
     public ObbTest target;
 
-    public ObbInfo myInfo = new ObbInfo();
+    public TestObbInfo myInfo = new TestObbInfo();
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class ObbTest : MonoBehaviour
         IsCollisionTest(target.myInfo);
     }
 
-    public bool IsCollisionTest(ObbInfo target)
+    public bool IsCollisionTest(TestObbInfo target)
     {
         Vector2 distance = GetCenterDistanceVector(target);
         Vector2[] vec = new Vector2[4]
@@ -63,11 +63,11 @@ public class ObbTest : MonoBehaviour
         return true;
     }
 
-    private Vector2 GetCenterDistanceVector(ObbInfo target)
+    private Vector2 GetCenterDistanceVector(TestObbInfo target)
     {
         return myInfo.center - target.center;
     }
-    private Vector2 GetHeightVector(ObbInfo box)
+    private Vector2 GetHeightVector(TestObbInfo box)
     {
         float x = box.size.y * Mathf.Cos(Deg2Rad(box.rot - 90f)) / 2;
         float y = box.size.y * Mathf.Sin(Deg2Rad(box.rot - 90f)) / 2;
@@ -75,7 +75,7 @@ public class ObbTest : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    private Vector2 GetWidthVector(ObbInfo box)
+    private Vector2 GetWidthVector(TestObbInfo box)
     {
         float x = box.size.x * Mathf.Cos(Deg2Rad(box.rot)) / 2;
         float y = box.size.x * Mathf.Sin(Deg2Rad(box.rot)) / 2;

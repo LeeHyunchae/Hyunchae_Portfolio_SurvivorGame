@@ -14,7 +14,7 @@ public class SpawnCalculaterTest : MonoBehaviour
 
     public LineRenderer mapLine1, mapLine2, mapLine3, mapLine4, crossLine;
 
-    private SpawnPointCalculater spawnPointCalculater = new SpawnPointCalculater();
+    private SpawnPointCalculator spawnPointCalculater = new SpawnPointCalculator();
 
     private void Awake()
     {
