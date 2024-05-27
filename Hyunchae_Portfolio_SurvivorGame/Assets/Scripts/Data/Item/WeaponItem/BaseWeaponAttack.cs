@@ -20,6 +20,8 @@ public abstract class BaseWeaponAttack
     protected Vector2 targetPos;
     protected Vector2 targetDirection;
     protected Vector2 pos;
+    protected ObbCollisionObject obbCollision;
+    protected ITargetable[] targetMonsters;
 
 
     public void SetInitPos(Transform _initTransform)
@@ -35,7 +37,17 @@ public abstract class BaseWeaponAttack
         attackRange = _model.status.range;
     }
 
-    public void SetTarget(Transform _target)
+    public void SetObb(ObbCollisionObject _obb)
+    {
+        obbCollision = _obb;
+    }
+
+    public void SetAttackTarget(ITargetable[] _targetMonsters)
+    {
+        targetMonsters = _targetMonsters;
+    }
+
+    public void SetRotateTarget(Transform _target)
     {
         if(!isReady)
         {
@@ -58,12 +70,14 @@ public abstract class BaseWeaponAttack
         {
             if (curCooldown >= cooldown)
             {
-                isReady = false;
+                ReadyFire();
                 Fire();
             }
         }
         
     }
+
+    protected abstract void ReadyFire();
 
     protected abstract void Fire();
 
@@ -71,6 +85,7 @@ public abstract class BaseWeaponAttack
     {
         isReady = true;
         curCooldown = 0;
+        obbCollision.enabled = false;
     }
     protected void RotatToTarget()
     {
@@ -130,6 +145,12 @@ public class Sting : BaseWeaponAttack
         }
          
     }
+
+    protected override void ReadyFire()
+    {
+        isReady = false;
+        obbCollision.enabled = true;
+    }
 }
 
 public class Swing : BaseWeaponAttack
@@ -142,6 +163,12 @@ public class Swing : BaseWeaponAttack
     protected override void Fire()
     {
         
+    }
+
+    protected override void ReadyFire()
+    {
+        isReady = false;
+        obbCollision.enabled = true;
     }
 }
 
@@ -160,7 +187,13 @@ public class Shoot : BaseWeaponAttack
 
         projectile.SetSprite("Bullet 3");
         projectile.SetPrjectileInfo(targetDirection, damage, weaponTransform.position, attackRange);
-
+        projectile.SetTarget(targetMonsters);
+        
         EndFire();
+    }
+
+    protected override void ReadyFire()
+    {
+        isReady = false;
     }
 }

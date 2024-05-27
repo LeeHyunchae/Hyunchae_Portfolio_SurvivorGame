@@ -7,21 +7,22 @@ public class Projectile : MonoBehaviour , IPoolable
     private const float SPEED = 10f;
 
     private ItemManager itemManager;
-    private RectTransform _transform;
     private SpriteRenderer spriteRenderer;
     private Vector2 pos;
     private Vector2 direction;
     private Vector2 startPos;
     private float damage;
     private float range;
+    private Transform myTransform;
+    private ObbCollisionObject obbCollision;
 
 
     public void Init()
     {
-        _transform = GetComponent<RectTransform>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        myTransform = gameObject.GetComponent<RectTransform>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        obbCollision = gameObject.GetComponent<ObbCollisionObject>();
         itemManager = ItemManager.getInstance;
-
     }
 
     public void InitData()
@@ -34,12 +35,18 @@ public class Projectile : MonoBehaviour , IPoolable
 
     public void SetPrjectileInfo(Vector2 _direction, float _damage, Vector2 _startPos, float _range)
     {
-        _transform.position = _startPos;
+        myTransform.position = _startPos;
         direction = _direction;
         startPos = _startPos;
         pos = startPos;
         damage = _damage;
         range = _range;
+
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        myTransform.rotation = quaternion;
     }
 
     public void Fire()
@@ -47,7 +54,7 @@ public class Projectile : MonoBehaviour , IPoolable
         pos.x += direction.x * Time.deltaTime * SPEED;
         pos.y += direction.y * Time.deltaTime * SPEED;
 
-        _transform.position = pos;
+        myTransform.position = pos;
 
         if (Vector2.Distance(startPos, pos) >= range)
         {
@@ -55,7 +62,7 @@ public class Projectile : MonoBehaviour , IPoolable
         }
     }
 
-    public void Update()
+    private void Update()
     {
         if(direction == Vector2.zero)
         {
@@ -68,16 +75,23 @@ public class Projectile : MonoBehaviour , IPoolable
     public void OnEnqueue()
     {
         InitData();
-        _transform.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void OnDequeue()
     {
-        _transform.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void SetSprite(string _spriteName)
     {
         spriteRenderer.sprite = itemManager.GetSpriteToName(_spriteName);
+
+        obbCollision.RefreshSprite();
+    }
+
+    public void SetTarget(params ITargetable[] _targets)
+    {
+        obbCollision.SetTarget(_targets);
     }
 }

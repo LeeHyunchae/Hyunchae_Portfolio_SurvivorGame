@@ -9,6 +9,7 @@ public class ItemController
 
     private int weaponCapacity;
 
+    private ITargetable[] targetMonsters;
 
     public void Init(Transform _playerTransform)
     {
@@ -17,7 +18,8 @@ public class ItemController
         equipWeaponList = new WeaponItemController[weaponCapacity];
 
         InitWeaponItem(_playerTransform);
-        InitWeapon();
+        InitTargetMonsters();
+        InitWeaponModel();
 
     }
 
@@ -25,13 +27,12 @@ public class ItemController
     {
         for (int i = 0; i < weaponCapacity; i++)
         {
-            equipWeaponList[i] = new WeaponItemController();
+            equipWeaponList[i] = _playerTransform.GetChild(i).GetComponent<WeaponItemController>();
             equipWeaponList[i].Init();
-            equipWeaponList[i].SetWeaponTransform(_playerTransform.GetChild(i));
         }
     }
 
-    private void InitWeapon()
+    private void InitWeaponModel()
     {
         for (int i = 0; i < weaponCapacity; i++)
         {
@@ -44,12 +45,17 @@ public class ItemController
         }
     }
 
-    public void Update()
+    private void InitTargetMonsters()
     {
-        for(int i = 0; i < weaponCapacity; i++)
+        for (int i = 0; i < weaponCapacity; i++)
         {
-            equipWeaponList[i].Update();
+            equipWeaponList[i].SetTargetMonsters(targetMonsters);
         }
+    }
+
+    public void SetTargetMonsters(ITargetable[] _targetMonsters)
+    {
+        targetMonsters = _targetMonsters;
     }
 
     public void EquipWeapon(int _itemSlot ,int _itemUid)

@@ -2,30 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlller
+public class PlayerControlller : MonoBehaviour , ITargetable
 {
-    private GameObject playerObj;
-
-    private Transform playerTransform;
-    private SpriteRenderer playerSprite;
+    private Transform myTransform;
+    private SpriteRenderer spriteRenderer;
 
     private Vector2 pos = Vector2.zero;
 
-    public Transform GetPlayerTransform => playerTransform;
+    public Transform GetPlayerTransform => myTransform;
 
     private CharacterManager characterManager;
     private float moveSpeed;
 
-    public void Init(GameObject _playerObj)
+    public void Init()
     {
         characterManager = CharacterManager.getInstance;
 
-        playerObj = _playerObj;
+        myTransform = gameObject.GetComponent<Transform>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        playerTransform = playerObj.GetComponent<Transform>();
-        playerSprite = playerObj.GetComponent<SpriteRenderer>();
-
-        pos = playerTransform.position;
+        pos = myTransform.position;
 
         InitCharacter();
     }
@@ -34,7 +30,7 @@ public class PlayerControlller
     {
         Character playerCharacter = characterManager.GetPlayerCharacter;
 
-        playerSprite.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
+        spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
         moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.MOVE_SPEED).baseStatus;
     }
 
@@ -47,10 +43,34 @@ public class PlayerControlller
     {
         pos += _dir.normalized * moveSpeed * Time.deltaTime;
 
-        playerTransform.position = pos;
+        myTransform.position = pos;
 
-        playerSprite.flipX = _dir.x < 0;
+        spriteRenderer.flipX = _dir.x < 0;
 
     }
 
+    public bool GetIsDead()
+    {
+        return false;
+    }
+
+    public Bounds GetSpriteBounds()
+    {
+        return spriteRenderer.bounds;
+    }
+
+    public void OnDamaged()
+    {
+
+    }
+
+    public Vector2 GetPosition()
+    {
+        return myTransform.position;
+    }
+
+    public Transform GetTransform()
+    {
+        return myTransform;
+    }
 }

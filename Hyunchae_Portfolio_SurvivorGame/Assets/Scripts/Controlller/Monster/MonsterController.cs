@@ -4,25 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MonsterController : MonoBehaviour
+public class MonsterController : MonoBehaviour , ITargetable
 {
 
     private SpriteRenderer spriteRenderer;
     private MonsterModel monsterModel;
-    private Transform _transform;
+    private Transform myTransform;
     private Transform targetTransform;
     private BaseMonsterBehaviourLogic behaviourLogic;
 
     private Action<MonsterController> OnMonsterDieAction;
 
-    public Transform GetMonsterTransform => _transform;
+    public Transform GetMonsterTransform => myTransform;
 
     private MonsterManager monsterManager;
 
+    private bool isDead = true;
+
     public void Init()
     {
-        _transform = this.transform;
-        spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        myTransform = this.transform;
+        spriteRenderer = myTransform.GetComponent<SpriteRenderer>();
 
         monsterManager = MonsterManager.getInstance;
         OnMonsterDieAction = monsterManager.OnMonsterDie;
@@ -47,13 +49,13 @@ public class MonsterController : MonoBehaviour
         behaviourLogic = monsterManager.GetBehaviourLogic(monsterModel.logicType);
 
         MonsterBehaviour skill = monsterManager.GetSkillBehaviour(monsterModel.skillType);
-        skill.SetMonsterTransform(_transform);
+        skill.SetMonsterTransform(myTransform);
         skill.SetTarget(targetTransform);
         skill.SetMonsterModel(monsterModel);
         behaviourLogic.SetSkillBehaviour(skill);
 
         MonsterBehaviour move = monsterManager.GetMoveBehaviour(monsterModel.moveType);
-        move.SetMonsterTransform(_transform);
+        move.SetMonsterTransform(myTransform);
         move.SetTarget(targetTransform);
         move.SetMonsterModel(monsterModel);
 
@@ -67,10 +69,10 @@ public class MonsterController : MonoBehaviour
 
     public void SetMonsterPosition(Vector2 _pos)
     {
-        _transform.position = _pos;
+        myTransform.position = _pos;
     }
 
-    public void Update()
+    private void Update()
     {
         if (monsterModel == null || targetTransform == null)
         {
@@ -82,16 +84,42 @@ public class MonsterController : MonoBehaviour
 
     public void OnEnqueue()
     {
-        _transform.gameObject.SetActive(false);
+        myTransform.gameObject.SetActive(false);
+        isDead = true;
     }
 
     public void OnDequeue()
     {
-        _transform.gameObject.SetActive(true);
+        myTransform.gameObject.SetActive(true);
+        isDead = false;
     }
 
     private void OnDieMonster()
     {
         OnMonsterDieAction?.Invoke(this);
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
+
+    public void OnDamaged()
+    {
+        Debug.Log("Monster Weapon Collision");
+    }
+    public Bounds GetSpriteBounds()
+    {
+        return spriteRenderer.bounds;
+    }
+
+    public Vector2 GetPosition()
+    {
+        return myTransform.position;
+    }
+
+    public Transform GetTransform()
+    {
+        return myTransform;
     }
 }

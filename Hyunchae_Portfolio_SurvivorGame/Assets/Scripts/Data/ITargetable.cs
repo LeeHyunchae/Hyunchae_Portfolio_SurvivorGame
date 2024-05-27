@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface ITargetable
 {
+    public bool GetIsDead();
+    public Vector2 GetPosition();
     public Transform GetTransform();
-    public void CheckCollision();
+    public Bounds GetSpriteBounds();
+    public void OnDamaged();
 }

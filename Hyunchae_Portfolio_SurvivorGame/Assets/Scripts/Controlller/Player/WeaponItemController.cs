@@ -2,28 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponItemController
+public class WeaponItemController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private WeaponItemModel itemModel;
-    private Transform weaponTransform;
     private BaseWeaponAttack attackType;
     private MonsterManager monsterManager;
     private ItemManager itemManager;
-    private MonsterController targetMonster = null;
+    private MonsterController rotateTargetMonster = null;
+    private ObbCollisionObject obbCollision;
+    private Transform myTransform;
+    private ITargetable[] targetMonsters;
 
     public void Init()
     {
         monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
-    }
-    public void SetWeaponTransform(Transform _weaponTransform)
-    {
-        spriteRenderer = _weaponTransform.GetComponent<SpriteRenderer>();
 
-        weaponTransform = _weaponTransform;
-    }
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
+        obbCollision = gameObject.GetComponent<ObbCollisionObject>();
+
+        myTransform = gameObject.GetComponent<Transform>();
+    }
     public void SetWeaponItemModel(WeaponItemModel _itemModel)
     {
         itemModel = _itemModel;
@@ -34,12 +35,24 @@ public class WeaponItemController
 
         attackType.SetModelInfo(itemModel);
 
-        attackType.SetInitPos(weaponTransform);
+        attackType.SetInitPos(myTransform);
+
+        attackType.SetObb(obbCollision);
+
+        obbCollision.RefreshSprite();
+
+        attackType.SetAttackTarget(targetMonsters);
     }
 
-    public void Update()
+    public void SetTargetMonsters(ITargetable[] _targetMonsters)
     {
-        if (itemModel == null || targetMonster == null)
+        targetMonsters = _targetMonsters;
+        obbCollision.SetTarget(targetMonsters);
+    }
+
+    private void Update()
+    {
+        if (itemModel == null && rotateTargetMonster == null)
         {
             return;
         }
@@ -62,13 +75,12 @@ public class WeaponItemController
 
         float minDistance = float.MaxValue;
 
-        Vector2 myPos = weaponTransform.position;
+        Vector2 myPos = myTransform.position;
 
         foreach(MonsterController monster in monsters)
         {
             if(!monster.GetMonsterTransform.gameObject.activeSelf)
             {
-                Debug.Log("continue");
                 continue;
             }
 
@@ -79,17 +91,16 @@ public class WeaponItemController
             if(distance < minDistance)
             {
                 minDistance = distance;
-                targetMonster = monster;
+                rotateTargetMonster = monster;
             }
         }
 
-        if(targetMonster == null)
+        if(rotateTargetMonster == null)
         {
             return;
         }
 
-        //Temp Code.. Need WeaponSprite
-        if(targetMonster.GetMonsterTransform.position.x < myPos.x)
+        if(rotateTargetMonster.GetMonsterTransform.position.x < myPos.x)
         {
             spriteRenderer.flipY = true;
         }else
@@ -97,7 +108,8 @@ public class WeaponItemController
             spriteRenderer.flipY = false;
         }
 
-        attackType.SetTarget(targetMonster.GetMonsterTransform);
+        attackType.SetRotateTarget(rotateTargetMonster.GetMonsterTransform);
 
     }
+
 }

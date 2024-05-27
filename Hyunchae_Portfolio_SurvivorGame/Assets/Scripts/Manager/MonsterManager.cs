@@ -36,11 +36,13 @@ public class MonsterManager : Singleton<MonsterManager>
         return base.Initialize();
     }
 
-    public void CreateMonsterObjects()
+    public ITargetable[] CreateMonsterObjects()
     {
         parentTransform = new GameObject(MONSTER_PARENT).GetComponent<Transform>();
 
         MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
+
+        ITargetable[] monsterArr = new ITargetable[MAX_MONSTER_CAPACITY];
 
         for(int i = 0; i<MAX_MONSTER_CAPACITY; i++)
         {
@@ -49,7 +51,11 @@ public class MonsterManager : Singleton<MonsterManager>
             deadMonsterQueue.Enqueue(monsterNode);
             monster.Init();
             monster.OnEnqueue();
+
+            monsterArr[i] = monster;
         }
+
+        return monsterArr;
     }
 
     private void InitMonsterBehaviours()
