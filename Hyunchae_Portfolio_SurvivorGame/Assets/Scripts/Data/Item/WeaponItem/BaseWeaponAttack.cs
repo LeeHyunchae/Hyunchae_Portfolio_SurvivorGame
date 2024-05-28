@@ -65,16 +65,11 @@ public abstract class BaseWeaponAttack
             curCooldown += Time.deltaTime;
             RotatToTarget();
         }
-
-        if(Vector2.Distance(targetPos,weaponTransform.position) < attackRange || !isReady)
+        else
         {
-            if (curCooldown >= cooldown)
-            {
-                ReadyFire();
-                Fire();
-            }
+            Fire();
         }
-        
+
     }
 
     protected abstract void ReadyFire();
@@ -101,6 +96,14 @@ public abstract class BaseWeaponAttack
         Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
 
         weaponTransform.rotation = quaternion;
+
+        if (Vector2.Distance(targetPos, weaponTransform.position) < attackRange)
+        {
+            if (curCooldown >= cooldown)
+            {
+                ReadyFire();
+            }
+        }
     }
 
     public abstract BaseWeaponAttack DeepCopy();

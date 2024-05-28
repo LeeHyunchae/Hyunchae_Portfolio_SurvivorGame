@@ -13,6 +13,7 @@ public class FollowMoveBehaviour : MonsterBehaviour
 
     public override void SetMonsterModel(MonsterModel _model)
     {
+        base.SetMonsterModel(_model);
         moveSpeed = _model.status.moveSpeed;
     }
 

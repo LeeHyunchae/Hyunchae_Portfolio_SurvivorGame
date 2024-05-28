@@ -15,9 +15,11 @@ public class AwayMoveBehaviour : MonsterBehaviour
 
     public override void SetMonsterModel(MonsterModel _model)
     {
-        moveSpeed = _model.status.moveSpeed;
-        awayRange = _model.status.attackRange * 0.5f;
-        attackRange = _model.status.attackRange;
+        base.SetMonsterModel(_model);
+
+        moveSpeed = model.status.moveSpeed;
+        awayRange = model.status.attackRange * 0.5f;
+        attackRange = model.status.attackRange;
     }
 
     public override void Update()

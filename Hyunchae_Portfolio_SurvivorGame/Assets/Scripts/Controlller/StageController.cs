@@ -45,11 +45,14 @@ public class StageController
 
     public void TestSpawnMonster()
     {
+
         MonsterModel model = monsterManager.GetMonsterModelToUid(0);
         MonsterController monster = monsterManager.GetMonster();
 
         if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out Vector2 monPos))
         {
+            Debug.Log(monPos);
+
             monster.GetMonsterTransform.position = monPos;
             monster.SetPlayerTransform(playerTransform);
             monster.SetMonsterModel(model);

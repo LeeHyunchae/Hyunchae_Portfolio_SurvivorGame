@@ -16,6 +16,8 @@ public abstract class MonsterBehaviour
 
     public Action GetOnSkillAction => OnStartSkillAction;
 
+    protected MonsterModel model;
+
     public virtual void SetMonsterTransform(Transform _transform)
     {
         monsterTransform = _transform;
@@ -25,7 +27,10 @@ public abstract class MonsterBehaviour
         targetTransform = _transform;
     }
 
-    public abstract void SetMonsterModel(MonsterModel _model);
+    public virtual void SetMonsterModel(MonsterModel _model)
+    {
+        model = _model;
+    }
 
     public abstract MonsterBehaviour DeepCopy();
 }

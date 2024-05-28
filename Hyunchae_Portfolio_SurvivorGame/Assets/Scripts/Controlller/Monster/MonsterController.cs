@@ -23,13 +23,13 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     public void Init()
     {
-        myTransform = this.transform;
-        spriteRenderer = myTransform.GetComponent<SpriteRenderer>();
+        myTransform = gameObject.transform;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         monsterManager = MonsterManager.getInstance;
         OnMonsterDieAction = monsterManager.OnMonsterDie;
 
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        NavMeshAgent agent = gameObject.GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -84,18 +84,19 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     public void OnEnqueue()
     {
-        myTransform.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         isDead = true;
     }
 
     public void OnDequeue()
     {
-        myTransform.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         isDead = false;
     }
 
     private void OnDieMonster()
     {
+        isDead = true;
         OnMonsterDieAction?.Invoke(this);
     }
 
@@ -107,6 +108,7 @@ public class MonsterController : MonoBehaviour , ITargetable
     public void OnDamaged()
     {
         Debug.Log("Monster Weapon Collision");
+        OnDieMonster();
     }
     public Bounds GetSpriteBounds()
     {

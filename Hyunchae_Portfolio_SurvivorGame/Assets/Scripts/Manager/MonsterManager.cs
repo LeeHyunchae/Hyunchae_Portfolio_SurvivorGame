@@ -201,6 +201,8 @@ public class MonsterManager : Singleton<MonsterManager>
                 deadMonster.OnEnqueue();
                 break;
             }
+
+            currentNode = currentNode.Next;
         }
 
         aliveMonsterLinkedList.Remove(currentNode);
