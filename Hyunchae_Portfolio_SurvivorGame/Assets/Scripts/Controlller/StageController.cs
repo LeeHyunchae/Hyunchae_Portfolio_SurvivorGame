@@ -7,15 +7,26 @@ public class StageController
     private MonsterManager monsterManager;
     private Transform playerTransform;
     private SpawnPointCalculator spawnPointCalculater;
+    private StageManager stageManager;
+
+    private int curStage = 0;
+    private int curWave = 0;
 
     public void Init(Transform _playerTransform)
     {
+        stageManager = StageManager.getInstance;
         monsterManager = MonsterManager.getInstance;
         spawnPointCalculater = new SpawnPointCalculator();
         SetPlayerTransform(_playerTransform);
 
         TestInputKey();
 
+    }
+
+    public void SetStageIndex(int _stageIdx)
+    {
+        curStage = _stageIdx;
+        stageManager.SetCurStage(curStage);
     }
 
     public void SetMapData(MapData _mapData)

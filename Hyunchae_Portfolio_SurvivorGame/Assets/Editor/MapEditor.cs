@@ -33,21 +33,15 @@ public class MapEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("맵 생성", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("임시 맵 생성", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth,mapSetting.mapDatas.mapHeight);
         }
 
-        if (GUILayout.Button("맵 제거", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("임시 맵 제거", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             tilemap.ClearAllTiles();
         }
-
-        //if (GUILayout.Button("맵 저저저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
-        //{
-        //    //mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
-        //    SaveMapData();
-        //}
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
@@ -62,7 +56,7 @@ public class MapEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("맵 데이터 읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("저장된 맵 데이터 읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             MapData mapData = TableLoader.LoadFromFile<MapData>("Map/MapData");
 
@@ -71,19 +65,24 @@ public class MapEditor : Editor
             mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
         }
 
-        if (GUILayout.Button("캐릭터", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("임시 캐릭터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             CharacterTest();
         }
 
-        if (GUILayout.Button("무기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("임시 무기 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             WeaponTest();
         }
 
-        if (GUILayout.Button("몬스터", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("임시 몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             MonsterTest();
+        }
+
+        if (GUILayout.Button("임시 스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            StageTest();
         }
 
         //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
@@ -363,6 +362,79 @@ public class MapEditor : Editor
         monsterModels.Add(monsterModel3);
 
         TableLoader.SaveToJson("Monster", monsterModels, "TestMonster");
+
+    }
+
+    private void StageTest()
+    {
+        StageData[] stageDatas = new StageData[6];
+
+        for(int i = 0; i< 6;i++)
+        {
+            StageData stage = new StageData()
+            {
+                stageUID = i,
+                stageInfo = i + " 스테이지",
+                waveGroupUID = i
+            };
+            stageDatas[i] = stage;
+        }
+
+        TableLoader.SaveToJson("Stage", stageDatas, "TestStage");
+
+        WaveGroupData[] waveGroupDatas = new WaveGroupData[6];
+
+        for(int i = 0; i <6; i++)
+        {
+            WaveGroupData waveGroupData = new WaveGroupData()
+            {
+                waveGruopUID = i,
+                waveUIDArr = new int[16] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
+            };
+
+            waveGroupDatas[i] = waveGroupData;
+        }
+
+        TableLoader.SaveToJson("Stage", waveGroupDatas, "TestWaveGrouop");
+
+
+        MonsterSpawnData monsterSpawnData_0 = new MonsterSpawnData()
+        {
+            monsterUID = 0,
+            monsterCount = 3,
+            spawnStartTime = 3,
+            spawnEndTime = 90,
+            respawnCycleTile = 5
+        };
+
+        MonsterSpawnData monsterSpawnData_2 = new MonsterSpawnData()
+        {
+            monsterUID = 2,
+            monsterCount = 2,
+            spawnStartTime = 5,
+            spawnEndTime = 90,
+            respawnCycleTile = 7
+        };
+
+        MonsterGroupData[] monsterGroupDatas = new MonsterGroupData[16];
+
+        for (int i = 0; i <16; i++)
+        {
+            MonsterGroupData monsterGroupData = new MonsterGroupData()
+            {
+                monsterGroupUID = i,
+                waveTime = 90 + i,
+                monsterSpawnDatas = new List<MonsterSpawnData>()
+                {
+                    monsterSpawnData_0,
+                    monsterSpawnData_0
+                }
+            };
+
+            monsterGroupDatas[i] = monsterGroupData;
+        }
+
+        TableLoader.SaveToJson("Stage", monsterGroupDatas, "TestWaves");
 
     }
 }
