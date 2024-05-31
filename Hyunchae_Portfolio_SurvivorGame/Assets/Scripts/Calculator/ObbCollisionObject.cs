@@ -80,11 +80,9 @@ public class ObbCollisionObject : MonoBehaviour
 
             if (Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y) > sum)
             {
-                Debug.Log("Dont Collision");
                 return false;
             }
         }
-        Debug.Log("Collision");
         return true;
     }
 

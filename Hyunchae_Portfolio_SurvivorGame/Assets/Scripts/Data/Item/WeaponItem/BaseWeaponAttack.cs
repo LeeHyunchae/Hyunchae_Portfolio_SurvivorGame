@@ -16,7 +16,7 @@ public abstract class BaseWeaponAttack
 
     protected Vector2 initPos;
     protected Transform weaponTransform;
-    protected Transform targetTransform;
+    protected Transform rotateTargetTransform;
     protected Vector2 targetPos;
     protected Vector2 targetDirection;
     protected Vector2 pos;
@@ -29,6 +29,17 @@ public abstract class BaseWeaponAttack
         weaponTransform = _initTransform;
         initPos = _initTransform.localPosition;
         pos = initPos;
+    }
+
+    public void RemoveTarget()
+    {
+        if(!isReady)
+        {
+            return;
+        }
+        rotateTargetTransform = null;
+        weaponTransform.localPosition = initPos;
+        weaponTransform.rotation = Quaternion.identity;
     }
 
     public void SetModelInfo(WeaponItemModel _model)
@@ -54,7 +65,7 @@ public abstract class BaseWeaponAttack
             return;
         }
 
-        targetTransform = _target;
+        rotateTargetTransform = _target;
         targetPos = _target.position;
     }
 
@@ -84,12 +95,12 @@ public abstract class BaseWeaponAttack
     }
     protected void RotatToTarget()
     {
-        if (targetTransform == null)
+        if (rotateTargetTransform == null)
         {
             return;
         }
 
-        targetDirection = (targetTransform.position - weaponTransform.position).normalized;
+        targetDirection = (rotateTargetTransform.position - weaponTransform.position).normalized;
 
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 

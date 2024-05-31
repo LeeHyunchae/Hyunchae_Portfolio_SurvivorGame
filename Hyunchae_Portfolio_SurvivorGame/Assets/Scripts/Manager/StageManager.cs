@@ -5,12 +5,7 @@ using UnityEngine;
 public class StageManager : Singleton<StageManager>
 {
     private Dictionary<int, StageData> stageDataDict = new Dictionary<int, StageData>();
-    private Dictionary<int, WaveGroupData> waveGroupDataDict = new Dictionary<int, WaveGroupData>();
     private Dictionary<int, MonsterGroupData> monsterGroupDataDict = new Dictionary<int, MonsterGroupData>();
-
-    private int curStage = 0;
-
-    public void SetCurStage(int _selectStageIdx) => curStage = _selectStageIdx;
 
     public override bool Initialize()
     {
@@ -31,27 +26,37 @@ public class StageManager : Singleton<StageManager>
             stageDataDict.Add(stageData.stageUID, stageData);
         }
 
-        List<WaveGroupData> waveGroupDatas = TableLoader.LoadFromFile<List<WaveGroupData>>("Stage/TestWaveGroup");
+        List<JsonMonsterGroupData> jsonMonsterGroupDatas = TableLoader.LoadFromFile<List<JsonMonsterGroupData>>("Stage/TestMonsterGroup");
 
-        count = waveGroupDatas.Count;
-
-        for (int i = 0; i < count; i++)
-        {
-            WaveGroupData waveGroupData = waveGroupDatas[i];
-
-            waveGroupDataDict.Add(waveGroupData.waveGruopUID, waveGroupData);
-        }
-
-        List<MonsterGroupData> monsterGroupDatas = TableLoader.LoadFromFile<List<MonsterGroupData>>("Stage/TestWaves");
-
-        count = monsterGroupDatas.Count;
+        count = jsonMonsterGroupDatas.Count;
 
         for(int i = 0; i < count; i++)
         {
-            MonsterGroupData monsterGroupData = monsterGroupDatas[i];
+            JsonMonsterGroupData jsonData = jsonMonsterGroupDatas[i];
 
-            monsterGroupDataDict.Add(monsterGroupData.monsterGroupUID, monsterGroupData);
+            MonsterGroupData monsterGroupData = new MonsterGroupData();
+            monsterGroupData.monsterGroupUID = jsonData.monsterGroupUID;
+            monsterGroupData.monsterSpawnDatas = new List<MonsterSpawnData>();
+
+            MonsterSpawnData spawnData = new MonsterSpawnData();
+            spawnData.monsterUID = jsonData.monsterUID;
+            spawnData.monsterCount = jsonData.monsterCount;
+            spawnData.spawnStartTime = jsonData.spawnStartTime;
+            spawnData.spawnEndTime = jsonData.spawnEndTime;
+            spawnData.respawnCycleTime = jsonData.respawnCycleTime;
+
+            if(monsterGroupDataDict.ContainsKey(monsterGroupData.monsterGroupUID))
+            {
+                monsterGroupDataDict[monsterGroupData.monsterGroupUID].monsterSpawnDatas.Add(spawnData);
+            }
+            else
+            {
+                monsterGroupData.monsterSpawnDatas.Add(spawnData);
+                monsterGroupDataDict.Add(monsterGroupData.monsterGroupUID, monsterGroupData);
+            }
         }
+
+        Debug.Log("몬스터 로드 완료");
     }
 
     public StageData GetStageData(int _stageUID)
@@ -68,21 +73,6 @@ public class StageManager : Singleton<StageManager>
 
         return data;
 
-    }
-
-    public WaveGroupData GetWaveGroupData(int _waveGroupUID)
-    {
-        waveGroupDataDict.TryGetValue(_waveGroupUID, out WaveGroupData data);
-
-#if UNITY_EDITOR
-
-        if (data == null)
-        {
-            Debug.Log("Not Exist WaveGroupData");
-        }
-#endif
-
-        return data;
     }
 
     public MonsterGroupData GetMonsterGroupData(int _monsterGroupUID)

@@ -95,8 +95,12 @@ public class WeaponItemController : MonoBehaviour
             }
         }
 
-        if(rotateTargetMonster == null)
+        if(rotateTargetMonster == null || monsters.Count == 0)
         {
+            rotateTargetMonster = null;
+            attackType.RemoveTarget();
+            spriteRenderer.flipY = false;
+
             return;
         }
 

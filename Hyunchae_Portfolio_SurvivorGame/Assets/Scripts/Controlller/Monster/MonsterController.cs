@@ -107,7 +107,6 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     public void OnDamaged()
     {
-        Debug.Log("Monster Weapon Collision");
         OnDieMonster();
     }
     public Bounds GetSpriteBounds()

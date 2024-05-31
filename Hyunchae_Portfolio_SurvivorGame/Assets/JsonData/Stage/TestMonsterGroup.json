@@ -1,0 +1,50 @@
+[
+  {
+    "monsterGroupUID": 0,
+    "monsterUID": 0,
+    "monsterCount": 1,
+    "spawnStartTime": 3.0,
+    "respawnCycleTime": 1.0,
+    "spawnEndTime": 30.0
+  },
+  {
+    "monsterGroupUID": 0,
+    "monsterUID": 0,
+    "monsterCount": 4,
+    "spawnStartTime": 5.0,
+    "respawnCycleTime": 4.0,
+    "spawnEndTime": 40.0
+  },
+  {
+    "monsterGroupUID": 1,
+    "monsterUID": 0,
+    "monsterCount": 4,
+    "spawnStartTime": 3.0,
+    "respawnCycleTime": 5.0,
+    "spawnEndTime": 90.0
+  },
+  {
+    "monsterGroupUID": 1,
+    "monsterUID": 2,
+    "monsterCount": 1,
+    "spawnStartTime": 5.0,
+    "respawnCycleTime": 3.0,
+    "spawnEndTime": 90.0
+  },
+  {
+    "monsterGroupUID": 2,
+    "monsterUID": 0,
+    "monsterCount": 1,
+    "spawnStartTime": 3.0,
+    "respawnCycleTime": 5.0,
+    "spawnEndTime": 90.0
+  },
+  {
+    "monsterGroupUID": 2,
+    "monsterUID": 2,
+    "monsterCount": 4,
+    "spawnStartTime": 5.0,
+    "respawnCycleTime": 2.0,
+    "spawnEndTime": 90.0
+  }
+]

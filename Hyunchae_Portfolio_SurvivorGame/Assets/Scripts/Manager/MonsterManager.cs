@@ -207,4 +207,18 @@ public class MonsterManager : Singleton<MonsterManager>
 
         aliveMonsterLinkedList.Remove(currentNode);
     }
+
+    public void ReleaseAllAliveMonster()
+    {
+        LinkedListNode<MonsterController> currentNode = aliveMonsterLinkedList.First;
+        while (currentNode != null)
+        {
+            LinkedListNode<MonsterController> nextNode = currentNode.Next;
+
+            deadMonsterQueue.Enqueue(currentNode);
+            currentNode.Value.OnEnqueue();
+            aliveMonsterLinkedList.Remove(currentNode);
+            currentNode = nextNode;
+        }
+    }
 }

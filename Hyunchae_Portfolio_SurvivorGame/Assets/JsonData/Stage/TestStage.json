@@ -1,32 +1,140 @@
 [
   {
     "stageUID": 0,
-    "waveGroupUID": 0,
-    "stageInfo": "0 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "0 스테이지",
+    "bossMonsterUID": 0
   },
   {
     "stageUID": 1,
-    "waveGroupUID": 1,
-    "stageInfo": "1 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "1 스테이지",
+    "bossMonsterUID": 0
   },
   {
     "stageUID": 2,
-    "waveGroupUID": 2,
-    "stageInfo": "2 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "2 스테이지",
+    "bossMonsterUID": 0
   },
   {
     "stageUID": 3,
-    "waveGroupUID": 3,
-    "stageInfo": "3 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "3 스테이지",
+    "bossMonsterUID": 0
   },
   {
     "stageUID": 4,
-    "waveGroupUID": 4,
-    "stageInfo": "4 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "4 스테이지",
+    "bossMonsterUID": 0
   },
   {
     "stageUID": 5,
-    "waveGroupUID": 5,
-    "stageInfo": "5 스테이지"
+    "waveGroupUIDArr": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "stageInfo": "5 스테이지",
+    "bossMonsterUID": 0
   }
 ]
