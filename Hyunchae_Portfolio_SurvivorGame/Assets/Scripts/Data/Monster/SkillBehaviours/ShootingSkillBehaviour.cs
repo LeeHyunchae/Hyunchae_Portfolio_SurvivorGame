@@ -8,9 +8,8 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
     private Vector2 targetPos;
     private Vector2 targetDirection;
-    private ObbCollisionObject obbCollision;
-    private ITargetable[] targetMonsters;
-    private float curCooldown;
+    private float curCooldown = 0;
+    private float cooldownTime;
 
 
     public override MonsterBehaviour DeepCopy()
@@ -21,21 +20,21 @@ public class ShootingSkillBehaviour : MonsterBehaviour
     public override void SetMonsterModel(MonsterModel _model)
     {
         base.SetMonsterModel(_model);
-        curCooldown = model.status.cooldown;
+        cooldownTime = model.status.cooldown;
     }
 
     public override void Update()
     {
-        //if (!isReady)
-        //{
-        //    curCooldown += Time.deltaTime;
-        //    CalculatePlayerDirection();
-        //}
-        //else
-        //{
-        //    curCooldown = 0;
-        //    Excute();
-        //}
+        if (!isReady)
+        {
+            curCooldown += Time.deltaTime;
+            CalculatePlayerDirection();
+        }
+        else
+        {
+            curCooldown = 0;
+            Excute();
+        }
 
     }
     
@@ -45,7 +44,7 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
         if (Vector2.Distance(targetPos, monsterTransform.position) < model.status.attackRange)
         {
-            if (curCooldown >= model.status.cooldown)
+            if (curCooldown >= cooldownTime)
             {
                 isReady = true;
             }
@@ -62,8 +61,9 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
         projectile.SetSprite("Exp 0");
         projectile.SetPrjectileInfo(targetDirection, model.status.damage, monsterTransform.position, model.status.attackRange);
-        //projectile.SetTarget(targetMonsters);
+        projectile.SetTarget(target);
 
+        isReady = false;
 
         //EndSkill
         OnEndSkillAction?.Invoke();

@@ -44,6 +44,8 @@ public class AwayMoveBehaviour : MonsterBehaviour
         }
         else if(distance > attackRange)
         {
+            pos = monsterTransform.position;
+
             pos.x += direction.x * Time.deltaTime * moveSpeed;
             pos.y += direction.y * Time.deltaTime * moveSpeed;
 

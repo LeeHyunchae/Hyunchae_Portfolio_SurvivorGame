@@ -10,6 +10,7 @@ public abstract class MonsterBehaviour
     protected Vector2 pos;
     protected Action OnStartSkillAction;
     protected Action OnEndSkillAction;
+    protected ITargetable target;
 
     protected abstract void Excute();
     public abstract void Update();
@@ -22,6 +23,12 @@ public abstract class MonsterBehaviour
     {
         monsterTransform = _transform;
     }
+    public virtual void SetTarget(Transform _transform, ITargetable _target)
+    {
+        targetTransform = _transform;
+        target = _target;
+    }
+
     public virtual void SetTarget(Transform _transform)
     {
         targetTransform = _transform;

@@ -14,6 +14,8 @@ public class MonsterController : MonoBehaviour , ITargetable
     private BaseMonsterBehaviourLogic behaviourLogic;
 
     private Action<MonsterController> OnMonsterDieAction;
+    private ITargetable target;
+
 
     public Transform GetMonsterTransform => myTransform;
 
@@ -50,7 +52,7 @@ public class MonsterController : MonoBehaviour , ITargetable
 
         MonsterBehaviour skill = monsterManager.GetSkillBehaviour(monsterModel.skillType);
         skill.SetMonsterTransform(myTransform);
-        skill.SetTarget(targetTransform);
+        skill.SetTarget(targetTransform,target);
         skill.SetMonsterModel(monsterModel);
         behaviourLogic.SetSkillBehaviour(skill);
 
@@ -62,9 +64,10 @@ public class MonsterController : MonoBehaviour , ITargetable
         behaviourLogic.SetMoveBehaviour(move);
     }
 
-    public void SetPlayerTransform(Transform _target)
+    public void SetPlayer(PlayerController _playerController)
     {
-        targetTransform = _target;
+        targetTransform = _playerController.GetPlayerTransform;
+        target = _playerController;
     }
 
     public void SetMonsterPosition(Vector2 _pos)

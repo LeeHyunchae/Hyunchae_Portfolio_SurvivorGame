@@ -9,21 +9,21 @@ public class IngameSceneController : MonoBehaviour
     [SerializeField] private JoystickControlller joystickControlller;
     [SerializeField] private FollowCamera followCam;
     [SerializeField] private GameObject originPlayerObj;
+    [SerializeField] private IngamePanelController ingamePanelController;
 
     private MapCreator mapCreator;
     private MapData mapData;
 
-    private CharacterManager playerMgr;
+    private CharacterManager characterManager;
     private ItemManager itemManager;
 
-    private PlayerControlller playerController;
+    private PlayerController playerController;
     private ItemController itemController;
 
     private StageController stageController;
 
     private RectCollisionCalculator rectCollisionCalculator;
     private ITargetable[] targetMonsterArr;
-    private ITargetable targetPlayer;
 
     private void Awake()
     {
@@ -39,14 +39,13 @@ public class IngameSceneController : MonoBehaviour
 
     private void InitPlayerController()
     {
-        playerMgr = CharacterManager.getInstance;
+        characterManager = CharacterManager.getInstance;
 
-        playerController = Instantiate<GameObject>(originPlayerObj).GetComponent<PlayerControlller>();
+        playerController = Instantiate<GameObject>(originPlayerObj).GetComponent<PlayerController>();
 
         playerController.Init();
         playerController.SetJoystick(joystickControlller);
 
-        targetPlayer = playerController;
     }
 
     private void InitCamera()
@@ -81,12 +80,15 @@ public class IngameSceneController : MonoBehaviour
 
     private void InitMonster()
     {
-        targetMonsterArr = MonsterManager.getInstance.CreateMonsterObjects();
+        MonsterManager monsterManager = MonsterManager.getInstance;
+        monsterManager.SetPlayer(playerController);
+
+        targetMonsterArr = monsterManager.CreateMonsterObjects();
 
         rectCollisionCalculator = new RectCollisionCalculator();
 
         rectCollisionCalculator.SetMonsterArr(targetMonsterArr);
-        rectCollisionCalculator.SetPlayer(targetPlayer);
+        rectCollisionCalculator.SetPlayer(playerController);
     }
 
     private void Update()

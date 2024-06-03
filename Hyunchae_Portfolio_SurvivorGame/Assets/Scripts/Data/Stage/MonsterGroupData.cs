@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class JsonMonsterGroupData
 {
-    public int monsterGroupUID;
-    public int monsterUID;
-    public int monsterCount;
-    public float spawnStartTime;
-    public float respawnCycleTime;
-    public float spawnEndTime;
+    public int MonsterGroupID;
+    public int MonsterID;
+    public int MonsterNumber;
+    public float FirstSpawnTime;
+    public float RespawnCycle;
+    public float EndSpawnTime;
 }
 
 public class MonsterGroupData

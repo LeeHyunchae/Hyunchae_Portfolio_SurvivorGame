@@ -19,7 +19,7 @@ public class ItemManager : Singleton<ItemManager>
 
     private BaseWeaponAttack[] attackTypeArr = new BaseWeaponAttack[(int)EWeaponAttackType.END];
     private Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>>();
-
+    private int pieceCount = 0;
 
     public override bool Initialize()
     {
@@ -168,5 +168,10 @@ public class ItemManager : Singleton<ItemManager>
     public void ReleaseWeaponAttackType(EWeaponAttackType _attackType, BaseWeaponAttack _attack)
     {
         attackTypeDict[_attackType].Enqueue(_attack);
+    }
+
+    public int GetPieceCount()
+    {
+        return pieceCount;
     }
 }

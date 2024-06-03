@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlller : MonoBehaviour , ITargetable
+public class PlayerController : MonoBehaviour , ITargetable
 {
     private Transform myTransform;
     private SpriteRenderer spriteRenderer;

@@ -27,6 +27,7 @@ public class MonsterManager : Singleton<MonsterManager>
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue = new Queue<LinkedListNode<MonsterController>>();
 
     private Transform parentTransform;
+    private PlayerController player;
 
     public override bool Initialize()
     {
@@ -34,6 +35,11 @@ public class MonsterManager : Singleton<MonsterManager>
         InitMonsterBehaviours();
 
         return base.Initialize();
+    }
+
+    public void SetPlayer(PlayerController _playerController)
+    {
+        player = _playerController;
     }
 
     public ITargetable[] CreateMonsterObjects()
@@ -50,6 +56,7 @@ public class MonsterManager : Singleton<MonsterManager>
             LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
             deadMonsterQueue.Enqueue(monsterNode);
             monster.Init();
+            monster.SetPlayer(player);
             monster.OnEnqueue();
 
             monsterArr[i] = monster;

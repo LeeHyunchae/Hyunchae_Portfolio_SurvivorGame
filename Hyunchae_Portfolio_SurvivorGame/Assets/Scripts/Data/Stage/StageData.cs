@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageData
 {
-    public int stageUID;
-    public int[] waveGroupUIDArr;
-    public string stageInfo;
-    public int bossMonsterUID;
+    public int StageID;
+    public int[] WaveMonsterGroupID;
+    public string StageInformation;
+    public int BossMonsterID;
 }

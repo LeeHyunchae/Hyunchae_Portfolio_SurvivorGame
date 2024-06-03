@@ -23,7 +23,7 @@ public class StageManager : Singleton<StageManager>
         {
             StageData stageData = stageDatas[i];
 
-            stageDataDict.Add(stageData.stageUID, stageData);
+            stageDataDict.Add(stageData.StageID, stageData);
         }
 
         List<JsonMonsterGroupData> jsonMonsterGroupDatas = TableLoader.LoadFromFile<List<JsonMonsterGroupData>>("Stage/TestMonsterGroup");
@@ -35,15 +35,15 @@ public class StageManager : Singleton<StageManager>
             JsonMonsterGroupData jsonData = jsonMonsterGroupDatas[i];
 
             MonsterGroupData monsterGroupData = new MonsterGroupData();
-            monsterGroupData.monsterGroupUID = jsonData.monsterGroupUID;
+            monsterGroupData.monsterGroupUID = jsonData.MonsterGroupID;
             monsterGroupData.monsterSpawnDatas = new List<MonsterSpawnData>();
 
             MonsterSpawnData spawnData = new MonsterSpawnData();
-            spawnData.monsterUID = jsonData.monsterUID;
-            spawnData.monsterCount = jsonData.monsterCount;
-            spawnData.spawnStartTime = jsonData.spawnStartTime;
-            spawnData.spawnEndTime = jsonData.spawnEndTime;
-            spawnData.respawnCycleTime = jsonData.respawnCycleTime;
+            spawnData.monsterUID = jsonData.MonsterID;
+            spawnData.monsterCount = jsonData.MonsterNumber;
+            spawnData.spawnStartTime = jsonData.FirstSpawnTime;
+            spawnData.spawnEndTime = jsonData.EndSpawnTime;
+            spawnData.respawnCycleTime = jsonData.RespawnCycle;
 
             if(monsterGroupDataDict.ContainsKey(monsterGroupData.monsterGroupUID))
             {
@@ -55,8 +55,6 @@ public class StageManager : Singleton<StageManager>
                 monsterGroupDataDict.Add(monsterGroupData.monsterGroupUID, monsterGroupData);
             }
         }
-
-        Debug.Log("몬스터 로드 완료");
     }
 
     public StageData GetStageData(int _stageUID)

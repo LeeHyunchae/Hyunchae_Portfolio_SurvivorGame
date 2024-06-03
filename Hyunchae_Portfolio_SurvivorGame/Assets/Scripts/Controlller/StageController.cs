@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Diagnostics;
 
 public class StageController
 {
-    private const float EPSILON = 0.01f;
-
     private MonsterManager monsterManager;
     private Transform playerTransform;
     private SpawnPointCalculator spawnPointCalculater;
@@ -23,6 +22,7 @@ public class StageController
     private float curWaveTime;
 
     private bool isWaveEnd = false;
+    private IngamePanelController ingamePanel;
 
     public void Init(Transform _playerTransform)
     {
@@ -43,7 +43,7 @@ public class StageController
 
         StageData stageData = stageManager.GetStageData(curStage);
 
-        monsterGroupUIDarr = stageData.waveGroupUIDArr;
+        monsterGroupUIDarr = stageData.WaveMonsterGroupID;
 
         SetMonsterToCurWave();
     }
@@ -51,6 +51,11 @@ public class StageController
     public void SetMapData(MapData _mapData)
     {
         spawnPointCalculater.SetMapData(_mapData);
+    }
+
+    public void SetIngamePanel(IngamePanelController _ingamePanelController)
+    {
+        ingamePanel = _ingamePanelController;
     }
 
     private void SetPlayerTransform(Transform _transform)
@@ -77,7 +82,7 @@ public class StageController
     {
         TestInputKey();
 
-        if(isWaveEnd)
+        if (isWaveEnd)
         {
             return;
         }
@@ -88,15 +93,12 @@ public class StageController
     public void TestSpawnMonster()
     {
 
-        MonsterModel model = monsterManager.GetMonsterModelToUid(0);
+        MonsterModel model = monsterManager.GetMonsterModelToUid(2);
         MonsterController monster = monsterManager.GetMonster();
 
         if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out Vector2 monPos))
         {
-            Debug.Log(monPos);
-
             monster.GetMonsterTransform.position = monPos;
-            monster.SetPlayerTransform(playerTransform);
             monster.SetMonsterModel(model);
         }
         else
@@ -146,7 +148,6 @@ public class StageController
 
             MonsterController monster = monsterManager.GetMonster();
             monster.GetMonsterTransform.position = monPos;
-            monster.SetPlayerTransform(playerTransform);
             monster.SetMonsterModel(model);
         }
     }
@@ -165,14 +166,23 @@ public class StageController
 
     private async UniTaskVoid SpawnMonsterPeriodically(MonsterSpawnData spawnData)
     {
+        Stopwatch sw = new Stopwatch();
+        
+
         while (curWaveTime < spawnData.spawnEndTime && !isWaveEnd)
         {
+            //sw.Start();
+
             SpawnMonster(spawnData);
             await UniTask.Delay((int)(spawnData.respawnCycleTime * 1000)); // respawnCycleTime as milliSec
 
+            //sw.Stop();
+            //UnityEngine.Debug.Log($"WATCH :> {sw.ElapsedMilliseconds}ms");
+
+
         }
 
-        Debug.Log("Stop Spawn Monster ID : " + spawnData.monsterUID + " Count :" + spawnData.monsterCount);
+        UnityEngine.Debug.Log("Stop Spawn Monster ID : " + spawnData.monsterUID + " Count :" + spawnData.monsterCount);
     }
 
     private void EndWave()
@@ -205,6 +215,7 @@ public class StageController
         }
 
         SetMonsterToCurWave();
+        ingamePanel.StartWave(curWave,waveEndTime);
     }
 
     private void SetMonsterToCurWave()

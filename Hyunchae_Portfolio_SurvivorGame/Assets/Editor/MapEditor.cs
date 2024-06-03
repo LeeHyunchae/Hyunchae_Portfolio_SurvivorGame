@@ -373,10 +373,10 @@ public class MapEditor : Editor
         {
             StageData stage = new StageData()
             {
-                stageUID = i,
-                stageInfo = i + " 스테이지",
-                waveGroupUIDArr = new int[] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0 },
-                bossMonsterUID = 0
+                StageID = i,
+                StageInformation = i + " 스테이지",
+                WaveMonsterGroupID = new int[] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0 },
+                BossMonsterID = 0
             };
             stageDatas[i] = stage;
         }
@@ -387,62 +387,62 @@ public class MapEditor : Editor
 
         jsonMonsterGroupDatas[0] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 0,
-            monsterUID = 0,
-            monsterCount = 1,
-            spawnStartTime = 3,
-            spawnEndTime = 90,
-            respawnCycleTime = 5
+            MonsterGroupID = 0,
+            MonsterID = 0,
+            MonsterNumber = 1,
+            FirstSpawnTime = 3,
+            EndSpawnTime = 90,
+            RespawnCycle = 5
         };
 
         jsonMonsterGroupDatas[1] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 0,
-            monsterUID = 0,
-            monsterCount = 4,
-            spawnStartTime = 5,
-            spawnEndTime = 90,
-            respawnCycleTime = 4
+            MonsterGroupID = 0,
+            MonsterID = 0,
+            MonsterNumber = 4,
+            FirstSpawnTime = 5,
+            EndSpawnTime = 90,
+            RespawnCycle = 4
         };
 
         jsonMonsterGroupDatas[2] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 1,
-            monsterUID = 0,
-            monsterCount = 4,
-            spawnStartTime = 3,
-            spawnEndTime = 90,
-            respawnCycleTime = 5
+            MonsterGroupID = 1,
+            MonsterID = 0,
+            MonsterNumber = 4,
+            FirstSpawnTime = 3,
+            EndSpawnTime = 90,
+            RespawnCycle = 5
         };
 
         jsonMonsterGroupDatas[3] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 1,
-            monsterUID = 2,
-            monsterCount = 1,
-            spawnStartTime = 5,
-            spawnEndTime = 90,
-            respawnCycleTime = 3
+            MonsterGroupID = 1,
+            MonsterID = 2,
+            MonsterNumber = 1,
+            FirstSpawnTime = 5,
+            EndSpawnTime = 90,
+            RespawnCycle = 3
         };
 
         jsonMonsterGroupDatas[4] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 2,
-            monsterUID = 0,
-            monsterCount = 1,
-            spawnStartTime = 3,
-            spawnEndTime = 90,
-            respawnCycleTime = 5
+            MonsterGroupID = 2,
+            MonsterID = 0,
+            MonsterNumber = 1,
+            FirstSpawnTime = 3,
+            EndSpawnTime = 90,
+            RespawnCycle = 5
         };
 
         jsonMonsterGroupDatas[5] = new JsonMonsterGroupData()
         {
-            monsterGroupUID = 2,
-            monsterUID = 2,
-            monsterCount = 4,
-            spawnStartTime = 5,
-            spawnEndTime = 90,
-            respawnCycleTime = 2
+            MonsterGroupID = 2,
+            MonsterID = 2,
+            MonsterNumber = 4,
+            FirstSpawnTime = 5,
+            EndSpawnTime = 90,
+            RespawnCycle = 2
         };
 
         TableLoader.SaveToJson("Stage", jsonMonsterGroupDatas, "TestMonsterGroup");
