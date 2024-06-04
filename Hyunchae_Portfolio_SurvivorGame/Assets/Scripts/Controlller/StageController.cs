@@ -13,7 +13,7 @@ public class StageController
     private UIManager uiManager;
 
     private int curStage = 0;
-    private int curWave = 0;
+    private int curWave = -1;
 
     private int[] monsterGroupUIDarr;
     private MonsterGroupData curMonsterGroupData;
@@ -31,7 +31,6 @@ public class StageController
         uiManager = UIManager.getInstance;
         spawnPointCalculater = new SpawnPointCalculator();
         SetPlayerTransform(_playerTransform);
-        SetStageIndex(0);
 
         ShopPanelController shopPanel = uiManager.AddCachePanel<ShopPanelController>("UI/ShopPanel");
         shopPanel.OnClickNextWaveAction = StartWave;
@@ -45,7 +44,7 @@ public class StageController
 
         monsterGroupUIDarr = stageData.WaveMonsterGroupID;
 
-        SetMonsterToCurWave();
+        StartWave();
     }
 
     public void SetMapData(MapData _mapData)

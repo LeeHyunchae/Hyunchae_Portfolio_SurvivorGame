@@ -76,6 +76,8 @@ public class IngameSceneController : MonoBehaviour
         stageController = new StageController();
         stageController.Init(playerController.GetPlayerTransform);
         stageController.SetMapData(mapData);
+        stageController.SetIngamePanel(ingamePanelController);
+        stageController.SetStageIndex(0);
     }
 
     private void InitMonster()

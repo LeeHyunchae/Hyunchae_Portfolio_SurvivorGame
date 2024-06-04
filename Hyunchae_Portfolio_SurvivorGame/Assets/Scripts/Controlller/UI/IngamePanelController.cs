@@ -61,6 +61,7 @@ public class IngamePanelController : MonoBehaviour
 
     public void StartWave(int _wave, float _waveTime)
     {
+        Debug.Log(_waveTime);
         waveTime = _waveTime;
         curWaveTime = _waveTime;
 
