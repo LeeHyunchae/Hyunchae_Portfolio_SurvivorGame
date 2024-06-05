@@ -22,7 +22,7 @@ public class UIBaseController : MonoBehaviour
 
     }
 
-    public void Show()
+    public virtual void Show()
     {
         canvas.enabled = true;
         raycaster.enabled = true;

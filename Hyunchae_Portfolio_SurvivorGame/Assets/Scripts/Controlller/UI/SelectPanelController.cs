@@ -145,7 +145,7 @@ public class SelectPanelController : UIBaseController
         if(selectCharacter != null && selectWeapon != null)
         {
             //Game Start
-            itemManager.SetEquipWeaponItem(selectWeapon);
+            itemManager.AddEquipWeaponItem(selectWeapon.itemUid);
             characterManager.SelectCharacterModel(selectCharacter.characterUid);
             SceneChanger.getInstance.ChangeScene("IngameScene");
         }

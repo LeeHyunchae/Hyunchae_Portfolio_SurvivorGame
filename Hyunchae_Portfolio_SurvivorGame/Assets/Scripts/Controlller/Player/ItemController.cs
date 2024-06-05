@@ -17,9 +17,11 @@ public class ItemController
         weaponCapacity = ItemManager.WEAPON_CAPACITY;
         equipWeaponList = new WeaponItemController[weaponCapacity];
 
+        itemManager.OnRefreshEquipWeaponList = OnRefreshEquipWeaponList;
+
         InitWeaponItem(_playerTransform);
         InitTargetMonsters();
-        InitWeaponModel();
+        OnRefreshEquipWeaponList();
 
     }
 
@@ -29,19 +31,6 @@ public class ItemController
         {
             equipWeaponList[i] = _playerTransform.GetChild(i).GetComponent<WeaponItemController>();
             equipWeaponList[i].Init();
-        }
-    }
-
-    private void InitWeaponModel()
-    {
-        for (int i = 0; i < weaponCapacity; i++)
-        {
-            WeaponItemModel model = itemManager.GetEquipWeaponItemModel(i);
-            
-            if(model != null)
-            {
-                equipWeaponList[i].SetWeaponItemModel(model);
-            }
         }
     }
 
@@ -73,5 +62,18 @@ public class ItemController
     public void SwapWeaponSlot(int _itemSlot,int _chengedItemSlot ,int _itemUid)
     {
         equipWeaponList[_itemSlot].SetWeaponItemModel(itemManager.GetWeaponItemModel(_itemUid));
+    }
+
+    private void OnRefreshEquipWeaponList()
+    {
+        for (int i = 0; i < weaponCapacity; i++)
+        {
+            WeaponItemModel model = itemManager.GetEquipWeaponItemModel(i);
+
+            if (model != null)
+            {
+                equipWeaponList[i].SetWeaponItemModel(model);
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ public class StageController
     private int[] monsterGroupUIDarr;
     private MonsterGroupData curMonsterGroupData;
 
-    private float waveEndTime = 50;
+    private float waveEndTime = 5;
     private float curWaveTime;
 
     private bool isWaveEnd = false;

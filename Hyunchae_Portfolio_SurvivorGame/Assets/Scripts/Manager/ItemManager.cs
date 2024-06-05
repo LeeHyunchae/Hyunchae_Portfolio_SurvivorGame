@@ -20,6 +20,7 @@ public class ItemManager : Singleton<ItemManager>
     private BaseWeaponAttack[] attackTypeArr = new BaseWeaponAttack[(int)EWeaponAttackType.END];
     private Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponAttackType, Queue<BaseWeaponAttack>>();
     private int pieceCount = 0;
+    public Action OnRefreshEquipWeaponList;
 
     public override bool Initialize()
     {
@@ -123,9 +124,11 @@ public class ItemManager : Singleton<ItemManager>
     }
 
 
-    public void SetEquipWeaponItem(WeaponItemModel _model, int _slot = 0)
+    private void SetEquipWeaponItem(WeaponItemModel _model = null, int _slot = 0)
     {
         equipWeaponModelArr[_slot] = _model;
+
+        OnRefreshEquipWeaponList?.Invoke();
     }
 
     public WeaponItemModel GetEquipWeaponItemModel(int _slot)
@@ -173,5 +176,19 @@ public class ItemManager : Singleton<ItemManager>
     public int GetPieceCount()
     {
         return pieceCount;
+    }
+
+    public void AddEquipWeaponItem(int _itemUid)
+    {
+        for(int i = 0; i <WEAPON_CAPACITY; i++)
+        {
+            if(equipWeaponModelArr[i] != null)
+            {
+                continue;
+            }
+
+            SetEquipWeaponItem(GetWeaponItemModel(_itemUid), i);
+            break;
+        }
     }
 }
