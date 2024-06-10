@@ -7,16 +7,13 @@ public class ItemButtonElement : MonoBehaviour
 {
     [SerializeField] private Image thumbnail;
 
-    private Button button;
+    [SerializeField] private Button button;
     public Button.ButtonClickedEvent GetButtonClickedEvent => button.onClick;
 
     private int itemUID;
 
     public void SetActive(bool _isOn) => gameObject.SetActive(_isOn);
-    public void Init()
-    {
-        button = GetComponent<Button>();
-    }
+
     public void SetThumbnail(Sprite _image)
     {
         thumbnail.sprite = _image;

@@ -211,6 +211,9 @@ public class StageController
         if(curWave >= monsterGroupUIDarr.Length)
         {
             curWave = monsterGroupUIDarr.Length - 1;
+
+            //Todo GameResult && SceneChange
+            SceneChanger.getInstance.ChangeScene("MainScene");
         }
 
         SetMonsterToCurWave();

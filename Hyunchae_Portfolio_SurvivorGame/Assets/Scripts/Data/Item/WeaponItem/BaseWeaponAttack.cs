@@ -42,7 +42,7 @@ public abstract class BaseWeaponAttack
         weaponTransform.rotation = Quaternion.identity;
     }
 
-    public void SetModelInfo(WeaponItemModel _model)
+    public virtual void SetModelInfo(WeaponItemModel _model)
     {
         cooldown = _model.status.cooldown;
         attackRange = _model.status.range;
@@ -189,17 +189,24 @@ public class Swing : BaseWeaponAttack
 public class Shoot : BaseWeaponAttack
 {
     private ItemManager itemManager = ItemManager.getInstance;
+    private string bulletName;
 
     public override BaseWeaponAttack DeepCopy()
     {
         return new Shoot();
     }
 
+    public override void SetModelInfo(WeaponItemModel _model)
+    {
+        base.SetModelInfo(_model);
+        bulletName = _model.bulletImage;
+    }
+
     protected override void Fire()
     {
         Projectile projectile = itemManager.GetProjectile();
 
-        projectile.SetSprite("Bullet 3");
+        projectile.SetSprite(bulletName);
         projectile.SetPrjectileInfo(targetDirection, damage, weaponTransform.position, attackRange);
         projectile.SetTarget(targetMonsters);
         

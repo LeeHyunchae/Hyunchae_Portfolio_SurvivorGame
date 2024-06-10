@@ -223,71 +223,352 @@ public class MapEditor : Editor
 
     private void WeaponTest()
     {
-        List<WeaponItemModel> itemModels = new List<WeaponItemModel>();
-        WeaponItemModel itemModel = new WeaponItemModel
-        {
-            itemUid = 0,
-            itemType = EItemType.ATTACKABLE,
-            itemPrice = 3,
-            itemThumbnail = "Weapon 3",
-            bulletImage = "Bullet 3",
-            itemName = "Gun",
-            attackType = EWeaponAttackType.SHOOT,
-            uniqueAbilityIDArr = new int[] { 1, 2, 3 }
+        List<JsonWeaponData> weaponDatas = new List<JsonWeaponData>();
 
+        JsonWeaponData jsonWeaponData1 = new JsonWeaponData
+        {
+            WeaponID = 0,
+            WeaponGroup = 0,
+            WeaponTier = 0,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SHOOT,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 1,
+            WeaponCritical = 1,
+            WeaponTypeDamage = 1,
+            WeaponRange = 10,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 3,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier1_Props_3",
+            BulletName = "Tier1_Props_9",
+            ItemName = "Rifle"
         };
 
-        WeaponStatus weaponStatus = new WeaponStatus();
-        weaponStatus.damage = 3;
-        weaponStatus.cooldown = 3;
+        weaponDatas.Add(jsonWeaponData1);
 
-        itemModel.status = weaponStatus;
-
-        itemModels.Add(itemModel);
-
-        WeaponItemModel itemModel2 = new WeaponItemModel
+        JsonWeaponData jsonWeaponData2 = new JsonWeaponData
         {
-            itemUid = 1,
-            itemType = EItemType.ATTACKABLE,
-            itemPrice = 8,
-            itemThumbnail = "Weapon 1",
-            bulletImage = string.Empty,
-            itemName = "Spear",
-            attackType = EWeaponAttackType.STING,
-            uniqueAbilityIDArr = new int[] { 3, 4, 5 }
-
+            WeaponID = 1,
+            WeaponGroup = 0,
+            WeaponTier = 1,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SHOOT,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 2,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 10,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 3,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier2_Props_3",
+            BulletName = "Tier1_Props_9",
+            ItemName = "Rifle2"
         };
 
-        WeaponStatus weaponStatus2 = new WeaponStatus();
-        weaponStatus.damage = 5;
-        weaponStatus.cooldown = 5;
+        weaponDatas.Add(jsonWeaponData2);
 
-        itemModel2.status = weaponStatus2;
-
-        itemModels.Add(itemModel2);
-
-        WeaponItemModel itemModel3 = new WeaponItemModel
+        JsonWeaponData jsonWeaponData3 = new JsonWeaponData
         {
-            itemUid = 2,
-            itemType = EItemType.ATTACKABLE,
-            itemPrice = 8,
-            itemThumbnail = "Weapon 2",
-            bulletImage = string.Empty,
-            itemName = "Scythe",
-            attackType = EWeaponAttackType.SWING,
-            uniqueAbilityIDArr = new int[] { 3, 4, 5 }
-
+            WeaponID = 2,
+            WeaponGroup = 0,
+            WeaponTier = 2,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SHOOT,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 3,
+            WeaponCritical = 3,
+            WeaponTypeDamage = 3,
+            WeaponRange = 10,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 3,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier3_Props_3",
+            BulletName = "Tier1_Props_9",
+            ItemName = "Rifle3"
         };
 
-        WeaponStatus weaponStatus3 = new WeaponStatus();
-        weaponStatus.damage = 5;
-        weaponStatus.cooldown = 5;
+        weaponDatas.Add(jsonWeaponData3);
 
-        itemModel2.status = weaponStatus3;
+        JsonWeaponData jsonWeaponData4 = new JsonWeaponData
+        {
+            WeaponID = 3,
+            WeaponGroup = 0,
+            WeaponTier = 3,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SHOOT,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 4,
+            WeaponCritical = 4,
+            WeaponTypeDamage = 4,
+            WeaponRange = 10,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 3,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier4_Props_3",
+            BulletName = "Tier1_Props_9",
+            ItemName = "Rifle4"
+        };
 
-        itemModels.Add(itemModel3);
+        weaponDatas.Add(jsonWeaponData4);
 
-        TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
+        jsonWeaponData1 = new JsonWeaponData
+        {
+            WeaponID = 4,
+            WeaponGroup = 1,
+            WeaponTier = 0,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 1,
+            WeaponCritical = 1,
+            WeaponTypeDamage = 1,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier1_Props_1",
+            BulletName = "",
+            ItemName = "Spear"
+        };
+
+        weaponDatas.Add(jsonWeaponData1);
+
+        jsonWeaponData2 = new JsonWeaponData
+        {
+            WeaponID = 5,
+            WeaponGroup = 1,
+            WeaponTier = 1,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 2,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier2_Props_1",
+            BulletName = "",
+            ItemName = "Spear2"
+        };
+
+        weaponDatas.Add(jsonWeaponData2);
+
+        jsonWeaponData3 = new JsonWeaponData
+        {
+            WeaponID = 6,
+            WeaponGroup = 1,
+            WeaponTier = 2,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 3,
+            WeaponCritical = 3,
+            WeaponTypeDamage = 3,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier3_Props_1",
+            BulletName = "",
+            ItemName = "Spear3"
+        };
+
+        weaponDatas.Add(jsonWeaponData3);
+
+        jsonWeaponData4 = new JsonWeaponData
+        {
+            WeaponID = 7,
+            WeaponGroup = 1,
+            WeaponTier = 3,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 4,
+            WeaponCritical = 4,
+            WeaponTypeDamage = 4,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier4_Props_1",
+            BulletName = "",
+            ItemName = "Spear4"
+        };
+
+        weaponDatas.Add(jsonWeaponData4);
+
+        jsonWeaponData1 = new JsonWeaponData
+        {
+            WeaponID = 8,
+            WeaponGroup = 2,
+            WeaponTier = 0,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SWING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 1,
+            WeaponCritical = 1,
+            WeaponTypeDamage = 1,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier1_Props_2",
+            BulletName = "",
+            ItemName = "Scythe"
+        };
+
+        weaponDatas.Add(jsonWeaponData1);
+
+        jsonWeaponData2 = new JsonWeaponData
+        {
+            WeaponID = 9,
+            WeaponGroup = 2,
+            WeaponTier = 1,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SWING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 2,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier2_Props_2",
+            BulletName = "",
+            ItemName = "Scythe2"
+        };
+
+        weaponDatas.Add(jsonWeaponData2);
+
+        jsonWeaponData3 = new JsonWeaponData
+        {
+            WeaponID = 10,
+            WeaponGroup = 2,
+            WeaponTier = 2,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SWING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 3,
+            WeaponCritical = 3,
+            WeaponTypeDamage = 3,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier3_Props_2",
+            BulletName = "",
+            ItemName = "Scythe3"
+        };
+
+        weaponDatas.Add(jsonWeaponData3);
+
+        jsonWeaponData4 = new JsonWeaponData
+        {
+            WeaponID = 11,
+            WeaponGroup = 2,
+            WeaponTier = 3,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.SWING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 4,
+            WeaponCritical = 4,
+            WeaponTypeDamage = 4,
+            WeaponRange = 5,
+            WeaponSpeed = 5,
+            WeaponCoolDown = 2,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier4_Props_2",
+            BulletName = "",
+            ItemName = "Scythe4"
+        };
+
+        weaponDatas.Add(jsonWeaponData4);
+
+        TableLoader.SaveToJson("Weapon", weaponDatas, "TestWeapon");
+
+
+        //List<WeaponItemModel> itemModels = new List<WeaponItemModel>();
+        //WeaponItemModel itemModel = new WeaponItemModel
+        //{
+        //    itemUid = 0,
+        //    itemType = EItemType.ATTACKABLE,
+        //    itemPrice = 3,
+        //    itemThumbnail = "Weapon 3",
+        //    bulletImage = "Bullet 3",
+        //    itemName = "Gun",
+        //    WeaponType = EWeaponType.SHOOT,
+        //    uniqueAbilityIDArr = new int[] { 1, 2, 3 }
+
+        //};
+
+        //WeaponStatus weaponStatus = new WeaponStatus();
+        //weaponStatus.damage = 3;
+        //weaponStatus.cooldown = 3;
+
+        //itemModel.status = weaponStatus;
+
+        //itemModels.Add(itemModel);
+
+        //WeaponItemModel itemModel2 = new WeaponItemModel
+        //{
+        //    itemUid = 1,
+        //    itemType = EItemType.ATTACKABLE,
+        //    itemPrice = 8,
+        //    itemThumbnail = "Weapon 1",
+        //    bulletImage = string.Empty,
+        //    itemName = "Spear",
+        //    WeaponType = EWeaponType.STING,
+        //    uniqueAbilityIDArr = new int[] { 3, 4, 5 }
+
+        //};
+
+        //WeaponStatus weaponStatus2 = new WeaponStatus();
+        //weaponStatus.damage = 5;
+        //weaponStatus.cooldown = 5;
+
+        //itemModel2.status = weaponStatus2;
+
+        //itemModels.Add(itemModel2);
+
+        //WeaponItemModel itemModel3 = new WeaponItemModel
+        //{
+        //    itemUid = 2,
+        //    itemType = EItemType.ATTACKABLE,
+        //    itemPrice = 8,
+        //    itemThumbnail = "Weapon 2",
+        //    bulletImage = string.Empty,
+        //    itemName = "Scythe",
+        //    WeaponType = EWeaponType.SWING,
+        //    uniqueAbilityIDArr = new int[] { 3, 4, 5 }
+
+        //};
+
+        //WeaponStatus weaponStatus3 = new WeaponStatus();
+        //weaponStatus.damage = 5;
+        //weaponStatus.cooldown = 5;
+
+        //itemModel2.status = weaponStatus3;
+
+        //itemModels.Add(itemModel3);
+
+        //TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
     }
 
     private void MonsterTest()

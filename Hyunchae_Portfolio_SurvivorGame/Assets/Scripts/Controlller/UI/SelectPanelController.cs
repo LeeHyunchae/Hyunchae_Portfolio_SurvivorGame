@@ -10,7 +10,7 @@ public class SelectPanelController : UIBaseController
 
     [SerializeField] private GameObject originSelectButtonItem;
     [SerializeField] private Transform selectButtonListBG;
-    [SerializeField] private CharacterStatusInfo statusInfo;
+    [SerializeField] private ItemStatusInfoElement statusInfo;
     [SerializeField] private Button closeButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button prevButton;
@@ -40,12 +40,29 @@ public class SelectPanelController : UIBaseController
         InitData();
 
         CreateSelectButton();
+
+        statusInfo.SetActiveCloseButton(false);
     }
 
     private void InitData()
     {
         characters = characterManager.GetAllCharacterModel;
-        weapons = ItemManager.getInstance.GetAllWeaponModel();
+        InitSelectableWeaponModels();
+    }
+
+    private void InitSelectableWeaponModels()
+    {
+        List<WeaponItemModel> weaponModels = ItemManager.getInstance.GetAllWeaponModel();
+
+        int count = weaponModels.Count;
+
+        for(int i = 0; i < count; i ++)
+        {
+            if(weaponModels[i].weaponTier == 0)
+            {
+                weapons.Add(weaponModels[i]);
+            }
+        }
     }
 
     private void CreateSelectButton()
@@ -92,7 +109,7 @@ public class SelectPanelController : UIBaseController
 
             SelectButtonElement element = selectButtons[i];
 
-            element.SetThumbnail(itemManager.GetWeaponItemSprite(weapons[i].itemUid));
+            element.SetThumbnail(itemManager.GetSpriteToName(weapons[i].itemThumbnail));
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickWeaponButton(index));
 
@@ -108,7 +125,7 @@ public class SelectPanelController : UIBaseController
         selectCharacter = model;
 
         statusInfo.SetName(model.characterName);
-        statusInfo.SetCharacterTumbnail(characterManager.GetCharacterSprite(model.characterUid));
+        statusInfo.SetTumbnail(characterManager.GetCharacterSprite(model.characterUid));
         statusInfo.SetActive(true);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -121,7 +138,7 @@ public class SelectPanelController : UIBaseController
             stringBuilder.Append(varianceInfo);
         }
 
-        statusInfo.SetCharacterInfo(stringBuilder.ToString());
+        statusInfo.SetInfoText(stringBuilder.ToString());
 
     }
 
@@ -132,12 +149,12 @@ public class SelectPanelController : UIBaseController
         selectWeapon = model;
 
         statusInfo.SetName(model.itemName);
-        statusInfo.SetCharacterTumbnail(itemManager.GetWeaponItemSprite(model.itemUid));
+        statusInfo.SetTumbnail(itemManager.GetSpriteToName(model.itemThumbnail));
         statusInfo.SetActive(true);
 
-        string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.cooldown;
+        StringBuilder sb = selectWeapon.GetWeaponInfo();
 
-        statusInfo.SetCharacterInfo(weaponInfo);
+        statusInfo.SetInfoText(sb.ToString());
     }
 
     private void OnClickNextButton()

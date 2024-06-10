@@ -29,9 +29,9 @@ public class WeaponItemController : MonoBehaviour
     {
         itemModel = _itemModel;
 
-        spriteRenderer.sprite = itemManager.GetWeaponItemSprite(itemModel.itemUid);
+        spriteRenderer.sprite = itemManager.GetSpriteToName(itemModel.itemThumbnail);
 
-        attackType = itemManager.GetAttackType(itemModel.attackType);
+        attackType = itemManager.GetAttackType(itemModel.WeaponType);
 
         attackType.SetModelInfo(itemModel);
 
@@ -63,7 +63,7 @@ public class WeaponItemController : MonoBehaviour
 
     public void UnEquipWeapon()
     {
-        itemManager.ReleaseWeaponAttackType(itemModel.attackType, attackType);
+        itemManager.ReleaseWeaponAttackType(itemModel.WeaponType, attackType);
         attackType = null;
         itemModel = null;
         spriteRenderer.sprite = null;

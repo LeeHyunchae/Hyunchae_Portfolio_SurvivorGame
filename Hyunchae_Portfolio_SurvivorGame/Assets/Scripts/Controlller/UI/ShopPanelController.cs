@@ -20,7 +20,7 @@ public class ShopPanelController : UIBaseController
     public Action OnClickNextWaveAction;
     private ItemManager itemManager;
 
-    private List<WeaponItemModel> weapons = new List<WeaponItemModel>();
+    private List<BaseItemModel> items = new List<BaseItemModel>();
 
     private BaseItemModel[] curShowingItemArr = new BaseItemModel[SHOWING_ITEM_COUNT];
 
@@ -61,9 +61,9 @@ public class ShopPanelController : UIBaseController
 
     private void SetItemList()
     {
-        weapons = itemManager.GetAllWeaponModel();
+        items = itemManager.GetRandomItemList();
 
-        int count = weapons.Count;
+        int count = items.Count;
 
         for (int i = 0; i < count; i++)
         {
@@ -71,10 +71,10 @@ public class ShopPanelController : UIBaseController
             ShopItemElement element = shopItemElements[i];
 
             //Todo RandomSystem
-            element.SetThumbnail(itemManager.GetWeaponItemSprite(weapons[i].itemUid));
-            element.SetItemData(weapons[i]);
+            element.SetThumbnail(itemManager.GetSpriteToName(items[i].itemThumbnail));
+            element.SetItemData(items[i]);
 
-            curShowingItemArr[i] = weapons[i];
+            curShowingItemArr[i] = items[i];
         }
     }
 
@@ -87,7 +87,7 @@ public class ShopPanelController : UIBaseController
 
     private void OnClickRerollButton()
     {
-
+        SetItemList();
     }
 
     private void OnClickBuyButton(int _elementIndex)

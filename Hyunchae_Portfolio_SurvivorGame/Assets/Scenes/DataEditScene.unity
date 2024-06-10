@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 661198763}
   - component: {fileID: 661198762}
   m_Layer: 0
-  m_Name: Mapsetting
+  m_Name: Datasetting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

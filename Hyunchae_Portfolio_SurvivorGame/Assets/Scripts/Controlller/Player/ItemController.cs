@@ -17,7 +17,7 @@ public class ItemController
         weaponCapacity = ItemManager.WEAPON_CAPACITY;
         equipWeaponList = new WeaponItemController[weaponCapacity];
 
-        itemManager.OnRefreshEquipWeaponList = OnRefreshEquipWeaponList;
+        itemManager.OnRefreshEquipWeaponList += OnRefreshEquipWeaponList;
 
         InitWeaponItem(_playerTransform);
         InitTargetMonsters();
