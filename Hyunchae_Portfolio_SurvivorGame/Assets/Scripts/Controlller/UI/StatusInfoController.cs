@@ -14,9 +14,11 @@ public class StatusInfoController : MonoBehaviour
     [SerializeField] private GameObject itemListObject;
     [SerializeField] private ItemButtonElement[] itemButtonElements;
     [SerializeField] private ItemStatusInfoElement itemInfoElement;
+    [SerializeField] private Image dimImage;
 
     private ItemManager itemManager;
     private CharacterManager characterManager;
+    private int curInfoItemSlotNum = -1;
 
     private void Awake()
     {
@@ -29,8 +31,13 @@ public class StatusInfoController : MonoBehaviour
         characterManager = CharacterManager.getInstance;
 
         itemInfoElement.SetActiveCloseButton(true);
-
+        itemInfoElement.SetActiveSellButton(true);
+        
         itemManager.OnRefreshEquipWeaponList += SetWeaponData;
+
+        itemInfoElement.GetCloseButtonEvent.AddListener(OnClickWeaponItemInfoCloseButton);
+        itemInfoElement.GetSellButtonEvent.AddListener(OnClickWeaponItemSellButton);
+        itemInfoElement.GetCombineButton.AddListener(OnClickWeaponItemCombineButton);
     }
 
     private void OnClickFirstStatusInfoButton()
@@ -56,12 +63,15 @@ public class StatusInfoController : MonoBehaviour
         itemListObject.gameObject.SetActive(true);
     }
 
-    private void OnClickWeaponItemButton(int _itemUid)
+    private void OnClickWeaponItemButton(int _itemUid, int _itemSlotNum)
     {
+        curInfoItemSlotNum = _itemSlotNum;
 
         //itemInfoElement.SetTumbnail(itemManager.GetSpriteToName(_itemUid));
         //itemInfoElement.SetName(itemManager.GetWeaponItemModel(_itemUid).itemName);
         //itemInfoElement.SetCharacterInfo(itemManager.GetWeaponItemModel(_itemUid).status);
+
+        dimImage.enabled = true;
 
         WeaponItemModel model = itemManager.GetWeaponItemModel(_itemUid);
 
@@ -72,6 +82,31 @@ public class StatusInfoController : MonoBehaviour
         string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.cooldown;
 
         itemInfoElement.SetInfoText(weaponInfo);
+        itemInfoElement.SetItemPrice(model.itemPrice.ToString());
+
+        itemInfoElement.SetActiveCombineButton(itemManager.CheckCombineItemExistence(model));
+    }
+
+    private void OnClickWeaponItemInfoCloseButton()
+    {
+        dimImage.enabled = false;
+        curInfoItemSlotNum = -1;
+    }
+
+    private void OnClickWeaponItemSellButton()
+    {
+        if(curInfoItemSlotNum == -1)
+        {
+            return;
+        }
+
+        itemManager.SellWeaponItem(curInfoItemSlotNum);
+    }
+
+    private void OnClickWeaponItemCombineButton()
+    {
+        itemManager.CombineWeaponItem(curInfoItemSlotNum);
+
     }
 
     private void SetWeaponData()
@@ -84,6 +119,8 @@ public class StatusInfoController : MonoBehaviour
 
             ItemButtonElement itemButtonElement = itemButtonElements[i];
 
+            int slotIdx = i;
+
             if (weaponModel == null)
             {
                 itemButtonElement.SetThumbnail(null);
@@ -94,7 +131,7 @@ public class StatusInfoController : MonoBehaviour
             {
                 itemButtonElement.SetThumbnail(itemManager.GetSpriteToName(weaponModel.itemThumbnail));
                 itemButtonElement.SetItemUID(weaponModel.itemUid);
-                itemButtonElement.GetButtonClickedEvent.AddListener(() => OnClickWeaponItemButton(weaponModel.itemUid));
+                itemButtonElement.GetButtonClickedEvent.AddListener(() => OnClickWeaponItemButton(weaponModel.itemUid,slotIdx));
             }
 
         }

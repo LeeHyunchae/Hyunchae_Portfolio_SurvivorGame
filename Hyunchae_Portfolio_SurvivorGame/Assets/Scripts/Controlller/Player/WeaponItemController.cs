@@ -42,6 +42,8 @@ public class WeaponItemController : MonoBehaviour
         obbCollision.RefreshSprite();
 
         attackType.SetAttackTarget(targetMonsters);
+
+        obbCollision.SetIsCollisionCheck(true);
     }
 
     public void SetTargetMonsters(ITargetable[] _targetMonsters)
@@ -63,10 +65,15 @@ public class WeaponItemController : MonoBehaviour
 
     public void UnEquipWeapon()
     {
-        itemManager.ReleaseWeaponAttackType(itemModel.WeaponType, attackType);
+        if (itemModel != null)
+        {
+            itemManager.ReleaseWeaponAttackType(itemModel.WeaponType, attackType);
+        }
         attackType = null;
         itemModel = null;
         spriteRenderer.sprite = null;
+
+        obbCollision.SetIsCollisionCheck(false);
     }
 
     private void FindTarget()

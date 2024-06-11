@@ -20,6 +20,6 @@ public class ItemButtonElement : MonoBehaviour
     }
 
     public void SetItemUID(int _uid) => itemUID = _uid;
-    public int GetItemUID() => itemUID;
+    public int GetItemUID => itemUID;
 
 }

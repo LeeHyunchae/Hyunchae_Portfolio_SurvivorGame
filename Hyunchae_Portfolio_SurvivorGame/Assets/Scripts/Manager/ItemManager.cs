@@ -25,6 +25,8 @@ public class ItemManager : Singleton<ItemManager>
     private int pieceCount = 0;
     public Action OnRefreshEquipWeaponList;
 
+    public int GetWeaponCapacity => WEAPON_CAPACITY;
+
     public override bool Initialize()
     {
         LoadData();
@@ -257,5 +259,103 @@ public class ItemManager : Singleton<ItemManager>
             SetEquipWeaponItem(GetWeaponItemModel(_itemUid), i);
             break;
         }
+    }
+
+    public void SellWeaponItem(int _slotNum)
+    {
+        SetEquipWeaponItem(null, _slotNum);
+
+        //Todo Piece += itemPice ,,, GlobalData
+    }
+
+    public bool CheckCombineItemExistence(WeaponItemModel _model)
+    {
+        WeaponItemModel compareTarget = _model;
+
+        int count = WEAPON_CAPACITY;
+
+        int duplicationCount = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            WeaponItemModel model = equipWeaponModelArr[i];
+
+            if (model == null)
+            {
+                continue;
+            }
+            else
+            {
+                if (compareTarget == model)
+                {
+                    duplicationCount++;
+                }
+            }
+        }
+
+        if (duplicationCount >= 2)
+        {
+            Debug.Log("isDuplicated");
+            return true;
+        }
+
+        Debug.Log("NotDuplicated");
+        return false;
+    }
+
+    public void CombineWeaponItem(int _slotNum)
+    {
+        WeaponItemModel combineTarget = equipWeaponModelArr[_slotNum];
+
+        int count = WEAPON_CAPACITY;
+
+        for(int i = 0; i <count; i++)
+        {
+            WeaponItemModel model = equipWeaponModelArr[i];
+
+            if(i == _slotNum)
+            {
+                continue;
+            }
+
+            if(combineTarget == model)
+            {
+                if(UpgradeWeaponItem(_slotNum))
+                {
+                    SetEquipWeaponItem(null, i);
+
+                }
+                break;
+            }
+        }
+    }
+
+    public bool UpgradeWeaponItem(int _slotNum)
+    {
+        WeaponItemModel combineTarget = equipWeaponModelArr[_slotNum];
+        int combineTargetGroup = combineTarget.weaponGroup;
+        int combineTargetTier = combineTarget.weaponTier + 1;
+
+        if(combineTargetTier > 3)
+        {
+            Debug.Log("This Item Is Last Tier");
+            return false;
+        }
+
+        int count = weaponItemModels.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+            WeaponItemModel model = weaponItemModels[i];
+
+            if(combineTargetGroup == model.weaponGroup && combineTargetTier == model.weaponTier)
+            {
+                SetEquipWeaponItem(model, _slotNum);
+                return true;
+            }
+        }
+
+        Debug.Log("Not Exist Next Tier Item");
+        return false;
     }
 }

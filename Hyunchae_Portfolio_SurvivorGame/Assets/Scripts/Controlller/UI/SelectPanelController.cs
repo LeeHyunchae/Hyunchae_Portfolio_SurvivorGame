@@ -32,6 +32,7 @@ public class SelectPanelController : UIBaseController
     {
         characterManager = CharacterManager.getInstance;
         itemManager = ItemManager.getInstance;
+        uiManager = UIManager.getInstance;
 
         nextButton.onClick.AddListener(OnClickNextButton);
         prevButton.onClick.AddListener(OnClickPrevButton);
@@ -42,6 +43,8 @@ public class SelectPanelController : UIBaseController
         CreateSelectButton();
 
         statusInfo.SetActiveCloseButton(false);
+        statusInfo.SetActiveSellButton(false);
+        statusInfo.SetActiveCombineButton(false);
     }
 
     private void InitData()

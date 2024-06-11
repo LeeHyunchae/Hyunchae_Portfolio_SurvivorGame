@@ -74,6 +74,10 @@ public class ItemController
             {
                 equipWeaponList[i].SetWeaponItemModel(model);
             }
+            else
+            {
+                equipWeaponList[i].UnEquipWeapon();
+            }
         }
     }
 }

@@ -13,6 +13,10 @@ public class ObbCollisionObject : MonoBehaviour
 
     private int targetCount;
 
+    private bool isCollisionCheck = true;
+
+    public bool SetIsCollisionCheck(bool _isCheck) => isCollisionCheck = _isCheck;
+
     private void Awake()
     {
         myTransform = gameObject.GetComponent<Transform>();
@@ -26,6 +30,11 @@ public class ObbCollisionObject : MonoBehaviour
 
     private void Update()
     {
+        if(!isCollisionCheck)
+        {
+            return;
+        }
+
         CheckCollision();
     }
 
