@@ -4,12 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildupElement : MonoBehaviour
+public class AugmentElement : MonoBehaviour
 {
     [SerializeField] Button selectButton;
     [SerializeField] Image thumbnailImage;
-    [SerializeField] TextMeshProUGUI buildupNameText;
-    [SerializeField] TextMeshProUGUI buildupInfoText;
+    [SerializeField] TextMeshProUGUI augmentNameText;
+    [SerializeField] TextMeshProUGUI augmentInfoText;
 
     public Button.ButtonClickedEvent GetSelectButtonClickEvent;
 
@@ -18,13 +18,13 @@ public class BuildupElement : MonoBehaviour
         thumbnailImage.sprite = _sprite;
     }
 
-    public void SetBuildupNameText(string _name)
+    public void SetAugmentNameText(string _name)
     {
-        buildupNameText.text = _name;
+        augmentNameText.text = _name;
     }
 
-    public void SetBuildupInfoText(string _info)
+    public void SetAugmentInfoText(string _info)
     {
-        buildupInfoText.text = _info;
+        augmentInfoText.text = _info;
     }
 }

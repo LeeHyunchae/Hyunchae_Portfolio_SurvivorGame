@@ -80,6 +80,11 @@ public class MapEditor : Editor
             MonsterTest();
         }
 
+        if (GUILayout.Button("임시 증강체 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            AugmentTest();
+        }
+
         if (GUILayout.Button("임시 스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             StageTest();
@@ -727,6 +732,142 @@ public class MapEditor : Editor
         };
 
         TableLoader.SaveToJson("Stage", jsonMonsterGroupDatas, "TestMonsterGroup");
+
+    }
+
+
+    private void AugmentTest()
+    {
+        List<JsonAugmentData> augmentDatas = new List<JsonAugmentData>();
+
+        JsonAugmentData augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000001,
+            BuildUpGrade = 1,
+            BuildUpName = "UI_Text_BuildUp_Name_6000001",
+            BuildUpImage = "BuildUpImage_6000001.png",
+            BuildUpContent = "Mosnter SpawnTime+",
+            BuildUpType = 101,
+            BuildUpVariable = 10,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000002,
+            BuildUpGrade = 2,
+            BuildUpName = "UI_Text_BuildUp_Name_6000002",
+            BuildUpImage = "BuildUpImage_6000002.png",
+            BuildUpContent = "Mosnter SpawnTime++",
+            BuildUpType = 101,
+            BuildUpVariable = 25,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000003,
+            BuildUpGrade = 3,
+            BuildUpName = "UI_Text_BuildUp_Name_6000003",
+            BuildUpImage = "BuildUpImage_6000003.png",
+            BuildUpContent = "Mosnter SpawnTime+++",
+            BuildUpType = 101,
+            BuildUpVariable = 50,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000004,
+            BuildUpGrade = 1,
+            BuildUpName = "UI_Text_BuildUp_Name_6000004",
+            BuildUpImage = "BuildUpImage_6000004.png",
+            BuildUpContent = "Mosnter SpawnTime-",
+            BuildUpType = 101,
+            BuildUpVariable = -10,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000005,
+            BuildUpGrade = 2,
+            BuildUpName = "UI_Text_BuildUp_Name_6000005",
+            BuildUpImage = "BuildUpImage_6000005.png",
+            BuildUpContent = "Mosnter SpawnTime--",
+            BuildUpType = 101,
+            BuildUpVariable = -25,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000006,
+            BuildUpGrade = 3,
+            BuildUpName = "UI_Text_BuildUp_Name_6000006",
+            BuildUpImage = "BuildUpImage_6000006.png",
+            BuildUpContent = "Mosnter SpawnTime---",
+            BuildUpType = 101,
+            BuildUpVariable = -50,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000007,
+            BuildUpGrade = 1,
+            BuildUpName = "UI_Text_BuildUp_Name_6000007",
+            BuildUpImage = "BuildUpImage_6000007.png",
+            BuildUpContent = "Mosnter MoveSpeed-",
+            BuildUpType = 302,
+            BuildUpVariable = 10,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000008,
+            BuildUpGrade = 2,
+            BuildUpName = "UI_Text_BuildUp_Name_6000008",
+            BuildUpImage = "BuildUpImage_6000008.png",
+            BuildUpContent = "Mosnter MoveSpeed--, Monster HP+",
+            BuildUpType = 302,
+            BuildUpVariable = 25,
+            BuildUpType2 = 301,
+            BuildUpVariavle2 = 10
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000009,
+            BuildUpGrade = 3,
+            BuildUpName = "UI_Text_BuildUp_Name_6000009",
+            BuildUpImage = "BuildUpImage_6000009.png",
+            BuildUpContent = "Mosnter MoveSpeed---, Monster HP++",
+            BuildUpType = 302,
+            BuildUpVariable = 50,
+            BuildUpType2 = 301,
+            BuildUpVariavle2 = 25
+        };
+        augmentDatas.Add(augmentData);
+
+        TableLoader.SaveToJson("Augment", augmentDatas, "TestAugment");
 
     }
 }

@@ -1,0 +1,101 @@
+[
+  {
+    "BuildUpID": 6000001,
+    "BuildUpGrade": 1,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000001",
+    "BuildUpImage": "BuildUpImage_6000001.png",
+    "BuildUpContent": "Mosnter SpawnTime+",
+    "BuildUpType": 101,
+    "BuildUpVariable": 10,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000002,
+    "BuildUpGrade": 2,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000002",
+    "BuildUpImage": "BuildUpImage_6000002.png",
+    "BuildUpContent": "Mosnter SpawnTime++",
+    "BuildUpType": 101,
+    "BuildUpVariable": 25,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000003,
+    "BuildUpGrade": 3,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000003",
+    "BuildUpImage": "BuildUpImage_6000003.png",
+    "BuildUpContent": "Mosnter SpawnTime+++",
+    "BuildUpType": 101,
+    "BuildUpVariable": 50,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000004,
+    "BuildUpGrade": 1,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000004",
+    "BuildUpImage": "BuildUpImage_6000004.png",
+    "BuildUpContent": "Mosnter SpawnTime-",
+    "BuildUpType": 101,
+    "BuildUpVariable": -10,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000005,
+    "BuildUpGrade": 2,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000005",
+    "BuildUpImage": "BuildUpImage_6000005.png",
+    "BuildUpContent": "Mosnter SpawnTime--",
+    "BuildUpType": 101,
+    "BuildUpVariable": -25,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000006,
+    "BuildUpGrade": 3,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000006",
+    "BuildUpImage": "BuildUpImage_6000006.png",
+    "BuildUpContent": "Mosnter SpawnTime---",
+    "BuildUpType": 101,
+    "BuildUpVariable": -50,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000007,
+    "BuildUpGrade": 1,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000007",
+    "BuildUpImage": "BuildUpImage_6000007.png",
+    "BuildUpContent": "Mosnter MoveSpeed-",
+    "BuildUpType": 302,
+    "BuildUpVariable": 10,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0
+  },
+  {
+    "BuildUpID": 6000008,
+    "BuildUpGrade": 2,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000008",
+    "BuildUpImage": "BuildUpImage_6000008.png",
+    "BuildUpContent": "Mosnter MoveSpeed--, Monster HP+",
+    "BuildUpType": 302,
+    "BuildUpVariable": 25,
+    "BuildUpType2": 301,
+    "BuildUpVariavle2": 10
+  },
+  {
+    "BuildUpID": 6000009,
+    "BuildUpGrade": 3,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000009",
+    "BuildUpImage": "BuildUpImage_6000009.png",
+    "BuildUpContent": "Mosnter MoveSpeed---, Monster HP++",
+    "BuildUpType": 302,
+    "BuildUpVariable": 50,
+    "BuildUpType2": 301,
+    "BuildUpVariavle2": 25
+  }
+]

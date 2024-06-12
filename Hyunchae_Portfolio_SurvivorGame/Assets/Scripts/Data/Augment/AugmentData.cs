@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildupData
-{
-    
-}
-
-public enum BuildUpType
+public enum AugmentType
 {
     MONSTERSPAWN = 101,
 
@@ -32,7 +27,7 @@ public enum BuildUpType
     MONSTERMOVESPEED = 302
 }
 
-public class JsonBuildupData
+public class JsonAugmentData
 {
     public int BuildUpID;
     public int BuildUpGrade;
@@ -43,4 +38,17 @@ public class JsonBuildupData
     public int BuildUpVariable;
     public int BuildUpType2;
     public int BuildUpVariavle2;
+}
+
+public class AugmentData
+{
+    public int augmentUid;
+    public int augmentTier;
+    public string augmentName;
+    public string augmentImagePath;
+    public string augmentInfo;
+    public AugmentType firstAugmentType;
+    public int firstAugmentValue;
+    public AugmentType secondAugmentType;
+    public int secondAugmentValue;
 }

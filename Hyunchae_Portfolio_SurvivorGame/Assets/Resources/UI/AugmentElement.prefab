@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2183799165534985965}
   - component: {fileID: 8079094270142704708}
   m_Layer: 5
-  m_Name: BuildupNameText (TMP)
+  m_Name: AugmentNameText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BuilupName
+  m_text: AugmentName
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 3792247862537053621}
   - component: {fileID: 29670182290477002}
   m_Layer: 5
-  m_Name: ThubnailImage
+  m_Name: ThumbnailImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,9 +221,9 @@ GameObject:
   - component: {fileID: 4100129704852584216}
   - component: {fileID: 8222415127134934473}
   - component: {fileID: 8968402458089650469}
-  - component: {fileID: 8074246514137251065}
+  - component: {fileID: 2427698207564157297}
   m_Layer: 5
-  m_Name: BuildupElement
+  m_Name: AugmentElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8074246514137251065
+--- !u!114 &2427698207564157297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,8 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectButton: {fileID: 8968402458089650469}
   thumbnailImage: {fileID: 29670182290477002}
-  buildupNameText: {fileID: 8079094270142704708}
-  buildupInfoText: {fileID: 4317954301615805185}
+  augmentNameText: {fileID: 8079094270142704708}
+  augmentInfoText: {fileID: 4317954301615805185}
   GetSelectButtonClickEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 4404721396033624199}
   - component: {fileID: 4317954301615805185}
   m_Layer: 5
-  m_Name: BuildupInfoText (TMP)
+  m_Name: AugmentInfoText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,8 +417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BuildupInfo BuildupInfo BuildupInfo BuildupInfo BuildupInfo BuildupInfo
-    BuildupInfo BuildupInfo
+  m_text: AugmentInfo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
