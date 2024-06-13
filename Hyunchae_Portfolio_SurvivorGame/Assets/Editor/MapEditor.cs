@@ -169,25 +169,25 @@ public class MapEditor : Editor
             characterThumbnail = "Sprites/Enemy 0"
         };
 
-        variance.characterStatus = ECharacterStatus.MAXHP;
+        variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
         variance.variance = 5;
 
         characterModel.variances.Add(variance);
         variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.CRITICAL_CHANCE;
+        variance.characterStatus = ECharacterStatus.PLAYER_CRITICALCHANCE;
         variance.variance = 3;
 
         characterModel.variances.Add(variance);
         variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.ATTACK_SPEED;
+        variance.characterStatus = ECharacterStatus.PLAYER_ATTACKSPEED;
         variance.variance = -5;
 
         characterModel.variances.Add(variance);
         variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.MOVE_SPEED;
+        variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
         variance.variance = 50;
 
         characterModel.variances.Add(variance);
@@ -204,19 +204,19 @@ public class MapEditor : Editor
             characterThumbnail = "Sprites/Enemy 1"
         };
 
-        variance.characterStatus = ECharacterStatus.MAXHP;
+        variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
         variance.variance = -5;
 
         characterModel2.variances.Add(variance);
         variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.DAMAGE_MULITPLIER;
+        variance.characterStatus = ECharacterStatus.PLAYER_DAMAGE;
         variance.variance = 25;
 
         characterModel2.variances.Add(variance);
         variance = new Status_Variance();
 
-        variance.characterStatus = ECharacterStatus.MOVE_SPEED;
+        variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
         variance.variance = 30;
 
         characterModel2.variances.Add(variance);
@@ -583,68 +583,40 @@ public class MapEditor : Editor
         MonsterModel monsterModel1 = new MonsterModel()
         {
             monsterUid = 0,
-            monsterName = "followMon",
+            monsterName = "FollowMon",
             monsterThumbnail = "Enemy 0",
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.NONE,
-            moveType = EMonsterMoveType.FOLLOW
+            moveType = EMonsterMoveType.FOLLOW,
+            monsterStatus = new float[] { 10, 1, 5, 2, 5 }
         };
-
-        MonsterStatus monsterStatus = new MonsterStatus()
-        {
-            maxHP = 10,
-            damage = 1,
-            cooldown = 5,
-            moveSpeed = 2,
-            attackRange = 5
-        };
-
-        monsterModel1.status = monsterStatus;
 
         monsterModels.Add(monsterModel1);
 
         MonsterModel monsterModel2 = new MonsterModel()
         {
             monsterUid = 1,
-            monsterName = "dashMon",
+            monsterName = "DashSeqMon",
             monsterThumbnail = "Enemy 1",
             logicType = EMonsterLogicType.SEQUENCE,
             skillType = EMonsterSkillType.DASH,
-            moveType = EMonsterMoveType.FOLLOW
+            moveType = EMonsterMoveType.FOLLOW,
+            monsterStatus = new float[] { 10,1,5,2,5}
         };
 
-        monsterStatus = new MonsterStatus()
-        {
-            maxHP = 10,
-            damage = 1,
-            cooldown = 5,
-            moveSpeed = 2,
-            attackRange = 5
-        };
-
-        monsterModel2.status = monsterStatus;
         monsterModels.Add(monsterModel2);
 
         MonsterModel monsterModel3 = new MonsterModel()
         {
             monsterUid = 2,
-            monsterName = "shootingmon",
+            monsterName = "ShootingLoopMon",
             monsterThumbnail = "Enemy 2",
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.SHOOTING,
-            moveType = EMonsterMoveType.FOLLOW
+            moveType = EMonsterMoveType.AWAY,
+            monsterStatus = new float[] { 10, 1, 5, 2, 5 }
         };
 
-        monsterStatus = new MonsterStatus()
-        {
-            maxHP = 10,
-            damage = 1,
-            cooldown = 5,
-            moveSpeed = 2,
-            attackRange = 5
-        };
-
-        monsterModel3.status = monsterStatus;
         monsterModels.Add(monsterModel3);
 
         TableLoader.SaveToJson("Monster", monsterModels, "TestMonster");
@@ -750,7 +722,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = 10,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 0
         };
 
         augmentDatas.Add(augmentData);
@@ -765,7 +738,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = 25,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 0
         };
         augmentDatas.Add(augmentData);
 
@@ -779,7 +753,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = 50,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 0
         };
         augmentDatas.Add(augmentData);
 
@@ -793,7 +768,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = -10,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 1
         };
         augmentDatas.Add(augmentData);
 
@@ -807,7 +783,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = -25,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 1
         };
         augmentDatas.Add(augmentData);
 
@@ -821,7 +798,8 @@ public class MapEditor : Editor
             BuildUpType = 101,
             BuildUpVariable = -50,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 1
         };
         augmentDatas.Add(augmentData);
 
@@ -835,7 +813,8 @@ public class MapEditor : Editor
             BuildUpType = 302,
             BuildUpVariable = 10,
             BuildUpType2 = 0,
-            BuildUpVariavle2 = 0
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 2
         };
         augmentDatas.Add(augmentData);
 
@@ -849,7 +828,8 @@ public class MapEditor : Editor
             BuildUpType = 302,
             BuildUpVariable = 25,
             BuildUpType2 = 301,
-            BuildUpVariavle2 = 10
+            BuildUpVariavle2 = 10,
+            BuildUpGruop = 2
         };
         augmentDatas.Add(augmentData);
 
@@ -863,7 +843,53 @@ public class MapEditor : Editor
             BuildUpType = 302,
             BuildUpVariable = 50,
             BuildUpType2 = 301,
-            BuildUpVariavle2 = 25
+            BuildUpVariavle2 = 25,
+            BuildUpGruop = 2
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000010,
+            BuildUpGrade = 1,
+            BuildUpName = "UI_Text_BuildUp_Name_6000010",
+            BuildUpImage = "BuildUpImage_6000010.png",
+            BuildUpContent = "Player Max HP +",
+            BuildUpType = 201,
+            BuildUpVariable = 10,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 3
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000011,
+            BuildUpGrade = 2,
+            BuildUpName = "UI_Text_BuildUp_Name_6000011",
+            BuildUpImage = "BuildUpImage_6000011.png",
+            BuildUpContent = "Player Max HP ++",
+            BuildUpType = 201,
+            BuildUpVariable = 25,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 3
+        };
+        augmentDatas.Add(augmentData);
+
+        augmentData = new JsonAugmentData
+        {
+            BuildUpID = 6000012,
+            BuildUpGrade = 3,
+            BuildUpName = "UI_Text_BuildUp_Name_6000012",
+            BuildUpImage = "BuildUpImage_6000012.png",
+            BuildUpContent = "Player Max HP +++",
+            BuildUpType = 201,
+            BuildUpVariable = 50,
+            BuildUpType2 = 0,
+            BuildUpVariavle2 = 0,
+            BuildUpGruop = 3
         };
         augmentDatas.Add(augmentData);
 

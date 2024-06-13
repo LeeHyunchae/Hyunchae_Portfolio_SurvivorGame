@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class AwayMoveBehaviour : MonsterBehaviour
 {
-    private float moveSpeed;
-    private float attackRange;
-    private float awayRange;
-
     public override MonsterBehaviour DeepCopy()
     {
         return new AwayMoveBehaviour();
-    }
-
-    public override void SetMonsterModel(MonsterModel _model)
-    {
-        base.SetMonsterModel(_model);
-
-        moveSpeed = model.status.moveSpeed;
-        awayRange = model.status.attackRange * 0.5f;
-        attackRange = model.status.attackRange;
     }
 
     public override void Update()
@@ -31,6 +18,11 @@ public class AwayMoveBehaviour : MonsterBehaviour
     {
         float distance = Vector2.Distance(targetTransform.position, monsterTransform.position);
         Vector2 direction = (targetTransform.position - monsterTransform.position).normalized;
+
+        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+        float awayRange = attackRange * 0.5f;
+        float moveSpeed = model.monsterStatus[(int)EMonsterStatus.MONSTER_MOVESPEED];
+
 
         if (distance < awayRange)
         {

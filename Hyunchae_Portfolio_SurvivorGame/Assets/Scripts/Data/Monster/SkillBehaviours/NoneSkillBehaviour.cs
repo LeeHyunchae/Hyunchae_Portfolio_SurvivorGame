@@ -9,11 +9,6 @@ public class NoneSkillBehabviour : MonsterBehaviour
         return new NoneSkillBehabviour();
     }
 
-    public override void SetMonsterModel(MonsterModel _model)
-    {
-        base.SetMonsterModel(_model);
-    }
-
     public override void Update()
     {
         // is NoneAction Monster only

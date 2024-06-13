@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour , ITargetable
         Character playerCharacter = characterManager.GetPlayerCharacter;
 
         spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
-        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.MOVE_SPEED).baseStatus;
+        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).baseStatus;
     }
 
     public void SetJoystick(JoystickControlller moveJoystick)

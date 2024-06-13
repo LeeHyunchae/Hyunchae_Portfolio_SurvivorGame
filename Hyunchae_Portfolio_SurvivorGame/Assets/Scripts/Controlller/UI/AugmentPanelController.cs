@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,6 +21,8 @@ public class AugmentPanelController : UIBaseController
     private AugmentManager augmentManager;
     private int curRerollCount;
 
+    public Action OnHideAugmentPanelAction;
+
     protected override void Init()
     {
         base.Init();
@@ -35,6 +38,8 @@ public class AugmentPanelController : UIBaseController
 
         curRerollCount = REROLL_COUNT;
         rerollButton.gameObject.SetActive(true);
+
+        RerollAugmentData();
     }
 
     private void InitButtons()
@@ -60,10 +65,13 @@ public class AugmentPanelController : UIBaseController
         {
             rerollButton.gameObject.SetActive(false);
         }
+
+        RerollAugmentData();
     }
 
     private void OnClickAugmentButton(int _augmentIndex)
     {
+        augmentSelectPopup.SetActive(true);
 
     }
 
@@ -74,6 +82,12 @@ public class AugmentPanelController : UIBaseController
 
     private void OnClickSelectConfirmButton()
     {
+        Hide();
+        OnHideAugmentPanelAction?.Invoke();
+    }
 
+    private void RerollAugmentData()
+    {
+        List<AugmentData> augmentDatas = augmentManager.GetRandomAugment();
     }
 }

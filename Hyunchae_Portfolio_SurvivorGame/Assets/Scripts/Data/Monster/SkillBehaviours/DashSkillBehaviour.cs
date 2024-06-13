@@ -9,11 +9,6 @@ public class DashSkillBehaviour : MonsterBehaviour
         return new DashSkillBehaviour();
     }
 
-    public override void SetMonsterModel(MonsterModel _model)
-    {
-        base.SetMonsterModel(_model);
-    }
-
     public override void Update()
     {
 

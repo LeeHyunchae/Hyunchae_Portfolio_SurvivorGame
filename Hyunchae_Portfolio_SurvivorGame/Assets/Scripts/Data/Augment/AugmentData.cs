@@ -4,27 +4,31 @@ using UnityEngine;
 
 public enum AugmentType
 {
-    MONSTERSPAWN = 101,
+    MONSTERSPAWN = 100,
 
-    CHARACTERHP = 201,
-    CHARACTERREGEN = 202,
-    CHARACTERLIFESTEAL = 203,
-    CHARACTERDAMAGE = 204,
-    CHARACTERMELEEDAMAGE = 205,
-    CHARACTERRANGEDAMAGE = 206,
-    CHARACTERATTACKSPEED = 207,
-    CHARACTERCRITICALCHANCE = 208,
-    CHARACTERCRITICALDAMAGE = 209,
-    CHARACTERMOVESPEED = 210,
-    CHARACTERENGINEERING = 211,
-    CHARACTERATTACKRANGE = 212,
-    CHARACTERARMOUR = 213,
-    CHARACTEREVASION = 214,
-    CHARACTERLUCK = 215,
-    CHARACTERPICKUPRANGE = 216,
+    PLAYER_MAXHP = 200,
+    PLAYER_REGEN,
+    PLAYER_LIFESTEAL,
+    PLAYER_DAMAGE,
+    PLAYER_MELEEDAMAGE,
+    PLAYER_RANGEDAMAGE,
+    PLAYER_ATTACKSPEED,
+    PLAYER_CRITICALCHANCE,
+    PLAYER_CRITICALDAMAGE,
+    PLAYER_MOVESPEED,
+    PLAYER_ENGINEERING,
+    PLAYER_ATTACKRANGE,
+    PLAYER_ARMOUR,
+    PLAYER_EVASION,
+    PLAYER_LUCK,
+    PLAYER_PICKUPRANGE,
+    PLAYER_HARVEST,
 
-    MONSTERHP = 301,
-    MONSTERMOVESPEED = 302
+    MONSTER_HP = 300,
+    MONSTER_MOVESPEED,
+    MONSTER_DAMAGE,
+    MONSTER_ATTACKSPEED,
+    MONSTER_ATTACKRANGE
 }
 
 public class JsonAugmentData
@@ -38,11 +42,13 @@ public class JsonAugmentData
     public int BuildUpVariable;
     public int BuildUpType2;
     public int BuildUpVariavle2;
+    public int BuildUpGruop;
 }
 
 public class AugmentData
 {
     public int augmentUid;
+    public int augmentGroup;
     public int augmentTier;
     public string augmentName;
     public string augmentImagePath;

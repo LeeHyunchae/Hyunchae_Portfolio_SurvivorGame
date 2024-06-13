@@ -65,10 +65,12 @@ public class ItemStatusInfoElement : MonoBehaviour
     public void SetActiveSellButton(bool _isActive)
     {
         sellButton.gameObject.SetActive(_isActive);
+        Hide();
     }
 
     public void SetActiveCombineButton(bool _isActive)
     {
         combineButton.gameObject.SetActive(_isActive);
+        Hide();
     }
 }

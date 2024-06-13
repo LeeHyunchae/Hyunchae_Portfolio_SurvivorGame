@@ -33,14 +33,21 @@ public class MonsterModel
     public EMonsterLogicType logicType;
     public EMonsterSkillType skillType;
     public EMonsterMoveType moveType;
-    public MonsterStatus status;
+    public float[] monsterStatus = new float[(int)EMonsterStatus.END];
 }
 
-public class MonsterStatus
+public enum EMonsterStatus
 {
-    public float maxHP;
-    public float damage;
-    public float cooldown;
-    public float moveSpeed;
-    public float attackRange;
+    MONSTER_HP = 0,
+    MONSTER_MOVESPEED,
+    MONSTER_DAMAGE ,
+    MONSTER_ATTACKSPEED,
+    MONSTER_ATTACKRANGE,
+    END
+}
+
+public class Monster_Status_Variance
+{
+    public EMonsterStatus monsterStatus;
+    public float variance;
 }

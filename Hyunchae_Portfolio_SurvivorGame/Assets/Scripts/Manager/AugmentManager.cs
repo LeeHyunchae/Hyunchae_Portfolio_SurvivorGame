@@ -6,7 +6,7 @@ public class AugmentManager : Singleton<AugmentManager>
 {
     private AugmentData[] augmentDatas;
     private Dictionary<int, AugmentData> augmentDataDict = new Dictionary<int, AugmentData>();
-
+    private Dictionary<int, List<AugmentData>> augmentGroupDict = new Dictionary<int, List<AugmentData>>();
     private List<AugmentData> curAugmentList = new List<AugmentData>();
 
     public override bool Initialize()
@@ -28,6 +28,7 @@ public class AugmentManager : Singleton<AugmentManager>
 
             AugmentData augmentData = new AugmentData();
             augmentData.augmentUid = jsonData.BuildUpID;
+            augmentData.augmentGroup = jsonData.BuildUpGruop;
             augmentData.augmentTier = jsonData.BuildUpGrade;
             augmentData.augmentName = jsonData.BuildUpName;
             augmentData.augmentImagePath = jsonData.BuildUpImage;
@@ -37,9 +38,15 @@ public class AugmentManager : Singleton<AugmentManager>
             augmentData.secondAugmentType = (AugmentType)jsonData.BuildUpType2;
             augmentData.secondAugmentValue = jsonData.BuildUpVariavle2;
 
-
             augmentDatas[i] = augmentData;
             augmentDataDict.Add(augmentData.augmentUid, augmentData);
+
+            if(augmentGroupDict[augmentData.augmentGroup] == null)
+            {
+                augmentGroupDict[augmentData.augmentGroup] = new List<AugmentData>();
+            }
+
+            augmentGroupDict[augmentData.augmentGroup].Add(augmentData);
         }
     }
 
@@ -60,4 +67,16 @@ public class AugmentManager : Singleton<AugmentManager>
         return data;
     }
 
+    public List<AugmentData> GetRandomAugment()
+    {
+        List<AugmentData> randomAugments = new List<AugmentData>();
+
+        int groupCount = augmentGroupDict.Count;
+
+        int randomNum = Random.Range(0, groupCount);
+
+        
+
+        return null;
+    }
 }

@@ -46,6 +46,11 @@ public class MonsterController : MonoBehaviour , ITargetable
         SetMonsterBehaviour();
     }
 
+    public void SetStatusVariance(Monster_Status_Variance _variance)
+    {
+
+    }
+
     public void SetMonsterBehaviour()
     {
         behaviourLogic = monsterManager.GetBehaviourLogic(monsterModel.logicType);

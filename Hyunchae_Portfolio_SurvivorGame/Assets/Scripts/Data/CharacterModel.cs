@@ -19,8 +19,8 @@ public class Character
             characterStatus[i] = new BaseCharacterStatus();
         }
 
-        characterStatus[(int)ECharacterStatus.MAXHP].baseStatus = 10;
-        characterStatus[(int)ECharacterStatus.MOVE_SPEED].baseStatus = 5;
+        characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].baseStatus = 10;
+        characterStatus[(int)ECharacterStatus.PLAYER_MOVE_SPEED].baseStatus = 5;
     }
 
     public void SetModel(CharacterModel _model)
@@ -33,20 +33,23 @@ public class Character
 
 public enum ECharacterStatus
 {
-    MAXHP = 0,
-    HP_REGEN,
-    LIFE_STEAL,
-    DAMAGE_MULITPLIER,
-    MELEE_FLAT_DAMAGE,
-    RANGE_FLAT_DAMAGE,
-    ATTACK_SPEED,
-    CRITICAL_CHANCE,
-    ATTACK_RANGE,
-    ARMOUR,
-    EVASION,
-    MOVE_SPEED,
-    LUCK,
-    HARVEST,
+    PLAYER_MAXHP = 0,
+    PLAYER_HP_REGEN,
+    PLAYER_LIFE_STEAL,
+    PLAYER_DAMAGE,
+    PLAYER_MELEEDAMAGE,
+    PLAYER_RANGEDAMAGE,
+    PLAYER_ATTACKSPEED,
+    PLAYER_CRITICALCHANCE,
+    PLAYER_CRITICALLDAMAGE,
+    PLAYER_MOVE_SPEED,
+    PLAYER_ENGINEERING,
+    PLAYER_ATTACK_RANGE,
+    PLAYER_ARMOUR,
+    PLAYER_EVASION,
+    PLAYER_LUCK,
+    PLAYER_PICKUPRANGE,
+    PLAYER_HARVEST,
     END
 }
 

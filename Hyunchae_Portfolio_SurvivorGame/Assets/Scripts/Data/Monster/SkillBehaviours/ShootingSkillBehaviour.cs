@@ -9,18 +9,11 @@ public class ShootingSkillBehaviour : MonsterBehaviour
     private Vector2 targetPos;
     private Vector2 targetDirection;
     private float curCooldown = 0;
-    private float cooldownTime;
 
 
     public override MonsterBehaviour DeepCopy()
     {
         return new ShootingSkillBehaviour();
-    }
-
-    public override void SetMonsterModel(MonsterModel _model)
-    {
-        base.SetMonsterModel(_model);
-        cooldownTime = model.status.cooldown;
     }
 
     public override void Update()
@@ -42,7 +35,11 @@ public class ShootingSkillBehaviour : MonsterBehaviour
     {
         targetDirection = (targetTransform.position - monsterTransform.position).normalized;
 
-        if (Vector2.Distance(targetPos, monsterTransform.position) < model.status.attackRange)
+        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+
+        float cooldownTime = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKSPEED];
+
+        if (Vector2.Distance(targetPos, monsterTransform.position) < attackRange)
         {
             if (curCooldown >= cooldownTime)
             {
@@ -59,8 +56,12 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
         Projectile projectile = itemManager.GetProjectile();
 
-        projectile.SetSprite("Exp 0");
-        projectile.SetPrjectileInfo(targetDirection, model.status.damage, monsterTransform.position, model.status.attackRange);
+        float damage = model.monsterStatus[(int)EMonsterStatus.MONSTER_DAMAGE];
+
+        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+
+        projectile.SetSprite("Tier2_Props_12");
+        projectile.SetPrjectileInfo(targetDirection, damage, monsterTransform.position, attackRange);
         projectile.SetTarget(target);
 
         isReady = false;

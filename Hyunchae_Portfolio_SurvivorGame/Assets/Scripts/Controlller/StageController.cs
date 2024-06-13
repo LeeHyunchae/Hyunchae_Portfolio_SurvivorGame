@@ -6,11 +6,14 @@ using System.Diagnostics;
 
 public class StageController
 {
+    private const int AUGMENTWAVE = 1;
+
     private MonsterManager monsterManager;
     private Transform playerTransform;
     private SpawnPointCalculator spawnPointCalculater;
     private StageManager stageManager;
     private UIManager uiManager;
+    private AugmentManager augmentManager;
 
     private int curStage = 0;
     private int curWave = -1;
@@ -28,12 +31,16 @@ public class StageController
     {
         stageManager = StageManager.getInstance;
         monsterManager = MonsterManager.getInstance;
+        augmentManager = AugmentManager.getInstance;
         uiManager = UIManager.getInstance;
         spawnPointCalculater = new SpawnPointCalculator();
         SetPlayerTransform(_playerTransform);
 
         ShopPanelController shopPanel = uiManager.AddCachePanel<ShopPanelController>("UI/ShopPanel");
         shopPanel.OnClickNextWaveAction = StartWave;
+
+        AugmentPanelController augmentPanel = uiManager.AddCachePanel<AugmentPanelController>("UI/AugmentPanel");
+        augmentPanel.OnHideAugmentPanelAction = OnHideAugmentPanel;
     }
 
     public void SetStageIndex(int _stageIdx)
@@ -198,8 +205,16 @@ public class StageController
             spawnData.isSpawnStart = false;
         }
 
-        uiManager.Show<ShopPanelController>("UI/ShopPanel");
         monsterManager.ReleaseAllAliveMonster();
+
+        if(curWave % 5 == AUGMENTWAVE)
+        {
+            uiManager.Show<AugmentPanelController>("UI/AugmentPanel");
+        }
+        else
+        {
+            uiManager.Show<ShopPanelController>("UI/ShopPanel");
+        }
     }
 
     private void StartWave()
@@ -223,5 +238,10 @@ public class StageController
     private void SetMonsterToCurWave()
     {
         curMonsterGroupData = stageManager.GetMonsterGroupData(monsterGroupUIDarr[curWave]);
+    }
+
+    private void OnHideAugmentPanel()
+    {
+        uiManager.Show<ShopPanelController>("UI/ShopPanel");
     }
 }

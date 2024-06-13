@@ -8,7 +8,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": 10,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 0
   },
   {
     "BuildUpID": 6000002,
@@ -19,7 +20,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": 25,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 0
   },
   {
     "BuildUpID": 6000003,
@@ -30,7 +32,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": 50,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 0
   },
   {
     "BuildUpID": 6000004,
@@ -41,7 +44,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": -10,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 1
   },
   {
     "BuildUpID": 6000005,
@@ -52,7 +56,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": -25,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 1
   },
   {
     "BuildUpID": 6000006,
@@ -63,7 +68,8 @@
     "BuildUpType": 101,
     "BuildUpVariable": -50,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 1
   },
   {
     "BuildUpID": 6000007,
@@ -74,7 +80,8 @@
     "BuildUpType": 302,
     "BuildUpVariable": 10,
     "BuildUpType2": 0,
-    "BuildUpVariavle2": 0
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 2
   },
   {
     "BuildUpID": 6000008,
@@ -85,7 +92,8 @@
     "BuildUpType": 302,
     "BuildUpVariable": 25,
     "BuildUpType2": 301,
-    "BuildUpVariavle2": 10
+    "BuildUpVariavle2": 10,
+    "BuildUpGruop": 2
   },
   {
     "BuildUpID": 6000009,
@@ -96,6 +104,43 @@
     "BuildUpType": 302,
     "BuildUpVariable": 50,
     "BuildUpType2": 301,
-    "BuildUpVariavle2": 25
+    "BuildUpVariavle2": 25,
+    "BuildUpGruop": 2
+  },
+  {
+    "BuildUpID": 6000010,
+    "BuildUpGrade": 1,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000010",
+    "BuildUpImage": "BuildUpImage_6000010.png",
+    "BuildUpContent": "Player Max HP +",
+    "BuildUpType": 201,
+    "BuildUpVariable": 10,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 3
+  },
+  {
+    "BuildUpID": 6000011,
+    "BuildUpGrade": 2,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000011",
+    "BuildUpImage": "BuildUpImage_6000011.png",
+    "BuildUpContent": "Player Max HP ++",
+    "BuildUpType": 201,
+    "BuildUpVariable": 25,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 3
+  },
+  {
+    "BuildUpID": 6000012,
+    "BuildUpGrade": 3,
+    "BuildUpName": "UI_Text_BuildUp_Name_6000012",
+    "BuildUpImage": "BuildUpImage_6000012.png",
+    "BuildUpContent": "Player Max HP +++",
+    "BuildUpType": 201,
+    "BuildUpVariable": 50,
+    "BuildUpType2": 0,
+    "BuildUpVariavle2": 0,
+    "BuildUpGruop": 3
   }
 ]
