@@ -6,8 +6,6 @@ using System.Diagnostics;
 
 public class StageController
 {
-    private const int AUGMENTWAVE = 1;
-
     private MonsterManager monsterManager;
     private Transform playerTransform;
     private SpawnPointCalculator spawnPointCalculater;
@@ -21,7 +19,7 @@ public class StageController
     private int[] monsterGroupUIDarr;
     private MonsterGroupData curMonsterGroupData;
 
-    private float waveEndTime = 30;
+    private float waveEndTime = 10;
     private float curWaveTime;
 
     private bool isWaveEnd = false;
@@ -41,6 +39,8 @@ public class StageController
 
         AugmentPanelController augmentPanel = uiManager.AddCachePanel<AugmentPanelController>("UI/AugmentPanel");
         augmentPanel.OnHideAugmentPanelAction = OnHideAugmentPanel;
+
+        augmentManager.onRefreshAgumentActionDict[(int)EAugmentType.MONSTERSPAWN] = OnRefreshAugment;
     }
 
     public void SetStageIndex(int _stageIdx)
@@ -196,6 +196,8 @@ public class StageController
         isWaveEnd = true;
         curWaveTime = 0;
 
+        ingamePanel.EndWave();
+
         int count = curMonsterGroupData.monsterSpawnDatas.Count;
 
         for (int i = 0; i < count; i++)
@@ -207,7 +209,7 @@ public class StageController
 
         monsterManager.ReleaseAllAliveMonster();
 
-        if(curWave % 5 == AUGMENTWAVE)
+        if(curWave % 5 == 0)
         {
             uiManager.Show<AugmentPanelController>("UI/AugmentPanel");
         }
@@ -243,5 +245,10 @@ public class StageController
     private void OnHideAugmentPanel()
     {
         uiManager.Show<ShopPanelController>("UI/ShopPanel");
+    }
+
+    private void OnRefreshAugment()
+    {
+
     }
 }

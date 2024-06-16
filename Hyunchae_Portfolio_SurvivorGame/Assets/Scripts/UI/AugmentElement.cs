@@ -11,7 +11,9 @@ public class AugmentElement : MonoBehaviour
     [SerializeField] TextMeshProUGUI augmentNameText;
     [SerializeField] TextMeshProUGUI augmentInfoText;
 
-    public Button.ButtonClickedEvent GetSelectButtonClickEvent;
+    public Button.ButtonClickedEvent GetSelectButtonClickEvent => selectButton.onClick;
+
+    private int augmentUid;
 
     public void SetThumnailImage(Sprite _sprite)
     {
@@ -27,4 +29,11 @@ public class AugmentElement : MonoBehaviour
     {
         augmentInfoText.text = _info;
     }
+
+    public void SetAugmentUid(int _uid)
+    {
+        augmentUid = _uid;
+    }
+
+    public int GetAugmentUid => augmentUid;
 }

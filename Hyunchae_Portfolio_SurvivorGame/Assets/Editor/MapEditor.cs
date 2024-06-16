@@ -723,7 +723,8 @@ public class MapEditor : Editor
             BuildUpVariable = 10,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 0
+            BuildUpGruop = 0,
+            IsNotDuplicated = true
         };
 
         augmentDatas.Add(augmentData);
@@ -739,7 +740,8 @@ public class MapEditor : Editor
             BuildUpVariable = 25,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 0
+            BuildUpGruop = 0,
+            IsNotDuplicated = true
         };
         augmentDatas.Add(augmentData);
 
@@ -754,7 +756,8 @@ public class MapEditor : Editor
             BuildUpVariable = 50,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 0
+            BuildUpGruop = 0,
+            IsNotDuplicated = true
         };
         augmentDatas.Add(augmentData);
 
@@ -769,7 +772,8 @@ public class MapEditor : Editor
             BuildUpVariable = -10,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 1
+            BuildUpGruop = 1,
+            IsNotDuplicated = true
         };
         augmentDatas.Add(augmentData);
 
@@ -784,7 +788,8 @@ public class MapEditor : Editor
             BuildUpVariable = -25,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 1
+            BuildUpGruop = 1,
+            IsNotDuplicated = true
         };
         augmentDatas.Add(augmentData);
 
@@ -799,7 +804,8 @@ public class MapEditor : Editor
             BuildUpVariable = -50,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 1
+            BuildUpGruop = 1,
+            IsNotDuplicated = true
         };
         augmentDatas.Add(augmentData);
 
@@ -814,7 +820,8 @@ public class MapEditor : Editor
             BuildUpVariable = 10,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 2
+            BuildUpGruop = 2,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 
@@ -829,7 +836,8 @@ public class MapEditor : Editor
             BuildUpVariable = 25,
             BuildUpType2 = 301,
             BuildUpVariavle2 = 10,
-            BuildUpGruop = 2
+            BuildUpGruop = 2,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 
@@ -844,7 +852,8 @@ public class MapEditor : Editor
             BuildUpVariable = 50,
             BuildUpType2 = 301,
             BuildUpVariavle2 = 25,
-            BuildUpGruop = 2
+            BuildUpGruop = 2,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 
@@ -859,7 +868,8 @@ public class MapEditor : Editor
             BuildUpVariable = 10,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 3
+            BuildUpGruop = 3,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 
@@ -874,7 +884,8 @@ public class MapEditor : Editor
             BuildUpVariable = 25,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 3
+            BuildUpGruop = 3,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 
@@ -889,7 +900,8 @@ public class MapEditor : Editor
             BuildUpVariable = 50,
             BuildUpType2 = 0,
             BuildUpVariavle2 = 0,
-            BuildUpGruop = 3
+            BuildUpGruop = 3,
+            IsNotDuplicated = false
         };
         augmentDatas.Add(augmentData);
 

@@ -17,7 +17,6 @@ public class ItemStatusInfoElement : MonoBehaviour
 
     private GameObject _gameObject;
 
-    public void SetActive(bool _isActive) => _gameObject.SetActive(_isActive);
     public Button.ButtonClickedEvent GetCloseButtonEvent => closeButton.onClick;
     public Button.ButtonClickedEvent GetSellButtonEvent => sellButton.onClick;
     public Button.ButtonClickedEvent GetCombineButton => combineButton.onClick;
@@ -73,4 +72,14 @@ public class ItemStatusInfoElement : MonoBehaviour
         combineButton.gameObject.SetActive(_isActive);
         Hide();
     }
+
+    public void SetActive(bool _isActive)
+    {
+        if(_gameObject == null )
+        {
+            _gameObject = this.gameObject;
+        }
+        _gameObject.SetActive(_isActive); 
+    }
+
 }

@@ -23,6 +23,8 @@ public class AugmentPanelController : UIBaseController
 
     public Action OnHideAugmentPanelAction;
 
+    private int curSelectAugmentIndex;
+
     protected override void Init()
     {
         base.Init();
@@ -50,7 +52,7 @@ public class AugmentPanelController : UIBaseController
 
         int count = augmentElements.Length;
 
-        for(int i = 0; i <count; i ++)
+        for (int i = 0; i < count; i++)
         {
             int index = i;
             augmentElements[i].GetSelectButtonClickEvent.AddListener(() => OnClickAugmentButton(index));
@@ -73,21 +75,43 @@ public class AugmentPanelController : UIBaseController
     {
         augmentSelectPopup.SetActive(true);
 
+        AugmentData data = augmentManager.GetAugmentData(augmentElements[_augmentIndex].GetAugmentUid);
+
+        selectAugmentElement.SetAugmentUid(data.augmentUid);
+        selectAugmentElement.SetAugmentNameText(data.augmentName);
+        selectAugmentElement.SetAugmentInfoText(data.augmentInfo);
+
+        curSelectAugmentIndex = _augmentIndex;
+
     }
 
     private void OnClickSelectCancleButton()
     {
-
+        curSelectAugmentIndex = -1;
+        augmentSelectPopup.SetActive(false);
     }
 
     private void OnClickSelectConfirmButton()
     {
         Hide();
         OnHideAugmentPanelAction?.Invoke();
+        augmentManager.SelectAugment(augmentElements[curSelectAugmentIndex].GetAugmentUid);
     }
 
     private void RerollAugmentData()
     {
         List<AugmentData> augmentDatas = augmentManager.GetRandomAugment();
+
+        int count = augmentElements.Length;
+
+        for(int i = 0; i<count; i ++)
+        {
+            AugmentElement element = augmentElements[i];
+            AugmentData data = augmentDatas[i];
+
+            element.SetAugmentUid(data.augmentUid);
+            element.SetAugmentNameText(data.augmentName);
+            element.SetAugmentInfoText(data.augmentInfo);
+        }
     }
 }

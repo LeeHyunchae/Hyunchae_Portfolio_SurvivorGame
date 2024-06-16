@@ -628,7 +628,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578586319991880492}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1592,19 +1592,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1648,7 +1648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7072276734994388393, guid: 6b78302690fb6234283e962fff5e1817, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

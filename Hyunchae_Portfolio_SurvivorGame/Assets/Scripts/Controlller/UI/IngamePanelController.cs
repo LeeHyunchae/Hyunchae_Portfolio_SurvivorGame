@@ -21,6 +21,8 @@ public class IngamePanelController : MonoBehaviour
     private Color whiteColor = Color.white;
     private Color redColor = Color.red;
 
+    private bool isWaveEnd = false;
+
     private void Awake()
     {
         pauseButton.onClick.AddListener(OnClickPauseButton);
@@ -61,6 +63,7 @@ public class IngamePanelController : MonoBehaviour
 
     public void StartWave(int _wave, float _waveTime)
     {
+        isWaveEnd = false;
         waveTime = _waveTime;
         curWaveTime = _waveTime;
 
@@ -71,6 +74,11 @@ public class IngamePanelController : MonoBehaviour
 
     private void Update()
     {
+        if(isWaveEnd)
+        {
+            return;
+        }
+
         curWaveTime -= Time.deltaTime;
 
         SetWaveTimeText(((int)curWaveTime).ToString());
@@ -79,5 +87,14 @@ public class IngamePanelController : MonoBehaviour
         {
             waveTimeText.color = redColor;
         }
+    }
+
+    public void EndWave()
+    {
+        isWaveEnd = true;
+        curWaveTime = 0;
+        SetWaveTimeText(0.ToString());
+
+        waveTimeText.color = Color.white;
     }
 }

@@ -1,13 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum EAugmentType
+{
+    MONSTERSPAWN = 1,
+    PLAYERSTATUS = 2,
+    MONSTERSTATUS = 3,
+    OTHERAUGMENT = 4
+}
 
 public class AugmentManager : Singleton<AugmentManager>
 {
-    private AugmentData[] augmentDatas;
     private Dictionary<int, AugmentData> augmentDataDict = new Dictionary<int, AugmentData>();
     private Dictionary<int, List<AugmentData>> augmentGroupDict = new Dictionary<int, List<AugmentData>>();
-    private List<AugmentData> curAugmentList = new List<AugmentData>();
+    
+    private List<int> selectedAugmentUidList = new List<int>();
+    private Dictionary<int, List<AugmentData>> curAugmentDict = new Dictionary<int, List<AugmentData>>();
+
+    public Dictionary<int, Action> onRefreshAgumentActionDict = new Dictionary<int, Action>();
 
     public override bool Initialize()
     {
@@ -38,10 +52,9 @@ public class AugmentManager : Singleton<AugmentManager>
             augmentData.secondAugmentType = (AugmentType)jsonData.BuildUpType2;
             augmentData.secondAugmentValue = jsonData.BuildUpVariavle2;
 
-            augmentDatas[i] = augmentData;
-            augmentDataDict.Add(augmentData.augmentUid, augmentData);
+            augmentDataDict[augmentData.augmentUid] = augmentData;
 
-            if(augmentGroupDict[augmentData.augmentGroup] == null)
+            if (!augmentGroupDict.ContainsKey(augmentData.augmentGroup))
             {
                 augmentGroupDict[augmentData.augmentGroup] = new List<AugmentData>();
             }
@@ -50,7 +63,6 @@ public class AugmentManager : Singleton<AugmentManager>
         }
     }
 
-    public AugmentData[] GetAllAugmentData => augmentDatas;
 
     public AugmentData GetAugmentData(int _augmentUid)
     {
@@ -69,14 +81,86 @@ public class AugmentManager : Singleton<AugmentManager>
 
     public List<AugmentData> GetRandomAugment()
     {
-        List<AugmentData> randomAugments = new List<AugmentData>();
+        List<AugmentData> result = new List<AugmentData>();
 
-        int groupCount = augmentGroupDict.Count;
+        List<int> selectedGroupIds = new List<int>();
+        List<int> selectedAugmentUids = new List<int>(selectedAugmentUidList);
 
-        int randomNum = Random.Range(0, groupCount);
+        List<AugmentData> allAugments = augmentGroupDict.Values.SelectMany(group => group).ToList();
+        allAugments = allAugments.OrderBy(a => Random.value).ToList();
 
-        
+        foreach (var augment in allAugments)
+        {
+            if (selectedAugmentUids.Contains(augment.augmentUid))
+            {
+                continue;
+            }
 
-        return null;
+            int groupCount = result.Count(a => a.augmentGroup == augment.augmentGroup);
+            if (groupCount >= 1)
+            {
+                continue;
+            }
+
+            if (augment.isNotDuplicated && selectedGroupIds.Contains(augment.augmentGroup))
+            {
+                continue;
+            }
+
+            result.Add(augment);
+
+            selectedGroupIds.Add(augment.augmentGroup);
+            selectedAugmentUids.Add(augment.augmentUid);
+
+            if (result.Count >= 3)
+            {
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public void SelectAugment(int _augmentUid)
+    {
+        selectedAugmentUidList.Add(_augmentUid);
+
+        AugmentData data = GetAugmentData(_augmentUid);
+
+        int firstTypeNum = (int)data.firstAugmentType % 100;
+
+        onRefreshAgumentActionDict[firstTypeNum]?.Invoke();
+
+        if(data.secondAugmentType != 0)
+        {
+            int secondTypeNum = (int)data.secondAugmentType % 100;
+
+            if(firstTypeNum != secondTypeNum)
+            {
+                onRefreshAgumentActionDict[secondTypeNum]?.Invoke();
+            }
+        }
+
+        if (!curAugmentDict.ContainsKey(firstTypeNum))
+        {
+            curAugmentDict[firstTypeNum] = new List<AugmentData>();
+        }
+
+        curAugmentDict[firstTypeNum].Add(data);
+    }
+
+    public List<AugmentData> GetCurAugmentList(int _augmentType)
+    {
+        curAugmentDict.TryGetValue(_augmentType, out List<AugmentData> augmentList);
+
+        if(augmentList == null)
+        {
+#if UNITY_EDITOR
+            Debug.Log("Wrong Type Number");
+#endif
+            return null;
+        }
+
+        return augmentList;
     }
 }

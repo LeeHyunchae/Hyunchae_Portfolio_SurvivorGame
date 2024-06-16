@@ -43,6 +43,7 @@ public class JsonAugmentData
     public int BuildUpType2;
     public int BuildUpVariavle2;
     public int BuildUpGruop;
+    public bool IsNotDuplicated;
 }
 
 public class AugmentData
@@ -57,4 +58,5 @@ public class AugmentData
     public int firstAugmentValue;
     public AugmentType secondAugmentType;
     public int secondAugmentValue;
+    public bool isNotDuplicated;
 }
