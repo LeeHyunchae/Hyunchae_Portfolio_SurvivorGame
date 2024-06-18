@@ -9,10 +9,12 @@ public class PlayerController : MonoBehaviour , ITargetable
 
     private Vector2 pos = Vector2.zero;
 
-    public Transform GetPlayerTransform => myTransform;
-
     private CharacterManager characterManager;
     private float moveSpeed;
+    private AugmentManager augmentManager;
+    private HpBarController hpBar;
+    private int playerCurHp;
+    private Character playerCharacter;
 
     public void Init()
     {
@@ -23,20 +25,28 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         pos = myTransform.position;
 
+        augmentManager.onRefreshAgumentActionDict[(int)EAugmentType.PLAYERSTATUS] += OnRefreshChraterAugment;
+
         InitCharacter();
     }
 
     private void InitCharacter()
     {
-        Character playerCharacter = characterManager.GetPlayerCharacter;
+        playerCharacter = characterManager.GetPlayerCharacter;
 
         spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
-        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).baseStatus;
+        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus;
+        playerCurHp = (int)playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
     }
 
     public void SetJoystick(JoystickControlller moveJoystick)
     {
         moveJoystick.OnPointerDownAction = OnMoveJoystickDown;
+    }
+
+    public void SetHPBar(HpBarController _hpBar)
+    {
+        hpBar = _hpBar;
     }
 
     public void OnMoveJoystickDown(Vector2 _dir)
@@ -47,6 +57,7 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         spriteRenderer.flipX = _dir.x < 0;
 
+        hpBar.UpdatePos(pos);
     }
 
     public bool GetIsDead()
@@ -59,9 +70,12 @@ public class PlayerController : MonoBehaviour , ITargetable
         return spriteRenderer.bounds;
     }
 
-    public void OnDamaged()
+    public void OnDamaged(int _damage)
     {
+        int damage = (int)(_damage * (1 - (playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_ARMOUR).multiplierApplyStatus / 15)));
+        playerCurHp -= damage;
 
+        hpBar.SetHPBarFillAmount(playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus / playerCurHp);
     }
 
     public Vector2 GetPosition()
@@ -72,5 +86,10 @@ public class PlayerController : MonoBehaviour , ITargetable
     public Transform GetTransform()
     {
         return myTransform;
+    }
+
+    private void OnRefreshChraterAugment()
+    {
+        List<AugmentData> augmentDatas = augmentManager.GetCurAugmentList((int)EAugmentType.PLAYERSTATUS);
     }
 }

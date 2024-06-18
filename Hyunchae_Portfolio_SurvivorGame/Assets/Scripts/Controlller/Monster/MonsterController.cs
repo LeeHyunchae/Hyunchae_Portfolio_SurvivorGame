@@ -71,7 +71,7 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     public void SetPlayer(PlayerController _playerController)
     {
-        targetTransform = _playerController.GetPlayerTransform;
+        targetTransform = _playerController.GetTransform();
         target = _playerController;
     }
 
@@ -113,7 +113,7 @@ public class MonsterController : MonoBehaviour , ITargetable
         return isDead;
     }
 
-    public void OnDamaged()
+    public void OnDamaged(int _damage)
     {
         OnDieMonster();
     }

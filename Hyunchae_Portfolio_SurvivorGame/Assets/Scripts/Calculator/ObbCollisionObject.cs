@@ -51,7 +51,7 @@ public class ObbCollisionObject : MonoBehaviour
 
             if(IsCollision(target))
             {
-                target.OnDamaged();
+                target.OnDamaged(0);
                 OnCollision();
             }
         }

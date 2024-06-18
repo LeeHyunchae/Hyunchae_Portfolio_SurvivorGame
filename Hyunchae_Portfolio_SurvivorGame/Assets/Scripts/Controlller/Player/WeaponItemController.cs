@@ -13,6 +13,7 @@ public class WeaponItemController : MonoBehaviour
     private ObbCollisionObject obbCollision;
     private Transform myTransform;
     private ITargetable[] targetMonsters;
+    private Character playerCharacter;
 
     public void Init()
     {
@@ -24,6 +25,8 @@ public class WeaponItemController : MonoBehaviour
         obbCollision = gameObject.GetComponent<ObbCollisionObject>();
 
         myTransform = gameObject.GetComponent<Transform>();
+
+        playerCharacter = CharacterManager.getInstance.GetPlayerCharacter;
     }
     public void SetWeaponItemModel(WeaponItemModel _itemModel)
     {

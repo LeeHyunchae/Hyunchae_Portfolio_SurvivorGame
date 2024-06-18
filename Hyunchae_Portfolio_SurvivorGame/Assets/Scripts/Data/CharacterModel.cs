@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Character
 {
+    private const int BASEHP = 20;
+    private const int BASEMOVESPEED = 5;
     private CharacterModel characterModel;
     private BaseCharacterStatus[] characterStatus = new BaseCharacterStatus[(int)ECharacterStatus.END];
 
@@ -18,14 +20,62 @@ public class Character
         {
             characterStatus[i] = new BaseCharacterStatus();
         }
-
-        characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].baseStatus = 10;
-        characterStatus[(int)ECharacterStatus.PLAYER_MOVE_SPEED].baseStatus = 5;
     }
 
     public void SetModel(CharacterModel _model)
     {
         characterModel = _model;
+
+        int count = characterModel.variances.Count;
+
+        List<Status_Variance> variances = characterModel.variances;
+
+        for (int i = 0; i < count; i++)
+        {
+            int statusNum = (int)variances[i].characterStatus;
+
+            characterStatus[statusNum].baseStatus = variances[i].variance;
+            characterStatus[statusNum].multiplierApplyStatus = variances[i].variance;
+            
+            Debug.Log(variances[i].characterStatus.ToString() + " = " + characterStatus[statusNum].baseStatus);
+        }
+
+        characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].baseStatus += BASEHP;
+        characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].multiplierApplyStatus = characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].baseStatus;
+        characterStatus[(int)ECharacterStatus.PLAYER_MOVE_SPEED].baseStatus += BASEMOVESPEED;
+        characterStatus[(int)ECharacterStatus.PLAYER_MOVE_SPEED].multiplierApplyStatus = characterStatus[(int)ECharacterStatus.PLAYER_MOVE_SPEED].baseStatus;
+    }
+
+    public void ResetStatus()
+    {
+        int count = (int)ECharacterStatus.END;
+
+        for (int i = 0; i < count; i++)
+        {
+            characterStatus[i].statusValueMultiplier = 0;
+            characterStatus[i].statusRatioMultiplier = 0;
+            characterStatus[i].multiplierApplyStatus = 0;
+        }
+    }
+
+    public void UpdateStatusAmount(Status_Variance _variance)
+    {
+        BaseCharacterStatus status = characterStatus[(int)_variance.characterStatus];
+
+        status.statusValueMultiplier += _variance.variance;
+
+        status.multiplierApplyStatus =
+            (status.baseStatus + status.statusValueMultiplier) * status.statusRatioMultiplier;
+    }
+
+    public void UpdateStatusRatio(Status_Variance _variance)
+    {
+        BaseCharacterStatus status = characterStatus[(int)_variance.characterStatus];
+
+        status.statusRatioMultiplier += _variance.variance;
+
+        status.multiplierApplyStatus =
+            (status.baseStatus + status.statusValueMultiplier) * status.statusRatioMultiplier;
     }
 
     //List<스텟증감형장비아이템ID>
@@ -74,6 +124,7 @@ public class Status_Variance
 public class BaseCharacterStatus
 {
     public float baseStatus;
-    public float statusMultiplier;
+    public float statusValueMultiplier;
+    public float statusRatioMultiplier;
     public float multiplierApplyStatus;
 }

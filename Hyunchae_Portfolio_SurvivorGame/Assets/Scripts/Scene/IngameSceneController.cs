@@ -10,6 +10,7 @@ public class IngameSceneController : MonoBehaviour
     [SerializeField] private FollowCamera followCam;
     [SerializeField] private GameObject originPlayerObj;
     [SerializeField] private IngamePanelController ingamePanelController;
+    [SerializeField] private HpBarController hpBarController;
 
     private MapCreator mapCreator;
     private MapData mapData;
@@ -46,11 +47,14 @@ public class IngameSceneController : MonoBehaviour
         playerController.Init();
         playerController.SetJoystick(joystickControlller);
 
+        hpBarController.Init();
+        hpBarController.SetTarget(playerController.GetTransform());
+
     }
 
     private void InitCamera()
     {
-        followCam.SetTarget(playerController.GetPlayerTransform);
+        followCam.SetTarget(playerController.GetTransform());
     }
 
     private void InitItemController()
@@ -60,7 +64,7 @@ public class IngameSceneController : MonoBehaviour
         itemController = new ItemController();
 
         itemController.SetTargetMonsters(targetMonsterArr);
-        itemController.Init(playerController.GetPlayerTransform);
+        itemController.Init(playerController.GetTransform());
     }
 
     private void InitMapCreator()
@@ -74,7 +78,7 @@ public class IngameSceneController : MonoBehaviour
     private void InitStageController()
     {
         stageController = new StageController();
-        stageController.Init(playerController.GetPlayerTransform);
+        stageController.Init(playerController.GetTransform());
         stageController.SetMapData(mapData);
         stageController.SetIngamePanel(ingamePanelController);
         stageController.SetStageIndex(0);
