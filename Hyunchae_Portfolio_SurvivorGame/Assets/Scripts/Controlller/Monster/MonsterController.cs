@@ -14,6 +14,8 @@ public class MonsterController : MonoBehaviour , ITargetable
     private BaseMonsterBehaviourLogic behaviourLogic;
 
     private Action<MonsterController> OnMonsterDieAction;
+    private RectCollisionCalculator rectCollisionCalculator;
+
     private ITargetable target;
 
 
@@ -23,7 +25,7 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private bool isDead = true;
 
-    public void Init()
+    public void Init(PlayerController _playerController)
     {
         myTransform = gameObject.transform;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -34,6 +36,20 @@ public class MonsterController : MonoBehaviour , ITargetable
         NavMeshAgent agent = gameObject.GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        targetTransform = _playerController.GetTransform();
+        target = _playerController;
+
+        InitRectCollisionCalculator();
+    }
+
+    public void InitRectCollisionCalculator()
+    {
+        rectCollisionCalculator = new RectCollisionCalculator();
+        rectCollisionCalculator.SetMyTargetable(this);
+        rectCollisionCalculator.SetPlayerTargetable(target);
+
+        rectCollisionCalculator.OnCollisionAction = OnCollisionPlayer;
     }
 
     public void SetMonsterModel(MonsterModel _monsterModel)
@@ -69,17 +85,6 @@ public class MonsterController : MonoBehaviour , ITargetable
         behaviourLogic.SetMoveBehaviour(move);
     }
 
-    public void SetPlayer(PlayerController _playerController)
-    {
-        targetTransform = _playerController.GetTransform();
-        target = _playerController;
-    }
-
-    public void SetMonsterPosition(Vector2 _pos)
-    {
-        myTransform.position = _pos;
-    }
-
     private void Update()
     {
         if (monsterModel == null || targetTransform == null)
@@ -88,6 +93,7 @@ public class MonsterController : MonoBehaviour , ITargetable
         }
 
         behaviourLogic.Update();
+        rectCollisionCalculator.Update();
     }
 
     public void OnEnqueue()
@@ -130,5 +136,11 @@ public class MonsterController : MonoBehaviour , ITargetable
     public Transform GetTransform()
     {
         return myTransform;
+    }
+
+    private void OnCollisionPlayer()
+    {
+        Debug.Log("Ãæµ¹");
+        //target.OnDamaged()
     }
 }

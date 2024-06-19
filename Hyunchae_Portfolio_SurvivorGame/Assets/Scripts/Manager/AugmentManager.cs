@@ -23,8 +23,10 @@ public class AugmentManager : Singleton<AugmentManager>
 
     public Dictionary<int, Action> onRefreshAgumentActionDict = new Dictionary<int, Action>();
 
+
     public override bool Initialize()
     {
+        InitAugmentDict();
         LoadData();
         return base.Initialize();
     }
@@ -63,6 +65,13 @@ public class AugmentManager : Singleton<AugmentManager>
         }
     }
 
+    public void InitAugmentDict()
+    {
+        onRefreshAgumentActionDict.Add((int)EAugmentType.MONSTERSPAWN,() => { });
+        onRefreshAgumentActionDict.Add((int)EAugmentType.PLAYERSTATUS, () => { });
+        onRefreshAgumentActionDict.Add((int)EAugmentType.MONSTERSTATUS, () => { });
+        onRefreshAgumentActionDict.Add((int)EAugmentType.OTHERAUGMENT, () => { });
+    }
 
     public AugmentData GetAugmentData(int _augmentUid)
     {
@@ -163,4 +172,11 @@ public class AugmentManager : Singleton<AugmentManager>
 
         return augmentList;
     }
+
+    //public Action GetOnRefreshAgumentActionDict(int _augmentType)
+    //{
+    //    onRefreshAgumentActionDict.TryGetValue(_augmentType, out Action action);
+
+    //    return onRefreshAgumentActionDict[_augmentType];
+    //}
 }

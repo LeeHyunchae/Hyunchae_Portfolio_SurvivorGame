@@ -23,7 +23,6 @@ public class IngameSceneController : MonoBehaviour
 
     private StageController stageController;
 
-    private RectCollisionCalculator rectCollisionCalculator;
     private ITargetable[] targetMonsterArr;
 
     private void Awake()
@@ -48,8 +47,7 @@ public class IngameSceneController : MonoBehaviour
         playerController.SetJoystick(joystickControlller);
 
         hpBarController.Init();
-        hpBarController.SetTarget(playerController.GetTransform());
-
+        playerController.SetHPBar(hpBarController);
     }
 
     private void InitCamera()
@@ -88,18 +86,11 @@ public class IngameSceneController : MonoBehaviour
     {
         MonsterManager monsterManager = MonsterManager.getInstance;
         monsterManager.SetPlayer(playerController);
-
         targetMonsterArr = monsterManager.CreateMonsterObjects();
-
-        rectCollisionCalculator = new RectCollisionCalculator();
-
-        rectCollisionCalculator.SetMonsterArr(targetMonsterArr);
-        rectCollisionCalculator.SetPlayer(playerController);
     }
 
     private void Update()
     {
         stageController.Update();
-        rectCollisionCalculator.Update();
     }
 }

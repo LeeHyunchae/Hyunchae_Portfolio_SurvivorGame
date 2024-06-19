@@ -336,7 +336,7 @@ public class ItemManager : Singleton<ItemManager>
         int combineTargetGroup = combineTarget.weaponGroup;
         int combineTargetTier = combineTarget.weaponTier + 1;
 
-        if(combineTargetTier > 3)
+        if(combineTargetTier > ITEM_TIER_COUNT -1)
         {
             Debug.Log("This Item Is Last Tier");
             return false;

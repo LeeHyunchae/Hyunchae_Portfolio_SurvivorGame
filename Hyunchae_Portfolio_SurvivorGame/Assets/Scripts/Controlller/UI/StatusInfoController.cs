@@ -101,12 +101,20 @@ public class StatusInfoController : MonoBehaviour
         }
 
         itemManager.SellWeaponItem(curInfoItemSlotNum);
+        dimImage.enabled = false;
+        itemInfoElement.Hide();
     }
 
     private void OnClickWeaponItemCombineButton()
     {
-        itemManager.CombineWeaponItem(curInfoItemSlotNum);
+        if (curInfoItemSlotNum == -1)
+        {
+            return;
+        }
 
+        itemManager.CombineWeaponItem(curInfoItemSlotNum);
+        dimImage.enabled = false;
+        itemInfoElement.Hide();
     }
 
     private void SetWeaponData()
@@ -131,6 +139,7 @@ public class StatusInfoController : MonoBehaviour
             {
                 itemButtonElement.SetThumbnail(itemManager.GetSpriteToName(weaponModel.itemThumbnail));
                 itemButtonElement.SetItemUID(weaponModel.itemUid);
+                itemButtonElement.GetButtonClickedEvent.RemoveAllListeners();
                 itemButtonElement.GetButtonClickedEvent.AddListener(() => OnClickWeaponItemButton(weaponModel.itemUid,slotIdx));
             }
 

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         pos = myTransform.position;
 
+        augmentManager = AugmentManager.getInstance;
         augmentManager.onRefreshAgumentActionDict[(int)EAugmentType.PLAYERSTATUS] += OnRefreshChraterAugment;
 
         InitCharacter();
@@ -56,7 +57,10 @@ public class PlayerController : MonoBehaviour , ITargetable
         myTransform.position = pos;
 
         spriteRenderer.flipX = _dir.x < 0;
+    }
 
+    private void Update()
+    {
         hpBar.UpdatePos(pos);
     }
 

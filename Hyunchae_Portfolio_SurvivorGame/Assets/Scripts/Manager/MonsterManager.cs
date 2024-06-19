@@ -55,8 +55,7 @@ public class MonsterManager : Singleton<MonsterManager>
             MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster,parentTransform);
             LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
             deadMonsterQueue.Enqueue(monsterNode);
-            monster.Init();
-            monster.SetPlayer(player);
+            monster.Init(player);
             monster.OnEnqueue();
 
             monsterArr[i] = monster;

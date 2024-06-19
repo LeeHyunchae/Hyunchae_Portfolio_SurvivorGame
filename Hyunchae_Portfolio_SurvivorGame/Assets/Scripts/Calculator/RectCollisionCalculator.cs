@@ -1,52 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RectCollisionCalculator
 {
-    private ITargetable[] targetMonsterArr;
-    private ITargetable targetPlayer;
+    private ITargetable myTargetable;
+    private ITargetable playerTargetable;
 
-    private int monsterCapacity;
+    public Action OnCollisionAction;
 
     public void Update()
     {
         CheckRectCollision();
     }
 
-    public void SetMonsterArr(ITargetable[] _monsterArr)
+    public void SetMyTargetable(ITargetable _targetable)
     {
-        targetMonsterArr = _monsterArr;
-
-        monsterCapacity = targetMonsterArr.Length;
+        myTargetable = _targetable;
 
     }
 
-    public void SetPlayer(ITargetable _player)
+    public void SetPlayerTargetable(ITargetable _player)
     {
-        targetPlayer = _player;
+        playerTargetable = _player;
     }
 
     private void CheckRectCollision()
     {
-        int count = monsterCapacity;
-
-        for(int i = 0; i <count; i++)
+        if (myTargetable.GetIsDead())
         {
-            ITargetable monster = targetMonsterArr[i];
-
-            if(monster.GetIsDead())
-            {
-                continue;
-            }
-
-            Rect monsterRect = new Rect(monster.GetPosition(), monster.GetSpriteBounds().size);
-            Rect playerRect = new Rect(targetPlayer.GetPosition(), targetPlayer.GetSpriteBounds().size);
-
-            if(playerRect.Overlaps(monsterRect))
-            {
-                Debug.Log("충돌");
-            }
+            return;
         }
+
+        Rect monsterRect = new Rect(myTargetable.GetPosition(), myTargetable.GetSpriteBounds().size);
+        Rect playerRect = new Rect(playerTargetable.GetPosition(), playerTargetable.GetSpriteBounds().size);
+
+        if (playerRect.Overlaps(monsterRect))
+        {
+            OnCollisionAction?.Invoke();
+        }
+
     }
 }
