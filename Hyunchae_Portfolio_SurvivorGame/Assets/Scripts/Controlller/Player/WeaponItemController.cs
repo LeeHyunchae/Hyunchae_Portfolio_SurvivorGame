@@ -14,6 +14,7 @@ public class WeaponItemController : MonoBehaviour
     private Transform myTransform;
     private ITargetable[] targetMonsters;
     private Character playerCharacter;
+    private DamageData damageData;
 
     public void Init()
     {
@@ -47,6 +48,21 @@ public class WeaponItemController : MonoBehaviour
         attackType.SetAttackTarget(targetMonsters);
 
         obbCollision.SetIsCollisionCheck(true);
+
+        obbCollision.OnCollisionAction = OnCollisionMonster;
+
+        SetDamageData();
+    }
+
+    public void SetDamageData()
+    {
+        damageData = new DamageData()
+        {
+            damage = itemModel.status.damage,
+            knockback = itemModel.status.knockback
+        };
+
+        attackType.SetDamageData(damageData);
     }
 
     public void SetTargetMonsters(ITargetable[] _targetMonsters)
@@ -126,4 +142,8 @@ public class WeaponItemController : MonoBehaviour
 
     }
 
+    public void OnCollisionMonster(ITargetable _target)
+    {
+        _target.OnDamaged(damageData);
+    }
 }

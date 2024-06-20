@@ -8,5 +8,5 @@ public interface ITargetable
     public Vector2 GetPosition();
     public Transform GetTransform();
     public Bounds GetSpriteBounds();
-    public void OnDamaged(int _damage);
+    public void OnDamaged(DamageData _damageData);
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class ObbCollisionObject : MonoBehaviour
     private bool isCollisionCheck = true;
 
     public bool SetIsCollisionCheck(bool _isCheck) => isCollisionCheck = _isCheck;
+
+    public Action<ITargetable> OnCollisionAction;
 
     private void Awake()
     {
@@ -38,7 +41,7 @@ public class ObbCollisionObject : MonoBehaviour
         CheckCollision();
     }
 
-    protected void CheckCollision()
+    private void CheckCollision()
     {
         for(int i = 0; i < targetCount; i++)
         {
@@ -51,13 +54,10 @@ public class ObbCollisionObject : MonoBehaviour
 
             if(IsCollision(target))
             {
-                target.OnDamaged(0);
-                OnCollision();
+                OnCollisionAction?.Invoke(target);
             }
         }
     }
-
-    protected virtual void OnCollision() { }
 
     public void SetTarget(params ITargetable[] _targetArr)
     {

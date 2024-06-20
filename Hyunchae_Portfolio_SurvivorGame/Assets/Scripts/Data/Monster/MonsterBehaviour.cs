@@ -11,6 +11,7 @@ public abstract class MonsterBehaviour
     protected Action OnStartSkillAction;
     protected Action OnEndSkillAction;
     protected ITargetable target;
+    protected DamageData damageData;
 
     protected abstract void Excute();
     public abstract void Update();
@@ -40,4 +41,9 @@ public abstract class MonsterBehaviour
     }
 
     public abstract MonsterBehaviour DeepCopy();
+
+    public virtual void SetDamageData(DamageData _damageData)
+    {
+        damageData = _damageData;
+    }
 }

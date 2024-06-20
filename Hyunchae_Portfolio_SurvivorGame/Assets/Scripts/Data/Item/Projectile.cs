@@ -11,10 +11,10 @@ public class Projectile : MonoBehaviour , IPoolable
     private Vector2 pos;
     private Vector2 direction;
     private Vector2 startPos;
-    private float damage;
     private float range;
     private Transform myTransform;
     private ObbCollisionObject obbCollision;
+    private DamageData damageData;
 
 
     public void Init()
@@ -23,26 +23,27 @@ public class Projectile : MonoBehaviour , IPoolable
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         obbCollision = gameObject.GetComponent<ObbCollisionObject>();
         itemManager = ItemManager.getInstance;
+        obbCollision.OnCollisionAction = OnCollisionTarget;
     }
 
     public void InitData()
     {
         direction = Vector2.zero;
         startPos = Vector2.zero;
-        damage = 0;
+        damageData = null;
         range = 0;
     }
 
-    public void SetPrjectileInfo(Vector2 _direction, float _damage, Vector2 _startPos, float _range)
+    public void SetPrjectileInfo(DamageData _damageData, Vector2 _startPos, float _range)
     {
         myTransform.position = _startPos;
-        direction = _direction;
+        damageData = _damageData;
+        direction = _damageData.direction;
         startPos = _startPos;
         pos = startPos;
-        damage = _damage;
         range = _range;
 
-        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
 
         Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
 
@@ -93,5 +94,11 @@ public class Projectile : MonoBehaviour , IPoolable
     public void SetTarget(params ITargetable[] _targets)
     {
         obbCollision.SetTarget(_targets);
+    }
+
+    public void OnCollisionTarget(ITargetable _target)
+    {
+        _target.OnDamaged(damageData);
+        OnEnqueue();
     }
 }

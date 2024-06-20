@@ -22,6 +22,7 @@ public abstract class BaseWeaponAttack
     protected Vector2 pos;
     protected ObbCollisionObject obbCollision;
     protected ITargetable[] targetMonsters;
+    protected DamageData damageData;
 
 
     public void SetInitPos(Transform _initTransform)
@@ -51,6 +52,11 @@ public abstract class BaseWeaponAttack
     public void SetObb(ObbCollisionObject _obb)
     {
         obbCollision = _obb;
+    }
+
+    public void SetDamageData(DamageData _damageData)
+    {
+        damageData = _damageData;
     }
 
     public void SetAttackTarget(ITargetable[] _targetMonsters)
@@ -207,9 +213,12 @@ public class Shoot : BaseWeaponAttack
         Projectile projectile = itemManager.GetProjectile();
 
         projectile.SetSprite(bulletName);
-        projectile.SetPrjectileInfo(targetDirection, damage, weaponTransform.position, attackRange);
+
+        damageData.direction = targetDirection;
+
+        projectile.SetPrjectileInfo(damageData, weaponTransform.position, attackRange);
         projectile.SetTarget(targetMonsters);
-        
+
         EndFire();
     }
 

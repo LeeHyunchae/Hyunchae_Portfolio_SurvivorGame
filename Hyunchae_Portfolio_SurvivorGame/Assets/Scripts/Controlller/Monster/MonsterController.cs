@@ -25,6 +25,10 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private bool isDead = true;
 
+    private DamageData damageData;
+
+    private float curMonsterHp;
+
     public void Init(PlayerController _playerController)
     {
         myTransform = gameObject.transform;
@@ -59,7 +63,16 @@ public class MonsterController : MonoBehaviour , ITargetable
 
         spriteRenderer.sprite = sprite;
 
+        damageData = new DamageData()
+        {
+            damage = monsterModel.monsterStatus[(int)EMonsterStatus.MONSTER_DAMAGE],
+            knockback = 0
+        };
+
+        curMonsterHp = monsterModel.monsterStatus[(int)EMonsterStatus.MONSTER_HP];
+
         SetMonsterBehaviour();
+
     }
 
     public void SetStatusVariance(Monster_Status_Variance _variance)
@@ -75,6 +88,7 @@ public class MonsterController : MonoBehaviour , ITargetable
         skill.SetMonsterTransform(myTransform);
         skill.SetTarget(targetTransform,target);
         skill.SetMonsterModel(monsterModel);
+        skill.SetDamageData(damageData);
         behaviourLogic.SetSkillBehaviour(skill);
 
         MonsterBehaviour move = monsterManager.GetMoveBehaviour(monsterModel.moveType);
@@ -119,9 +133,18 @@ public class MonsterController : MonoBehaviour , ITargetable
         return isDead;
     }
 
-    public void OnDamaged(int _damage)
+    public void OnDamaged(DamageData _damageData)
     {
-        OnDieMonster();
+        curMonsterHp -= _damageData.damage;
+
+        Debug.Log("Monster On Damage : " + _damageData.damage);
+        Debug.Log("Monster HP : " + curMonsterHp);
+
+        if (curMonsterHp <= 0)
+        {
+            OnDieMonster();
+        }
+
     }
     public Bounds GetSpriteBounds()
     {
@@ -140,7 +163,6 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private void OnCollisionPlayer()
     {
-        Debug.Log("Ãæµ¹");
-        //target.OnDamaged()
+        target.OnDamaged(damageData);
     }
 }

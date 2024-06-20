@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour , ITargetable
 {
+    private const int RECOVERY_TIME = 1;
+
     private Transform myTransform;
     private SpriteRenderer spriteRenderer;
 
@@ -13,8 +15,11 @@ public class PlayerController : MonoBehaviour , ITargetable
     private float moveSpeed;
     private AugmentManager augmentManager;
     private HpBarController hpBar;
-    private int playerCurHp;
+    private int curPlayerHp;
     private Character playerCharacter;
+
+    private bool isDamaged = false;
+    private float curRecoveryTime = 0;
 
     public void Init()
     {
@@ -37,7 +42,7 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
         moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus;
-        playerCurHp = (int)playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
+        curPlayerHp = (int)playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
     }
 
     public void SetJoystick(JoystickControlller moveJoystick)
@@ -62,6 +67,25 @@ public class PlayerController : MonoBehaviour , ITargetable
     private void Update()
     {
         hpBar.UpdatePos(pos);
+
+        if(isDamaged)
+        {
+            RecoveryPlayer();
+        }
+
+    }
+
+    private void RecoveryPlayer()
+    {
+        curRecoveryTime += Time.deltaTime;
+        spriteRenderer.color = Color.red;
+
+        if (curRecoveryTime >= RECOVERY_TIME)
+        {
+            curRecoveryTime = 0;
+            isDamaged = false;
+            spriteRenderer.color = Color.white;
+        }
     }
 
     public bool GetIsDead()
@@ -74,12 +98,22 @@ public class PlayerController : MonoBehaviour , ITargetable
         return spriteRenderer.bounds;
     }
 
-    public void OnDamaged(int _damage)
+    public void OnDamaged(DamageData _damageData)
     {
-        int damage = (int)(_damage * (1 - (playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_ARMOUR).multiplierApplyStatus / 15)));
-        playerCurHp -= damage;
+        if(isDamaged)
+        {
+            return;
+        }
 
-        hpBar.SetHPBarFillAmount(playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus / playerCurHp);
+        Debug.Log("Player On Damage : " + _damageData.damage);
+        Debug.Log("Player HP : " + curPlayerHp);
+
+        isDamaged = true;
+
+        int damage = (int)(_damageData.damage * (1 - (playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_ARMOUR).multiplierApplyStatus / 15)));
+        curPlayerHp -= damage;
+
+        hpBar.SetHPBarFillAmount(curPlayerHp / playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus);
     }
 
     public Vector2 GetPosition()

@@ -56,12 +56,12 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
         Projectile projectile = itemManager.GetProjectile();
 
-        float damage = model.monsterStatus[(int)EMonsterStatus.MONSTER_DAMAGE];
-
         float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
 
+        damageData.direction = targetDirection;
+
         projectile.SetSprite("Tier2_Props_12");
-        projectile.SetPrjectileInfo(targetDirection, damage, monsterTransform.position, attackRange);
+        projectile.SetPrjectileInfo(damageData, monsterTransform.position, attackRange);
         projectile.SetTarget(target);
 
         isReady = false;
