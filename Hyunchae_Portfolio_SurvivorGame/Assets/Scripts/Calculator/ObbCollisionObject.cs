@@ -16,9 +16,10 @@ public class ObbCollisionObject : MonoBehaviour
 
     private bool isCollisionCheck = true;
 
-    public bool SetIsCollisionCheck(bool _isCheck) => isCollisionCheck = _isCheck;
 
     public Action<ITargetable> OnCollisionAction;
+
+    private List<ITargetable> alreadyCollisionList = new List<ITargetable>();
 
     private void Awake()
     {
@@ -28,12 +29,12 @@ public class ObbCollisionObject : MonoBehaviour
 
     public void RefreshSprite()
     {
-        spriteSize = spriteRenderer.bounds.size;  
+        spriteSize = spriteRenderer.bounds.size;
     }
 
     private void Update()
     {
-        if(!isCollisionCheck)
+        if (!isCollisionCheck)
         {
             return;
         }
@@ -43,17 +44,33 @@ public class ObbCollisionObject : MonoBehaviour
 
     private void CheckCollision()
     {
-        for(int i = 0; i < targetCount; i++)
+        for (int i = 0; i < targetCount; i++)
         {
             ITargetable target = targetArr[i];
 
-            if(target.GetIsDead())
+            if (target.GetIsDead())
             {
                 continue;
             }
 
-            if(IsCollision(target))
+            if (IsCollision(target))
             {
+                int count = alreadyCollisionList.Count;
+                bool isAlreadyCollision = false;
+                for (int j = 0; j < count; j++)
+                {
+                    if (target == alreadyCollisionList[j])
+                    {
+                        isAlreadyCollision = true;
+                        break;
+                    }
+                }
+
+                if(isAlreadyCollision)
+                {
+                    continue;
+                }
+                alreadyCollisionList.Add(target);
                 OnCollisionAction?.Invoke(target);
             }
         }
@@ -64,6 +81,16 @@ public class ObbCollisionObject : MonoBehaviour
         targetArr = _targetArr;
 
         targetCount = _targetArr.Length;
+    }
+
+    public void SetIsCollisionCheck(bool _isCheck) 
+    {
+        isCollisionCheck = _isCheck;
+
+        if (isCollisionCheck)
+        {
+            alreadyCollisionList.Clear(); 
+        }
     }
 
     private bool IsCollision(ITargetable _target)

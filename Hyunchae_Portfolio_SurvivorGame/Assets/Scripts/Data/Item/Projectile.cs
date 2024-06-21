@@ -24,6 +24,7 @@ public class Projectile : MonoBehaviour , IPoolable
         obbCollision = gameObject.GetComponent<ObbCollisionObject>();
         itemManager = ItemManager.getInstance;
         obbCollision.OnCollisionAction = OnCollisionTarget;
+        obbCollision.SetIsCollisionCheck(false);
     }
 
     public void InitData()
@@ -48,6 +49,7 @@ public class Projectile : MonoBehaviour , IPoolable
         Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
 
         myTransform.rotation = quaternion;
+        obbCollision.SetIsCollisionCheck(true);
     }
 
     public void Fire()
@@ -98,7 +100,13 @@ public class Projectile : MonoBehaviour , IPoolable
 
     public void OnCollisionTarget(ITargetable _target)
     {
+        if(!gameObject.activeSelf)
+        {
+            return;
+        }
+
         _target.OnDamaged(damageData);
+        obbCollision.SetIsCollisionCheck(false);
         OnEnqueue();
     }
 }

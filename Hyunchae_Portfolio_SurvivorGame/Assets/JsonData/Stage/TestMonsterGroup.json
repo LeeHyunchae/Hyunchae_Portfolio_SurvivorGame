@@ -46,5 +46,13 @@
     "FirstSpawnTime": 5.0,
     "RespawnCycle": 2.0,
     "EndSpawnTime": 90.0
+  },
+  {
+    "MonsterGroupID": 3,
+    "MonsterID": 2,
+    "MonsterNumber": 4,
+    "FirstSpawnTime": 5.0,
+    "RespawnCycle": 2.0,
+    "EndSpawnTime": 90.0
   }
 ]

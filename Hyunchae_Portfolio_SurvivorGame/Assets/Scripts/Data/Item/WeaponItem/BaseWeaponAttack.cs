@@ -49,7 +49,7 @@ public abstract class BaseWeaponAttack
         attackRange = _model.status.range;
     }
 
-    public void SetObb(ObbCollisionObject _obb)
+    public void SetObbCollision(ObbCollisionObject _obb)
     {
         obbCollision = _obb;
     }
@@ -97,7 +97,7 @@ public abstract class BaseWeaponAttack
     {
         isReady = true;
         curCooldown = 0;
-        obbCollision.enabled = false;
+        obbCollision.SetIsCollisionCheck(false);
     }
     protected void RotatToTarget()
     {
@@ -118,6 +118,7 @@ public abstract class BaseWeaponAttack
         {
             if (curCooldown >= cooldown)
             {
+                obbCollision.SetIsCollisionCheck(true);
                 ReadyFire();
             }
         }
@@ -169,7 +170,6 @@ public class Sting : BaseWeaponAttack
     protected override void ReadyFire()
     {
         isReady = false;
-        obbCollision.enabled = true;
     }
 }
 
@@ -188,7 +188,6 @@ public class Swing : BaseWeaponAttack
     protected override void ReadyFire()
     {
         isReady = false;
-        obbCollision.enabled = true;
     }
 }
 

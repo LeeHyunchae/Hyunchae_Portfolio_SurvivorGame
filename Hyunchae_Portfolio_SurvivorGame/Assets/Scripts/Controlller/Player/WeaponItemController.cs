@@ -41,7 +41,7 @@ public class WeaponItemController : MonoBehaviour
 
         attackType.SetInitPos(myTransform);
 
-        attackType.SetObb(obbCollision);
+        attackType.SetObbCollision(obbCollision);
 
         obbCollision.RefreshSprite();
 
