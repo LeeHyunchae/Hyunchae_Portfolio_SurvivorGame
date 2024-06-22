@@ -85,6 +85,11 @@ public class MapEditor : Editor
             AugmentTest();
         }
 
+        if (GUILayout.Button("임시 패시브 아이템 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            PassiveItemTest();
+        }
+
         if (GUILayout.Button("임시 스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             StageTest();
@@ -158,7 +163,7 @@ public class MapEditor : Editor
     private void CharacterTest()
     {
         List<CharacterModel> characters = new List<CharacterModel>();
-        Status_Variance variance = new Status_Variance();
+        StatusVariance variance = new StatusVariance();
 
         CharacterModel characterModel = new CharacterModel
         {
@@ -171,27 +176,31 @@ public class MapEditor : Editor
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
         variance.variance = 5;
+        variance.isRatio = false;
 
         characterModel.variances.Add(variance);
-        variance = new Status_Variance();
+        variance = new StatusVariance();
 
         variance.characterStatus = ECharacterStatus.PLAYER_CRITICALCHANCE;
         variance.variance = 3;
+        variance.isRatio = false;
 
         characterModel.variances.Add(variance);
-        variance = new Status_Variance();
+        variance = new StatusVariance();
 
         variance.characterStatus = ECharacterStatus.PLAYER_ATTACKSPEED;
         variance.variance = -5;
+        variance.isRatio = false;
 
         characterModel.variances.Add(variance);
-        variance = new Status_Variance();
+        variance = new StatusVariance();
 
         variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
         variance.variance = 50;
+        variance.isRatio = false;
 
         characterModel.variances.Add(variance);
-        variance = new Status_Variance();
+        variance = new StatusVariance();
 
         characters.Add(characterModel);
 
@@ -206,16 +215,18 @@ public class MapEditor : Editor
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
         variance.variance = -5;
+        variance.isRatio = false;
 
         characterModel2.variances.Add(variance);
-        variance = new Status_Variance();
+        variance = new StatusVariance();
 
         variance.characterStatus = ECharacterStatus.PLAYER_DAMAGE;
         variance.variance = 25;
+        variance.isRatio = false;
 
         characterModel2.variances.Add(variance);
-        variance = new Status_Variance();
-
+        variance = new StatusVariance();
+        variance.isRatio = false;
         variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
         variance.variance = 30;
 
@@ -502,6 +513,98 @@ public class MapEditor : Editor
             ItemImage = "Tier4_Props_2",
             BulletName = "",
             ItemName = "Scythe4"
+        };
+
+        weaponDatas.Add(jsonWeaponData4);
+
+        jsonWeaponData1 = new JsonWeaponData
+        {
+            WeaponID = 12,
+            WeaponGroup = 3,
+            WeaponTier = 0,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 5,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 2,
+            WeaponSpeed = 6,
+            WeaponCoolDown = 1.5f,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier1_Props_0",
+            BulletName = "",
+            ItemName = "Shovel"
+        };
+
+        weaponDatas.Add(jsonWeaponData1);
+
+        jsonWeaponData2 = new JsonWeaponData
+        {
+            WeaponID = 13,
+            WeaponGroup = 3,
+            WeaponTier = 1,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 6,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 2,
+            WeaponSpeed = 6,
+            WeaponCoolDown = 1.5f,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier2_Props_0",
+            BulletName = "",
+            ItemName = "Shovel2"
+        };
+
+        weaponDatas.Add(jsonWeaponData2);
+
+        jsonWeaponData3 = new JsonWeaponData
+        {
+            WeaponID = 14,
+            WeaponGroup = 3,
+            WeaponTier = 2,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 7,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 2,
+            WeaponSpeed = 6,
+            WeaponCoolDown = 1.5f,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier3_Props_0",
+            BulletName = "",
+            ItemName = "Shovel3"
+        };
+
+        weaponDatas.Add(jsonWeaponData3);
+
+        jsonWeaponData4 = new JsonWeaponData
+        {
+            WeaponID = 15,
+            WeaponGroup = 3,
+            WeaponTier = 3,
+            WeaponSynergy = 0,
+            WeaponType = EWeaponType.STING,
+            WeaponAttackType = EWeaponAttackType.NONE,
+            WeaponDamage = 8,
+            WeaponCritical = 2,
+            WeaponTypeDamage = 2,
+            WeaponRange = 2,
+            WeaponSpeed = 6,
+            WeaponCoolDown = 1.5f,
+            WeaponKnockback = 0,
+            WeaponStatusEffect = 0,
+            ItemImage = "Tier4_Props_0",
+            BulletName = "",
+            ItemName = "Shovel4"
         };
 
         weaponDatas.Add(jsonWeaponData4);
@@ -906,6 +1009,197 @@ public class MapEditor : Editor
         augmentDatas.Add(augmentData);
 
         TableLoader.SaveToJson("Augment", augmentDatas, "TestAugment");
+
+    }
+
+    public void PassiveItemTest()
+    {
+        List<JsonPassiveItemModel> itemDatas = new List<JsonPassiveItemModel>();
+
+        List<ItemStatusVariance> status_Variances = new List<ItemStatusVariance>();
+        ItemStatusVariance status_Variance;
+        JsonPassiveItemModel model = new JsonPassiveItemModel()
+        {
+            ItemID = 1000,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 6",
+            BulletName = "",
+            ItemName = "아이템 1",
+            ItemContent = "방어력 상승 이동속도 저하 아이템",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_ARMOUR,
+            isRatio = false,
+            variance = 5
+        };
+        status_Variances.Add(status_Variance);
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_MOVESPEED,
+            isRatio = false,
+            variance = -5
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        status_Variances = new List<ItemStatusVariance>();
+        model = new JsonPassiveItemModel()
+        {
+            ItemID = 1001,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 7",
+            BulletName = "",
+            ItemName = "아이템 2",
+            ItemContent = "이동속도 상승 아이템",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_MOVESPEED,
+            isRatio = false,
+            variance = 5
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        status_Variances = new List<ItemStatusVariance>();
+        model = new JsonPassiveItemModel()
+        {
+            ItemID = 1002,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 8",
+            BulletName = "",
+            ItemName = "아이템 3",
+            ItemContent = "플레이어 체력 상승, 몬스터 체력 상승 아이템",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_MAXHP,
+            isRatio = false,
+            variance = 15
+        };
+        status_Variances.Add(status_Variance);
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.MONSTER_MAXHP,
+            isRatio = false,
+            variance = 5
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        status_Variances = new List<ItemStatusVariance>();
+        model = new JsonPassiveItemModel()
+        {
+            ItemID = 1003,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 9",
+            BulletName = "",
+            ItemName = "아이템 4",
+            ItemContent = "플레이어 공격력 상승",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_DAMAGE,
+            isRatio = false,
+            variance = 10
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        status_Variances = new List<ItemStatusVariance>();
+        model = new JsonPassiveItemModel()
+        {
+            ItemID = 1004,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 1",
+            BulletName = "",
+            ItemName = "아이템 5",
+            ItemContent = "플레이어 근거리 공격력 상승, 플레이어 원거리 공격력 저하",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_MELEEDAMAGE,
+            isRatio = false,
+            variance = 10
+        };
+        status_Variances.Add(status_Variance);
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_RANGEDAMAGE,
+            isRatio = false,
+            variance = -10
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        status_Variances = new List<ItemStatusVariance>();
+        model = new JsonPassiveItemModel()
+        {
+            ItemID = 1005,
+            ItemTier = 0,
+            ItemPassiveType = EPassiveItemType.SUPPORTABLE,
+            ItemImage = "Select 3",
+            BulletName = "",
+            ItemName = "아이템 6",
+            ItemContent = "플레이어 원거리 공격력 상승, 플레이어 근거리 공격력 저하",
+            ItemPrice = 0
+        };
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_RANGEDAMAGE,
+            isRatio = false,
+            variance = 10
+        };
+        status_Variances.Add(status_Variance);
+
+        status_Variance = new ItemStatusVariance()
+        {
+            itemStatusType = EItemStatusType.PLAYER_MELEEDAMAGE,
+            isRatio = false,
+            variance = -10
+        };
+        status_Variances.Add(status_Variance);
+
+        model.ItemStatusEffect = status_Variances;
+
+        itemDatas.Add(model);
+
+        TableLoader.SaveToJson("PassiveItem", itemDatas, "TestPassive");
 
     }
 }

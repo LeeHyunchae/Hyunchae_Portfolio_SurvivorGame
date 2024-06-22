@@ -49,7 +49,7 @@ public class ItemController
 
     public void EquipWeapon(int _itemSlot ,int _itemUid)
     {
-        WeaponItemModel itemModel = itemManager.GetWeaponItemModel(_itemUid);
+        WeaponItemModel itemModel = itemManager.GetItemModel(_itemUid) as WeaponItemModel;
 
         equipWeaponList[_itemSlot].SetWeaponItemModel(itemModel);
     }
@@ -61,14 +61,14 @@ public class ItemController
 
     public void SwapWeaponSlot(int _itemSlot,int _chengedItemSlot ,int _itemUid)
     {
-        equipWeaponList[_itemSlot].SetWeaponItemModel(itemManager.GetWeaponItemModel(_itemUid));
+        equipWeaponList[_itemSlot].SetWeaponItemModel(itemManager.GetItemModel(_itemUid) as WeaponItemModel);
     }
 
     private void OnRefreshEquipWeaponList()
     {
         for (int i = 0; i < weaponCapacity; i++)
         {
-            WeaponItemModel model = itemManager.GetEquipWeaponItemModel(i);
+            WeaponItemModel model = itemManager.GetEquipWeaponItemModel(i) as WeaponItemModel;
 
             if (model != null)
             {

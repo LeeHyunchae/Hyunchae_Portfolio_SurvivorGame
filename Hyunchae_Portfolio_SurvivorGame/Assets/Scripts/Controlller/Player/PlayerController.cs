@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour , ITargetable
     private Vector2 pos = Vector2.zero;
 
     private CharacterManager characterManager;
+    private ItemManager itemManager;
     private float moveSpeed;
     private AugmentManager augmentManager;
     private HpBarController hpBar;
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour , ITargetable
     public void Init()
     {
         characterManager = CharacterManager.getInstance;
+        itemManager = ItemManager.getInstance;
+
+        itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
 
         myTransform = gameObject.GetComponent<Transform>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour , ITargetable
         pos = myTransform.position;
 
         augmentManager = AugmentManager.getInstance;
-        augmentManager.onRefreshAgumentActionDict[(int)EAugmentType.PLAYERSTATUS] += OnRefreshChraterAugment;
+        augmentManager.onRefreshAgumentActionDict[(int)EAugmentType.PLAYERSTATUS] += OnRefreshChracterAugment;
 
         InitCharacter();
     }
@@ -126,8 +130,43 @@ public class PlayerController : MonoBehaviour , ITargetable
         return myTransform;
     }
 
-    private void OnRefreshChraterAugment()
+    private void OnRefreshChracterAugment()
     {
         List<AugmentData> augmentDatas = augmentManager.GetCurAugmentList((int)EAugmentType.PLAYERSTATUS);
+    }
+
+    private void AddPassiveItem()
+    {
+        List<BaseItemModel> itemList = itemManager.GetAllEquipPassiveItemModelList;
+
+        int slotIndex = itemList.Count - 1;
+
+        PassiveItemModel itemModel = itemList[slotIndex] as PassiveItemModel;
+
+        int varianceCount = itemModel.status_Variances.Count;
+
+        List<ItemStatusVariance> statusVariances = itemModel.status_Variances;
+
+        for(int i = 0; i <varianceCount; i++)
+        {
+            ItemStatusVariance itemStatusVariance = statusVariances[i];
+            int isPlayerStatus = (int)itemStatusVariance.itemStatusType / 100;
+
+            if(isPlayerStatus != (int)EItemStatusTarget.PLAYER)
+            {
+                continue;
+            }
+
+            StatusVariance statusVariance = new StatusVariance()
+            {
+                characterStatus = (ECharacterStatus)((int)itemStatusVariance.itemStatusType % 100),
+                isRatio = itemStatusVariance.isRatio,
+                variance = itemStatusVariance.variance
+            };
+
+            playerCharacter.UpdateStatusAmount(statusVariance);
+        }
+
+        //playerCharacter.UpdateStatusAmount()
     }
 }

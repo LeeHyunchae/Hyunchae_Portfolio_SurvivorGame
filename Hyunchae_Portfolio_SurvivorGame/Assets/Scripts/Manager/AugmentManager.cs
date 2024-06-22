@@ -136,19 +136,7 @@ public class AugmentManager : Singleton<AugmentManager>
 
         AugmentData data = GetAugmentData(_augmentUid);
 
-        int firstTypeNum = (int)data.firstAugmentType % 100;
-
-        onRefreshAgumentActionDict[firstTypeNum]?.Invoke();
-
-        if(data.secondAugmentType != 0)
-        {
-            int secondTypeNum = (int)data.secondAugmentType % 100;
-
-            if(firstTypeNum != secondTypeNum)
-            {
-                onRefreshAgumentActionDict[secondTypeNum]?.Invoke();
-            }
-        }
+        int firstTypeNum = (int)data.firstAugmentType / 100;
 
         if (!curAugmentDict.ContainsKey(firstTypeNum))
         {
@@ -156,6 +144,18 @@ public class AugmentManager : Singleton<AugmentManager>
         }
 
         curAugmentDict[firstTypeNum].Add(data);
+
+        onRefreshAgumentActionDict[firstTypeNum]?.Invoke();
+
+        if (data.secondAugmentType != 0)
+        {
+            int secondTypeNum = (int)data.secondAugmentType / 100;
+
+            if (firstTypeNum != secondTypeNum)
+            {
+                onRefreshAgumentActionDict[secondTypeNum]?.Invoke();
+            }
+        }
     }
 
     public List<AugmentData> GetCurAugmentList(int _augmentType)
@@ -172,11 +172,4 @@ public class AugmentManager : Singleton<AugmentManager>
 
         return augmentList;
     }
-
-    //public Action GetOnRefreshAgumentActionDict(int _augmentType)
-    //{
-    //    onRefreshAgumentActionDict.TryGetValue(_augmentType, out Action action);
-
-    //    return onRefreshAgumentActionDict[_augmentType];
-    //}
 }

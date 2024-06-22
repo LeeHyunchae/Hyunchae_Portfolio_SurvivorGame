@@ -28,7 +28,7 @@ public class Character
 
         int count = characterModel.variances.Count;
 
-        List<Status_Variance> variances = characterModel.variances;
+        List<StatusVariance> variances = characterModel.variances;
 
         for (int i = 0; i < count; i++)
         {
@@ -58,7 +58,7 @@ public class Character
         }
     }
 
-    public void UpdateStatusAmount(Status_Variance _variance)
+    public void UpdateStatusAmount(StatusVariance _variance)
     {
         BaseCharacterStatus status = characterStatus[(int)_variance.characterStatus];
 
@@ -66,9 +66,12 @@ public class Character
 
         status.multiplierApplyStatus =
             (status.baseStatus + status.statusValueMultiplier) * status.statusRatioMultiplier;
+
+        Debug.Log(_variance.characterStatus.ToString() + " + " + _variance.variance);
+        Debug.Log(_variance.characterStatus.ToString() + " multiplierApplyStatus : " + status.multiplierApplyStatus);
     }
 
-    public void UpdateStatusRatio(Status_Variance _variance)
+    public void UpdateStatusRatio(StatusVariance _variance)
     {
         BaseCharacterStatus status = characterStatus[(int)_variance.characterStatus];
 
@@ -111,13 +114,14 @@ public class CharacterModel
     public int[] uniqueAbilityIDArr;
     public string characterThumbnail;
 
-    public List<Status_Variance> variances = new List<Status_Variance>();
+    public List<StatusVariance> variances = new List<StatusVariance>();
 
 }
 
-public class Status_Variance
+public class StatusVariance
 {
     public ECharacterStatus characterStatus;
+    public bool isRatio;
     public float variance;
 }
 

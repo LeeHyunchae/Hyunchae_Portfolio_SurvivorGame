@@ -112,7 +112,7 @@ public class SelectPanelController : UIBaseController
 
             SelectButtonElement element = selectButtons[i];
 
-            element.SetThumbnail(itemManager.GetSpriteToName(weapons[i].itemThumbnail));
+            element.SetThumbnail(itemManager.GetItemSprite(weapons[i].itemUid));
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickWeaponButton(index));
 
@@ -152,7 +152,7 @@ public class SelectPanelController : UIBaseController
         selectWeapon = model;
 
         statusInfo.SetName(model.itemName);
-        statusInfo.SetTumbnail(itemManager.GetSpriteToName(model.itemThumbnail));
+        statusInfo.SetTumbnail(itemManager.GetItemSprite(model.itemUid));
         statusInfo.SetActive(true);
 
         StringBuilder sb = selectWeapon.GetWeaponInfo();
@@ -165,7 +165,7 @@ public class SelectPanelController : UIBaseController
         if(selectCharacter != null && selectWeapon != null)
         {
             //Game Start
-            itemManager.AddEquipWeaponItem(selectWeapon.itemUid);
+            itemManager.OnBuyItem(selectWeapon.itemUid);
             characterManager.SelectCharacterModel(selectCharacter.characterUid);
             SceneChanger.getInstance.ChangeScene("IngameScene");
         }

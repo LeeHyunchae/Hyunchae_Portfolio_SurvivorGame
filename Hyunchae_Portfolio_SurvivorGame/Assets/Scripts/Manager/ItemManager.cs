@@ -9,23 +9,25 @@ public class ItemManager : Singleton<ItemManager>
     public const int WEAPON_CAPACITY = 6;
     private const int ITEM_TIER_COUNT = 4;
 
-    private WeaponItemModel[] equipWeaponModelArr = new WeaponItemModel[6];
-    private List<BaseItemModel> attackableItemList = new List<BaseItemModel>();
-    private List<BaseItemModel> supportableItemList = new List<BaseItemModel>();
+    private BaseItemModel[] equipWeaponModelArr = new BaseItemModel[WEAPON_CAPACITY];
+    private List<BaseItemModel> equipPassiveModelList = new List<BaseItemModel>();
 
     private List<WeaponItemModel> weaponItemModels = new List<WeaponItemModel>();
-    private Dictionary<int, WeaponItemModel> weaponItemUidDict = new Dictionary<int, WeaponItemModel>();
-    //private Dictionary<int, List<WeaponItemModel>> weaponItemGroupDict = new Dictionary<int, List<WeaponItemModel>>();
-    //private Dictionary<int, Sprite> weaponSpriteDict = new Dictionary<int, Sprite>();
-    private List<Sprite> itemSprites = new List<Sprite>();
+    private List<PassiveItemModel> passiveItemModels = new List<PassiveItemModel>();
+
+    private Dictionary<int, BaseItemModel> itemDict = new Dictionary<int, BaseItemModel>();
+    private Dictionary<int, Sprite> itemSpritesDict = new Dictionary<int, Sprite>();
+
     private ObjectPool<Projectile> projectilePool;
+    private List<Sprite> projectileSprites = new List<Sprite>();
 
     private BaseWeaponAttack[] attackTypeArr = new BaseWeaponAttack[(int)EWeaponType.END];
     private Dictionary<EWeaponType, Queue<BaseWeaponAttack>> attackTypeDict = new Dictionary<EWeaponType, Queue<BaseWeaponAttack>>();
-    private int pieceCount = 0;
     public Action OnRefreshEquipWeaponList;
+    public Action OnRefreshEquipPassiveList;
 
     public int GetWeaponCapacity => WEAPON_CAPACITY;
+    public List<BaseItemModel> GetAllEquipPassiveItemModelList => equipPassiveModelList;
 
     public override bool Initialize()
     {
@@ -41,9 +43,13 @@ public class ItemManager : Singleton<ItemManager>
         attackTypeArr[(int)EWeaponType.SWING] = new Swing();
         attackTypeArr[(int)EWeaponType.SHOOT] = new Shoot();
 
-        attackTypeDict[EWeaponType.STING] = new Queue<BaseWeaponAttack>();
-        attackTypeDict[EWeaponType.SWING] = new Queue<BaseWeaponAttack>();
-        attackTypeDict[EWeaponType.SHOOT] = new Queue<BaseWeaponAttack>();
+        int count = (int)EWeaponType.END;
+
+        for(int i = 0; i < count; i++)
+        {
+            attackTypeDict[(EWeaponType)i] = new Queue<BaseWeaponAttack>();
+        }
+
     }
 
     private void InitProjectilePool()
@@ -54,8 +60,15 @@ public class ItemManager : Singleton<ItemManager>
 
     private void LoadData()
     {
-        LoadWeaponSprite();
+        LoadWeaponData();
 
+        LoadPassiveItemData();
+
+        LoadItemSprite();
+    }
+
+    private void LoadWeaponData()
+    {
         List<JsonWeaponData> jsonWeaponDatas = TableLoader.LoadFromFile<List<JsonWeaponData>>("Weapon/TestWeapon");
 
         int count = jsonWeaponDatas.Count;
@@ -67,9 +80,9 @@ public class ItemManager : Singleton<ItemManager>
             WeaponItemModel itemModel = new WeaponItemModel
             {
                 itemUid = weaponData.WeaponID,
-                itemType = EItemType.ATTACKABLE,
                 itemPrice = 0,
                 itemThumbnail = weaponData.ItemImage,
+                itemType = EItemType.WEAPON,
                 bulletImage = weaponData.BulletName,
                 itemName = weaponData.ItemName,
                 WeaponType = weaponData.WeaponType,
@@ -89,14 +102,43 @@ public class ItemManager : Singleton<ItemManager>
                 }
             };
 
-            weaponItemUidDict.Add(itemModel.itemUid, itemModel);
+            itemDict.Add(itemModel.itemUid, itemModel);
             weaponItemModels.Add(itemModel);
         }
-
     }
 
-    private void LoadWeaponSprite()
+    private void LoadPassiveItemData()
     {
+        List<JsonPassiveItemModel> jsonEquipItemDatas = TableLoader.LoadFromFile<List<JsonPassiveItemModel>>("PassiveItem/TestPassive");
+
+        int count = jsonEquipItemDatas.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+            JsonPassiveItemModel equipItemData = jsonEquipItemDatas[i];
+
+            PassiveItemModel itemModel = new PassiveItemModel
+            {
+                itemUid = equipItemData.ItemID,
+                itemTier = equipItemData.ItemTier,
+                itemPrice = equipItemData.ItemPrice,
+                itemThumbnail = equipItemData.ItemImage,
+                itemType = EItemType.PASSIVE,
+                bulletImage = equipItemData.BulletName,
+                itemName = equipItemData.ItemName,
+                itemInfo = equipItemData.ItemContent,
+                status_Variances = equipItemData.ItemStatusEffect
+
+            };
+
+            itemDict.Add(itemModel.itemUid, itemModel);
+            passiveItemModels.Add(itemModel);
+        }
+    }
+
+    private void LoadItemSprite()
+    {
+        List<Sprite> weaponSpriteList = new List<Sprite>();
 
         for (int i = 0; i < ITEM_TIER_COUNT; i++)
         {
@@ -104,15 +146,59 @@ public class ItemManager : Singleton<ItemManager>
 
             Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/Tier" + idx + "_Props");
 
-            int spritesCount = sprites.Length;
+            int weaponSpritesCount = sprites.Length;
 
-            for (int j = 0; j < spritesCount; j++)
+            for (int j = 0; j < weaponSpritesCount; j++)
             {
-                itemSprites.Add(sprites[j]);
+                weaponSpriteList.Add(sprites[j]);
+
+                if(sprites[j].name == "Tier1_Props_9" ||
+                    sprites[j].name == "Tier2_Props_12")
+                {
+                    projectileSprites.Add(sprites[j]);
+                }
             }
+
+
         }
 
+        List<Sprite> passiveSpriteList = new List<Sprite>();
+        Sprite[] passiveSprites = Resources.LoadAll<Sprite>("Sprites/UI");
 
+        int spritesCount = passiveSprites.Length;
+
+        for (int j = 0; j < spritesCount; j++)
+        {
+            passiveSpriteList.Add(passiveSprites[j]);
+        }
+
+        int weaponCount = weaponItemModels.Count;
+
+        for(int i = 0; i < weaponCount; i++)
+        {
+            for(int j = 0; j < weaponSpriteList.Count; j++)
+            {
+                if(weaponItemModels[i].itemThumbnail == weaponSpriteList[j].name)
+                {
+                    itemSpritesDict.Add(weaponItemModels[i].itemUid, weaponSpriteList[j]);
+                }
+            }
+
+            
+        }
+
+        int passiveCount = passiveItemModels.Count;
+
+        for (int i = 0; i < passiveCount; i++)
+        {
+            for (int j = 0; j < passiveSpriteList.Count; j++)
+            {
+                if (passiveItemModels[i].itemThumbnail == passiveSpriteList[j].name)
+                {
+                    itemSpritesDict.Add(passiveItemModels[i].itemUid, passiveSpriteList[j]);
+                }
+            }
+        }
     }
 
     public List<WeaponItemModel> GetAllWeaponModel()
@@ -120,87 +206,89 @@ public class ItemManager : Singleton<ItemManager>
         return weaponItemModels;
     }
 
-    public List<BaseItemModel> GetRandomItemList()
+    public List<PassiveItemModel> GetAllPassiveItemModel()
+    {
+        return passiveItemModels;
+    }
+
+    public List<BaseItemModel> GetRandomItemList(int _count = 4)
     {
         List<BaseItemModel> randomItemList = new List<BaseItemModel>();
 
-        //int randomWeaponItemCount = Random.Range(0, 5);
-        int randomWeaponItemCount = 4;
-
         int weaponItemCount = weaponItemModels.Count;
+        int passiveItemCount = passiveItemModels.Count;
 
-        for(int i = 0; i < randomWeaponItemCount; i++)
+        for(int i = 0; i < _count; i++)
         {
-            int randomNum = Random.Range(0, weaponItemCount);
+            BaseItemModel itemModel;
 
-            randomItemList.Add(weaponItemModels[randomNum]);
+            bool isWeapon = (Random.value > 0.5f);
+            int randomNum;
+
+            if (isWeapon)
+            {
+                randomNum = Random.Range(0, weaponItemCount);
+                itemModel = weaponItemModels[randomNum];
+            }
+            else
+            {
+                randomNum = Random.Range(0, passiveItemCount);
+                itemModel = passiveItemModels[randomNum];
+            }
+
+
+            randomItemList.Add(itemModel);
         }
 
         return randomItemList;
     }
 
-    public WeaponItemModel GetWeaponItemModel(int _itemUid)
+    public BaseItemModel GetItemModel(int _itemUid)
     {
-        weaponItemUidDict.TryGetValue(_itemUid, out WeaponItemModel itemModel);
+        itemDict.TryGetValue(_itemUid, out BaseItemModel itemModel);
 
         //Debug.Log("Not Exist Item");
         return itemModel;
     }
 
-    public Sprite GetWeaponItemSprite(int _itemUid)
+    public Sprite GetItemSprite(int _itemUid)
     {
-        string itemName = GetWeaponItemModel(_itemUid).itemThumbnail;
+        itemSpritesDict.TryGetValue(_itemUid, out Sprite sprite);
 
-        int count = itemSprites.Count;
-
-        for (int i = 0; i < count; i++)
+        if (sprite != null)
         {
-            if(itemName.Equals(itemSprites[i].name))
-            {
-                return itemSprites[i];
-            }
+            return sprite;
         }
 
-        Debug.Log("Not Exist Sprite");
+        Debug.Log("Not Exist Item Sprite");
         return null;
-
-        //weaponSpriteDict.TryGetValue(_itemUid, out Sprite sprite);
-
-        //if(sprite != null)
-        //{
-        //    return sprite;
-        //}
-
-        //Debug.Log("Not Exist Sprite");
-        //return null;
 
     }
 
-    public Sprite GetSpriteToName(string _name)
+    public Sprite GetProjectileSprite(string _spriteName)
     {
-        int count = itemSprites.Count;
+        int count = projectileSprites.Count;
 
-        for (int i = 0; i < count; i++)
+        for(int i = 0; i< count; i ++)
         {
-            if (_name.Equals(itemSprites[i].name))
+            if(projectileSprites[i].name == _spriteName)
             {
-                return itemSprites[i];
+                return projectileSprites[i];
             }
         }
 
-        Debug.Log("Not Exist Sprite");
+        Debug.Log("Not Exist Projectile Sprite");
         return null;
     }
 
-
-    private void SetEquipWeaponItem(WeaponItemModel _model = null, int _slot = 0)
+    private void SetEquipWeaponItem(BaseItemModel _model = null, int _slot = 0)
     {
         equipWeaponModelArr[_slot] = _model;
 
         OnRefreshEquipWeaponList?.Invoke();
     }
 
-    public WeaponItemModel GetEquipWeaponItemModel(int _slot)
+    public BaseItemModel GetEquipWeaponItemModel(int _slot)
     {
         if(equipWeaponModelArr[_slot] == null)
         {
@@ -242,12 +330,19 @@ public class ItemManager : Singleton<ItemManager>
         attackTypeDict[_attackType].Enqueue(_attack);
     }
 
-    public int GetPieceCount()
+    public void OnBuyItem(int _itemUid)
     {
-        return pieceCount;
+        if (GetItemModel(_itemUid).itemType == EItemType.WEAPON)
+        {
+            AddEquipWeaponItem(_itemUid);
+        }
+        else
+        {
+            AddEquipPassiveItem(_itemUid);
+        }
     }
 
-    public void AddEquipWeaponItem(int _itemUid)
+    private void AddEquipWeaponItem(int _itemUid)
     {
         for(int i = 0; i <WEAPON_CAPACITY; i++)
         {
@@ -256,9 +351,18 @@ public class ItemManager : Singleton<ItemManager>
                 continue;
             }
 
-            SetEquipWeaponItem(GetWeaponItemModel(_itemUid), i);
+            SetEquipWeaponItem(GetItemModel(_itemUid), i);
             break;
         }
+    }
+
+    private void AddEquipPassiveItem(int _itemUid)
+    {
+        BaseItemModel itemModel = GetItemModel(_itemUid);
+
+        equipPassiveModelList.Add(itemModel);
+
+        OnRefreshEquipPassiveList?.Invoke();
     }
 
     public void SellWeaponItem(int _slotNum)
@@ -278,7 +382,7 @@ public class ItemManager : Singleton<ItemManager>
 
         for (int i = 0; i < count; i++)
         {
-            WeaponItemModel model = equipWeaponModelArr[i];
+            BaseItemModel model = equipWeaponModelArr[i];
 
             if (model == null)
             {
@@ -305,13 +409,13 @@ public class ItemManager : Singleton<ItemManager>
 
     public void CombineWeaponItem(int _slotNum)
     {
-        WeaponItemModel combineTarget = equipWeaponModelArr[_slotNum];
+        BaseItemModel combineTarget = equipWeaponModelArr[_slotNum];
 
         int count = WEAPON_CAPACITY;
 
         for(int i = 0; i <count; i++)
         {
-            WeaponItemModel model = equipWeaponModelArr[i];
+            BaseItemModel model = equipWeaponModelArr[i];
 
             if(i == _slotNum)
             {
@@ -332,7 +436,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public bool UpgradeWeaponItem(int _slotNum)
     {
-        WeaponItemModel combineTarget = equipWeaponModelArr[_slotNum];
+        WeaponItemModel combineTarget = equipWeaponModelArr[_slotNum] as WeaponItemModel;
         int combineTargetGroup = combineTarget.weaponGroup;
         int combineTargetTier = combineTarget.weaponTier + 1;
 

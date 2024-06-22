@@ -73,7 +73,7 @@ public class WeaponItemModel : BaseItemModel
     {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.Append("Tier : " + weaponTier + 1 + "\n\n");
+        stringBuilder.Append("Tier : " + (weaponTier + 1) + "\n");
 
         if (status.damage != 0)
         { stringBuilder.Append("Damage : "+ status.damage + "\n"); }
@@ -104,7 +104,6 @@ public class WeaponStatus
     public float speed;
     public float cooldown;
     public float knockback;
-    //status,Type, etc,,
 }
 
 public class JsonWeaponData

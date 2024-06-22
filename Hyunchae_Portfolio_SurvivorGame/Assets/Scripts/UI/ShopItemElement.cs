@@ -26,4 +26,9 @@ public class ShopItemElement : MonoBehaviour
         itemName.text = _itemModel.itemName;
         itemPriceText.text = _itemModel.itemPrice.ToString();
     }
+
+    public void SetItemInfo(string _info)
+    {
+        itemInfo.text = _info;
+    }
 }

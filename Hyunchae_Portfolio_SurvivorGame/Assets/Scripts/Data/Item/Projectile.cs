@@ -88,7 +88,7 @@ public class Projectile : MonoBehaviour , IPoolable
 
     public void SetSprite(string _spriteName)
     {
-        spriteRenderer.sprite = itemManager.GetSpriteToName(_spriteName);
+        spriteRenderer.sprite = itemManager.GetProjectileSprite(_spriteName);
 
         obbCollision.RefreshSprite();
     }
@@ -107,6 +107,6 @@ public class Projectile : MonoBehaviour , IPoolable
 
         _target.OnDamaged(damageData);
         obbCollision.SetIsCollisionCheck(false);
-        OnEnqueue();
+        itemManager.EnqueueProjectile(this);
     }
 }

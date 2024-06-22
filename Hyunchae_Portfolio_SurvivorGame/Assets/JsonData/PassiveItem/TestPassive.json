@@ -1,0 +1,124 @@
+[
+  {
+    "ItemID": 1000,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 112,
+        "isRatio": false,
+        "variance": 5.0
+      },
+      {
+        "itemStatusType": 109,
+        "isRatio": false,
+        "variance": -5.0
+      }
+    ],
+    "ItemImage": "Select 6",
+    "BulletName": "",
+    "ItemName": "아이템 1",
+    "ItemContent": "방어력 상승 이동속도 저하 아이템",
+    "ItemPrice": 0
+  },
+  {
+    "ItemID": 1001,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 109,
+        "isRatio": false,
+        "variance": 5.0
+      }
+    ],
+    "ItemImage": "Select 7",
+    "BulletName": "",
+    "ItemName": "아이템 2",
+    "ItemContent": "이동속도 상승 아이템",
+    "ItemPrice": 0
+  },
+  {
+    "ItemID": 1002,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 100,
+        "isRatio": false,
+        "variance": 15.0
+      },
+      {
+        "itemStatusType": 200,
+        "isRatio": false,
+        "variance": 5.0
+      }
+    ],
+    "ItemImage": "Select 8",
+    "BulletName": "",
+    "ItemName": "아이템 3",
+    "ItemContent": "플레이어 체력 상승, 몬스터 체력 상승 아이템",
+    "ItemPrice": 0
+  },
+  {
+    "ItemID": 1003,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 103,
+        "isRatio": false,
+        "variance": 10.0
+      }
+    ],
+    "ItemImage": "Select 9",
+    "BulletName": "",
+    "ItemName": "아이템 4",
+    "ItemContent": "플레이어 공격력 상승",
+    "ItemPrice": 0
+  },
+  {
+    "ItemID": 1004,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 104,
+        "isRatio": false,
+        "variance": 10.0
+      },
+      {
+        "itemStatusType": 105,
+        "isRatio": false,
+        "variance": -10.0
+      }
+    ],
+    "ItemImage": "Select 1",
+    "BulletName": "",
+    "ItemName": "아이템 5",
+    "ItemContent": "플레이어 근거리 공격력 상승, 플레이어 원거리 공격력 저하",
+    "ItemPrice": 0
+  },
+  {
+    "ItemID": 1005,
+    "ItemTier": 0,
+    "ItemType": 1,
+    "ItemStatusEffect": [
+      {
+        "itemStatusType": 105,
+        "isRatio": false,
+        "variance": 10.0
+      },
+      {
+        "itemStatusType": 104,
+        "isRatio": false,
+        "variance": -10.0
+      }
+    ],
+    "ItemImage": "Select 3",
+    "BulletName": "",
+    "ItemName": "아이템 6",
+    "ItemContent": "플레이어 원거리 공격력 상승, 플레이어 근거리 공격력 저하",
+    "ItemPrice": 0
+  }
+]

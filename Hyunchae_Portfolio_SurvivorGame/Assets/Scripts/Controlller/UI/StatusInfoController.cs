@@ -11,14 +11,17 @@ public class StatusInfoController : MonoBehaviour
     [SerializeField] private Button itemInventoryButton;
     [SerializeField] private GameObject statusInfoObject;
     [SerializeField] private StatusElement[] statusElements;
-    [SerializeField] private GameObject itemListObject;
-    [SerializeField] private ItemButtonElement[] itemButtonElements;
+    [SerializeField] private GameObject weaponItemListObject;
+    [SerializeField] private ItemButtonElement[] weaponItemButtonElements;
+    [SerializeField] private ScrollRect passiveItemListScrollRect;
+    [SerializeField] private ItemButtonElement originPassiveItemButtonElement;
     [SerializeField] private ItemStatusInfoElement itemInfoElement;
     [SerializeField] private Image dimImage;
 
     private ItemManager itemManager;
     private CharacterManager characterManager;
     private int curInfoItemSlotNum = -1;
+    private List<ItemButtonElement> passiveItemButtonList = new List<ItemButtonElement>();
 
     private void Awake()
     {
@@ -34,33 +37,69 @@ public class StatusInfoController : MonoBehaviour
         itemInfoElement.SetActiveSellButton(true);
         
         itemManager.OnRefreshEquipWeaponList += SetWeaponData;
+        itemManager.OnRefreshEquipPassiveList += AddPassiveItemData;
 
         itemInfoElement.GetCloseButtonEvent.AddListener(OnClickWeaponItemInfoCloseButton);
         itemInfoElement.GetSellButtonEvent.AddListener(OnClickWeaponItemSellButton);
         itemInfoElement.GetCombineButton.AddListener(OnClickWeaponItemCombineButton);
+
+        InitPassiveItemButtonElement();
     }
+
+    private void InitPassiveItemButtonElement()
+    {
+        Transform contentTransform = passiveItemListScrollRect.content.transform;
+
+        int count = 100;
+
+        for(int i = 0; i< count; i++)
+        {
+            ItemButtonElement itemButtonElement = Instantiate<ItemButtonElement>(originPassiveItemButtonElement,contentTransform);
+
+            passiveItemButtonList.Add(itemButtonElement);
+        }
+    }
+
+    private void ExtensionPassiveItemButtonList()
+    {
+        Transform contentTransform = passiveItemListScrollRect.content.transform;
+
+        int curCount = passiveItemButtonList.Count;
+        int extensionCount = curCount * 2;
+
+        for (int i = curCount; i < extensionCount; i++)
+        {
+            ItemButtonElement itemButtonElement = Instantiate<ItemButtonElement>(originPassiveItemButtonElement, contentTransform);
+
+            passiveItemButtonList.Add(itemButtonElement);
+        }
+    }
+
 
     private void OnClickFirstStatusInfoButton()
     {
         statusInfoObject.gameObject.SetActive(true);
-        itemListObject.gameObject.SetActive(false);
+        weaponItemListObject.gameObject.SetActive(false);
+        passiveItemListScrollRect.gameObject.SetActive(false);
     }
     private void OnClickSecondStatusInfoButton()
     {
         statusInfoObject.gameObject.SetActive(true);
-        itemListObject.gameObject.SetActive(false);
+        weaponItemListObject.gameObject.SetActive(false);
     }
     private void OnClickWeaponInventoryButton()
     {
         statusInfoObject.gameObject.SetActive(false);
-        itemListObject.gameObject.SetActive(true);
+        weaponItemListObject.gameObject.SetActive(true);
+        passiveItemListScrollRect.gameObject.SetActive(false);
 
         SetWeaponData();
     }
     private void OnClickItemInventoryButton()
     {
         statusInfoObject.gameObject.SetActive(false);
-        itemListObject.gameObject.SetActive(true);
+        weaponItemListObject.gameObject.SetActive(false);
+        passiveItemListScrollRect.gameObject.SetActive(true);
     }
 
     private void OnClickWeaponItemButton(int _itemUid, int _itemSlotNum)
@@ -73,10 +112,10 @@ public class StatusInfoController : MonoBehaviour
 
         dimImage.enabled = true;
 
-        WeaponItemModel model = itemManager.GetWeaponItemModel(_itemUid);
+        WeaponItemModel model = itemManager.GetItemModel(_itemUid) as WeaponItemModel;
 
         itemInfoElement.SetName(model.itemName);
-        itemInfoElement.SetTumbnail(itemManager.GetSpriteToName(model.itemThumbnail));
+        itemInfoElement.SetTumbnail(itemManager.GetItemSprite(model.itemUid));
         itemInfoElement.SetActive(true);
 
         string weaponInfo = "Damage : " + model.status.damage + " \n" + "attack speed : " + model.status.cooldown;
@@ -123,9 +162,9 @@ public class StatusInfoController : MonoBehaviour
 
         for (int i = 0; i < weaponCapacity; i++)
         {
-            WeaponItemModel weaponModel = itemManager.GetEquipWeaponItemModel(i);
+            BaseItemModel weaponModel = itemManager.GetEquipWeaponItemModel(i);
 
-            ItemButtonElement itemButtonElement = itemButtonElements[i];
+            ItemButtonElement itemButtonElement = weaponItemButtonElements[i];
 
             int slotIdx = i;
 
@@ -137,7 +176,7 @@ public class StatusInfoController : MonoBehaviour
             }
             else
             {
-                itemButtonElement.SetThumbnail(itemManager.GetSpriteToName(weaponModel.itemThumbnail));
+                itemButtonElement.SetThumbnail(itemManager.GetItemSprite(weaponModel.itemUid));
                 itemButtonElement.SetItemUID(weaponModel.itemUid);
                 itemButtonElement.GetButtonClickedEvent.RemoveAllListeners();
                 itemButtonElement.GetButtonClickedEvent.AddListener(() => OnClickWeaponItemButton(weaponModel.itemUid,slotIdx));
@@ -145,5 +184,42 @@ public class StatusInfoController : MonoBehaviour
 
         }
 
+    }
+
+    private void AddPassiveItemData()
+    {
+        List<BaseItemModel> itemList = itemManager.GetAllEquipPassiveItemModelList;
+
+        int slotIndex = itemList.Count - 1;
+
+        if(slotIndex >= passiveItemButtonList.Count)
+        {
+            ExtensionPassiveItemButtonList();
+        }
+
+        BaseItemModel itemModel = itemList[slotIndex];
+
+        ItemButtonElement buttonElement = passiveItemButtonList[slotIndex];
+
+        buttonElement.SetThumbnail(itemManager.GetItemSprite(itemModel.itemUid));
+        buttonElement.SetItemUID(itemModel.itemUid);
+        buttonElement.GetButtonClickedEvent.AddListener(() => OnClickPassiveItemButton(itemModel.itemUid));
+        buttonElement.SetActive(true);
+    }
+
+    private void OnClickPassiveItemButton(int _itemUid)
+    {
+        dimImage.enabled = true;
+
+        PassiveItemModel model = itemManager.GetItemModel(_itemUid) as PassiveItemModel;
+
+        itemInfoElement.SetName(model.itemName);
+        itemInfoElement.SetTumbnail(itemManager.GetItemSprite(model.itemUid));
+        itemInfoElement.SetActive(true);
+        itemInfoElement.SetInfoText(model.itemInfo);
+        itemInfoElement.SetItemPrice(model.itemPrice.ToString());
+
+        itemInfoElement.SetActiveCombineButton(false);
+        itemInfoElement.SetActiveSellButton(false);
     }
 }

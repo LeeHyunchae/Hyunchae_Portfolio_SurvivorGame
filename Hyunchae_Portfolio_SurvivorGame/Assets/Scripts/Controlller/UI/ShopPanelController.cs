@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class ShopPanelController : UIBaseController
 {
     private const int SHOWING_ITEM_COUNT = 4;
     private UIManager uiManager;
+    private GlobalData globalData;
 
     [SerializeField] TextMeshProUGUI peiceCountText;
     [SerializeField] Button nextWaveButton;
@@ -29,8 +31,9 @@ public class ShopPanelController : UIBaseController
         base.Init();
 
         uiManager = UIManager.getInstance;
-        nextWaveButton.onClick.AddListener(OnClickNextWave);
+        globalData = GlobalData.getInstance;
         itemManager = ItemManager.getInstance;
+        nextWaveButton.onClick.AddListener(OnClickNextWave);
 
         InitButtons();
     }
@@ -70,9 +73,18 @@ public class ShopPanelController : UIBaseController
 
             ShopItemElement element = shopItemElements[i];
 
-            //Todo RandomSystem
-            element.SetThumbnail(itemManager.GetSpriteToName(items[i].itemThumbnail));
+element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
             element.SetItemData(items[i]);
+
+            if(items[i].itemType == EItemType.WEAPON)
+            {
+                StringBuilder stringBuilder = (items[i] as WeaponItemModel).GetWeaponInfo();
+                element.SetItemInfo(stringBuilder.ToString());
+            }
+            else
+            {
+                element.SetItemInfo((items[i] as PassiveItemModel).itemInfo);
+            }
 
             curShowingItemArr[i] = items[i];
         }
@@ -92,7 +104,7 @@ public class ShopPanelController : UIBaseController
 
     private void OnClickBuyButton(int _elementIndex)
     {
-        itemManager.AddEquipWeaponItem(curShowingItemArr[_elementIndex].itemUid);
+        itemManager.OnBuyItem(curShowingItemArr[_elementIndex].itemUid);
     }
 
     private void OnClickLockButton(int _elementIndex)

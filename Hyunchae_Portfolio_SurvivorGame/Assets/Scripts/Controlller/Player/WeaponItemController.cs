@@ -33,7 +33,7 @@ public class WeaponItemController : MonoBehaviour
     {
         itemModel = _itemModel;
 
-        spriteRenderer.sprite = itemManager.GetSpriteToName(itemModel.itemThumbnail);
+        spriteRenderer.sprite = itemManager.GetItemSprite(itemModel.itemUid);
 
         attackType = itemManager.GetAttackType(itemModel.WeaponType);
 
