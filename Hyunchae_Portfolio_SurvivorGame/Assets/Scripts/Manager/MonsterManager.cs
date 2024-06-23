@@ -29,39 +29,14 @@ public class MonsterManager : Singleton<MonsterManager>
     private Transform parentTransform;
     private PlayerController player;
 
+    private BossMonsterController boss;
+
     public override bool Initialize()
     {
         LoadData();
         InitMonsterBehaviours();
 
         return base.Initialize();
-    }
-
-    public void SetPlayer(PlayerController _playerController)
-    {
-        player = _playerController;
-    }
-
-    public ITargetable[] CreateMonsterObjects()
-    {
-        parentTransform = new GameObject(MONSTER_PARENT).GetComponent<Transform>();
-
-        MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
-
-        ITargetable[] monsterArr = new ITargetable[MAX_MONSTER_CAPACITY];
-
-        for(int i = 0; i<MAX_MONSTER_CAPACITY; i++)
-        {
-            MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster,parentTransform);
-            LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
-            deadMonsterQueue.Enqueue(monsterNode);
-            monster.Init(player);
-            monster.OnEnqueue();
-
-            monsterArr[i] = monster;
-        }
-
-        return monsterArr;
     }
 
     private void InitMonsterBehaviours()
@@ -101,6 +76,77 @@ public class MonsterManager : Singleton<MonsterManager>
             Sprite monsterSprite = Resources.Load<Sprite>(SPRITELOADPATH + model.monsterThumbnail);
             monsterSpriteDict.Add(model.monsterUid, monsterSprite);
         }
+    }
+
+    private void InitBoss()
+    {
+        BossMonsterController originMonster = Resources.Load<BossMonsterController>("Prefabs/BossMonster");
+
+
+        BossMonsterModel bossModel = new BossMonsterModel
+        {
+            bossUid = 0,
+            bossName = "boss_0",
+            bossThumbnail = SPRITELOADPATH + "Enemy 4",
+        };
+
+        float[] status = new float[]
+        {
+            100,
+            3,
+            10,
+            5,
+            5
+        };
+
+        bossModel.bossStatus = status;
+
+        List<BossPatternModel> patternModels = new List<BossPatternModel>();
+
+        BossPatternModel patternModel = new BossPatternModel();
+        patternModel.logicType = EMonsterLogicType.SEQUENCE;
+        patternModel.skillList = new List<EBossMonsterSkill>();
+        patternModel.skillList.Add(EBossMonsterSkill.TRIPLESHOOT);
+        patternModel.skillList.Add(EBossMonsterSkill.DASH);
+
+        patternModels.Add(patternModel);
+
+        bossModel.bossPatternModels = patternModels;
+
+        boss = GameObject.Instantiate<BossMonsterController>(originMonster);
+        boss.Init(player);
+        boss.SetModel(bossModel);
+        boss.gameObject.SetActive(false);
+
+    }
+
+    public void SetPlayer(PlayerController _playerController)
+    {
+        player = _playerController;
+    }
+
+    public ITargetable[] CreateMonsterObjects()
+    {
+        parentTransform = new GameObject(MONSTER_PARENT).GetComponent<Transform>();
+
+        MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
+
+        ITargetable[] monsterArr = new ITargetable[MAX_MONSTER_CAPACITY];
+
+        for (int i = 0; i < MAX_MONSTER_CAPACITY; i++)
+        {
+            MonsterController monster = GameObject.Instantiate<MonsterController>(originMonster, parentTransform);
+            LinkedListNode<MonsterController> monsterNode = new LinkedListNode<MonsterController>(monster);
+            deadMonsterQueue.Enqueue(monsterNode);
+            monster.Init(player);
+            monster.OnEnqueue();
+
+            monsterArr[i] = monster;
+        }
+
+        InitBoss();
+
+        return monsterArr;
     }
 
     public MonsterModel GetMonsterModelToUid(int _uid)
@@ -242,10 +288,15 @@ public class MonsterManager : Singleton<MonsterManager>
             currentNode = nextNode;
         }
     }
+
+    public BossMonsterController GetBoss()
+    {
+        return boss;
+    }
 }
 
 
-//..
+//.. SampleCode
 public class BaseMonsterInfo
 {
     public int hp;

@@ -145,7 +145,7 @@ public class MonsterController : MonoBehaviour , ITargetable
         isDead = false;
     }
 
-    private void OnDieMonster()
+    private void OnMonsterDie()
     {
         isDead = true;
 
@@ -172,7 +172,7 @@ public class MonsterController : MonoBehaviour , ITargetable
 
         if (curMonsterHp <= 0)
         {
-            OnDieMonster();
+            OnMonsterDie();
         }
 
     }

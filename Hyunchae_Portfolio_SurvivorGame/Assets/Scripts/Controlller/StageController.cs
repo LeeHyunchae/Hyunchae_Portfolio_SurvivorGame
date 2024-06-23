@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class StageController
 {
@@ -72,15 +73,9 @@ public class StageController
     private void TestInputKey()
     {
        
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            TestSpawnMonster();
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            EndWave();
+            TestSpawnBossMonster();
         }
     }
 
@@ -96,21 +91,29 @@ public class StageController
         CheckSpawnTime();
     }
 
-    public void TestSpawnMonster()
+    public void TestSpawnBossMonster()
     {
 
-        MonsterModel model = monsterManager.GetMonsterModelToUid(2);
-        MonsterController monster = monsterManager.GetMonster();
+        //MonsterModel model = monsterManager.GetMonsterModelToUid(2);
+        //MonsterController monster = monsterManager.GetMonster();
 
-        if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out Vector2 monPos))
-        {
-            monster.GetMonsterTransform.position = monPos;
-            monster.SetMonsterModel(model);
-        }
-        else
-        {
-            TestSpawnMonster();
-        }
+        //if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out Vector2 monPos))
+        //{
+        //    monster.GetMonsterTransform.position = monPos;
+        //    monster.SetMonsterModel(model);
+        //}
+        //else
+        //{
+        //    TestSpawnBossMonster();
+        //}
+
+        //GetSpawnPosition(out Vector2 monPos);
+
+        Debug.Log("Boss");
+        
+        BossMonsterController boss = monsterManager.GetBoss();
+        boss.GetTransform().position = new Vector2(0,0);
+        boss.gameObject.SetActive(true);
     }
 
     public void CheckSpawnTime()
