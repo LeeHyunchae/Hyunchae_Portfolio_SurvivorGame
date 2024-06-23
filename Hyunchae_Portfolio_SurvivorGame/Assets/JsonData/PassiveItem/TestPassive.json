@@ -2,7 +2,7 @@
   {
     "ItemID": 1000,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 112,
@@ -19,12 +19,12 @@
     "BulletName": "",
     "ItemName": "아이템 1",
     "ItemContent": "방어력 상승 이동속도 저하 아이템",
-    "ItemPrice": 0
+    "ItemPrice": 3
   },
   {
     "ItemID": 1001,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 109,
@@ -36,12 +36,12 @@
     "BulletName": "",
     "ItemName": "아이템 2",
     "ItemContent": "이동속도 상승 아이템",
-    "ItemPrice": 0
+    "ItemPrice": 5
   },
   {
     "ItemID": 1002,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 100,
@@ -58,12 +58,12 @@
     "BulletName": "",
     "ItemName": "아이템 3",
     "ItemContent": "플레이어 체력 상승, 몬스터 체력 상승 아이템",
-    "ItemPrice": 0
+    "ItemPrice": 3
   },
   {
     "ItemID": 1003,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 103,
@@ -75,12 +75,12 @@
     "BulletName": "",
     "ItemName": "아이템 4",
     "ItemContent": "플레이어 공격력 상승",
-    "ItemPrice": 0
+    "ItemPrice": 5
   },
   {
     "ItemID": 1004,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 104,
@@ -97,12 +97,12 @@
     "BulletName": "",
     "ItemName": "아이템 5",
     "ItemContent": "플레이어 근거리 공격력 상승, 플레이어 원거리 공격력 저하",
-    "ItemPrice": 0
+    "ItemPrice": 5
   },
   {
     "ItemID": 1005,
     "ItemTier": 0,
-    "ItemType": 1,
+    "ItemPassiveType": 1,
     "ItemStatusEffect": [
       {
         "itemStatusType": 105,
@@ -119,6 +119,6 @@
     "BulletName": "",
     "ItemName": "아이템 6",
     "ItemContent": "플레이어 원거리 공격력 상승, 플레이어 근거리 공격력 저하",
-    "ItemPrice": 0
+    "ItemPrice": 5
   }
 ]

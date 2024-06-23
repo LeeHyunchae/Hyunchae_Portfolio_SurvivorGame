@@ -125,5 +125,6 @@ public class JsonWeaponData
     public string ItemImage;
     public string BulletName;
     public string ItemName;
+    public int ItemPrice;
     
 }

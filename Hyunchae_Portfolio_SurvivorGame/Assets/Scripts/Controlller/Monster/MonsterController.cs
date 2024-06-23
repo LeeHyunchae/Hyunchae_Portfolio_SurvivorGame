@@ -18,16 +18,22 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private ITargetable target;
 
-
     public Transform GetMonsterTransform => myTransform;
 
+    private GlobalData globalData;
     private MonsterManager monsterManager;
+    private ItemManager itemManager;
 
     private bool isDead = true;
 
-    private DamageData damageData;
+    private DamageData damageData = new DamageData();
 
     private float curMonsterHp;
+
+    private float[] monsterStatusVariances = new float[(int)EMonsterStatus.END];
+
+    private MonsterBehaviour skillBehaviour;
+    private MonsterBehaviour moveBehaviour;
 
     public void Init(PlayerController _playerController)
     {
@@ -35,6 +41,10 @@ public class MonsterController : MonoBehaviour , ITargetable
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         monsterManager = MonsterManager.getInstance;
+        itemManager = ItemManager.getInstance;
+        globalData = GlobalData.getInstance;
+
+        itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
         OnMonsterDieAction = monsterManager.OnMonsterDie;
 
         NavMeshAgent agent = gameObject.GetComponent<NavMeshAgent>();
@@ -63,40 +73,53 @@ public class MonsterController : MonoBehaviour , ITargetable
 
         spriteRenderer.sprite = sprite;
 
-        damageData = new DamageData()
-        {
-            damage = monsterModel.monsterStatus[(int)EMonsterStatus.MONSTER_DAMAGE],
-            knockback = 0
-        };
-
-        curMonsterHp = monsterModel.monsterStatus[(int)EMonsterStatus.MONSTER_HP];
-
         SetMonsterBehaviour();
+
+        SetStatusToModel();
+        
+    }
+
+    public void SetStatusToModel()
+    {
+        int count = monsterStatusVariances.Length;
+
+        float[] tempMonsterStatus = new float[(int)EMonsterStatus.END];
+
+        for(int i = 0; i < count; i ++)
+        {
+           tempMonsterStatus[i] = monsterStatusVariances[i] + monsterModel.monsterStatus[i];
+        }
+
+        damageData.damage = tempMonsterStatus[(int)EMonsterStatus.MONSTER_DAMAGE];
+
+        curMonsterHp = tempMonsterStatus[(int)EMonsterStatus.MONSTER_HP];
+
+        skillBehaviour.SetMonsterStatus(tempMonsterStatus);
+        skillBehaviour.SetDamageData(damageData);
+        moveBehaviour.SetMonsterStatus(tempMonsterStatus);
 
     }
 
-    public void SetStatusVariance(Monster_Status_Variance _variance)
+    public void SetStatusVariance(MonsterStatusVariance _variance)
     {
-
+        monsterStatusVariances[(int)_variance.monsterStatus] += _variance.variance;
     }
 
     public void SetMonsterBehaviour()
     {
         behaviourLogic = monsterManager.GetBehaviourLogic(monsterModel.logicType);
 
-        MonsterBehaviour skill = monsterManager.GetSkillBehaviour(monsterModel.skillType);
-        skill.SetMonsterTransform(myTransform);
-        skill.SetTarget(targetTransform,target);
-        skill.SetMonsterModel(monsterModel);
-        skill.SetDamageData(damageData);
-        behaviourLogic.SetSkillBehaviour(skill);
+        skillBehaviour = monsterManager.GetSkillBehaviour(monsterModel.skillType);
+        skillBehaviour.SetMonsterTransform(myTransform);
+        skillBehaviour.SetTarget(targetTransform,target);
 
-        MonsterBehaviour move = monsterManager.GetMoveBehaviour(monsterModel.moveType);
-        move.SetMonsterTransform(myTransform);
-        move.SetTarget(targetTransform);
-        move.SetMonsterModel(monsterModel);
+        behaviourLogic.SetSkillBehaviour(skillBehaviour);
 
-        behaviourLogic.SetMoveBehaviour(move);
+        moveBehaviour = monsterManager.GetMoveBehaviour(monsterModel.moveType);
+        moveBehaviour.SetMonsterTransform(myTransform);
+        moveBehaviour.SetTarget(targetTransform);
+
+        behaviourLogic.SetMoveBehaviour(moveBehaviour);
     }
 
     private void Update()
@@ -125,6 +148,13 @@ public class MonsterController : MonoBehaviour , ITargetable
     private void OnDieMonster()
     {
         isDead = true;
+
+        monsterManager.ReleaseBehaviourLogic(monsterModel.logicType, behaviourLogic);
+        monsterManager.ReleaseSkillBehaviour(monsterModel.skillType, skillBehaviour);
+        monsterManager.ReleaseMoveBehaviour(monsterModel.moveType, moveBehaviour);
+
+        globalData.IncreasePieceCount(monsterModel.dropPieceCount);
+
         OnMonsterDieAction?.Invoke(this);
     }
 
@@ -164,5 +194,37 @@ public class MonsterController : MonoBehaviour , ITargetable
     private void OnCollisionPlayer()
     {
         target.OnDamaged(damageData);
+    }
+
+    private void AddPassiveItem()
+    {
+        List<BaseItemModel> itemList = itemManager.GetAllEquipPassiveItemModelList;
+
+        int slotIndex = itemList.Count - 1;
+
+        PassiveItemModel itemModel = itemList[slotIndex] as PassiveItemModel;
+
+        int varianceCount = itemModel.status_Variances.Count;
+
+        List<ItemStatusVariance> statusVariances = itemModel.status_Variances;
+
+        for (int i = 0; i < varianceCount; i++)
+        {
+            ItemStatusVariance itemStatusVariance = statusVariances[i];
+            int isMonsterStatus = (int)itemStatusVariance.itemStatusType / 100;
+
+            if (isMonsterStatus != (int)EItemStatusTarget.MONSTER)
+            {
+                continue;
+            }
+
+            MonsterStatusVariance statusVariance = new MonsterStatusVariance()
+            {
+                monsterStatus = (EMonsterStatus)((int)itemStatusVariance.itemStatusType % 100),
+                variance = itemStatusVariance.variance
+            };
+
+            SetStatusVariance(statusVariance);
+        }
     }
 }

@@ -9,19 +9,21 @@ public class StatusInfoController : MonoBehaviour
     [SerializeField] private Button secondStatusInfoButton;
     [SerializeField] private Button weaponInventoryButton;
     [SerializeField] private Button itemInventoryButton;
-    [SerializeField] private GameObject statusInfoObject;
-    [SerializeField] private StatusElement[] statusElements;
     [SerializeField] private GameObject weaponItemListObject;
     [SerializeField] private ItemButtonElement[] weaponItemButtonElements;
     [SerializeField] private ScrollRect passiveItemListScrollRect;
     [SerializeField] private ItemButtonElement originPassiveItemButtonElement;
     [SerializeField] private ItemStatusInfoElement itemInfoElement;
     [SerializeField] private Image dimImage;
+    [SerializeField] private ScrollRect statusInfoObject;
+    [SerializeField] private StatusElement originStatusElements;
 
+    private GlobalData globalData;
     private ItemManager itemManager;
     private CharacterManager characterManager;
     private int curInfoItemSlotNum = -1;
     private List<ItemButtonElement> passiveItemButtonList = new List<ItemButtonElement>();
+    private List<StatusElement> statusElementList = new List<StatusElement>();
 
     private void Awake()
     {
@@ -31,6 +33,7 @@ public class StatusInfoController : MonoBehaviour
         itemInventoryButton.onClick.AddListener(OnClickItemInventoryButton);
 
         itemManager = ItemManager.getInstance;
+        globalData = GlobalData.getInstance;
         characterManager = CharacterManager.getInstance;
 
         itemInfoElement.SetActiveCloseButton(true);
@@ -44,6 +47,8 @@ public class StatusInfoController : MonoBehaviour
         itemInfoElement.GetCombineButton.AddListener(OnClickWeaponItemCombineButton);
 
         InitPassiveItemButtonElement();
+
+        InitStatusInfoElements();
     }
 
     private void InitPassiveItemButtonElement()
@@ -57,6 +62,32 @@ public class StatusInfoController : MonoBehaviour
             ItemButtonElement itemButtonElement = Instantiate<ItemButtonElement>(originPassiveItemButtonElement,contentTransform);
 
             passiveItemButtonList.Add(itemButtonElement);
+        }
+    }
+
+    private void InitStatusInfoElements()
+    {
+        Transform parent = statusInfoObject.content.transform;
+        int count = (int)ECharacterStatus.END;
+
+        Character character = characterManager.GetPlayerCharacter;
+
+        character.onRefreshStatusAction += OnRefreshPlayerStatus;
+
+        for (int i = 0;  i < count; i++)
+        {
+            StatusElement statusElement = Instantiate<StatusElement>(originStatusElements, parent);
+
+            statusElementList.Add(statusElement);
+
+            BaseCharacterStatus characterStatus = character.GetPlayerStatus((ECharacterStatus)i);
+
+            string statusName = ((ECharacterStatus)i).ToString();
+            statusName = statusName.Substring("PLAYER_".Length);
+
+            statusElement.SetStatusName(statusName);
+            statusElement.SetStatusValue(characterStatus.multiplierApplyStatus.ToString());
+            statusElement.gameObject.SetActive(true);
         }
     }
 
@@ -138,6 +169,12 @@ public class StatusInfoController : MonoBehaviour
         {
             return;
         }
+
+        BaseItemModel itemModel = itemManager.GetEquipWeaponItemModel(curInfoItemSlotNum);
+
+        globalData.IncreasePieceCount((int)itemModel.itemPrice);
+
+        Debug.Log("IncreasePieceCount");
 
         itemManager.SellWeaponItem(curInfoItemSlotNum);
         dimImage.enabled = false;
@@ -221,5 +258,14 @@ public class StatusInfoController : MonoBehaviour
 
         itemInfoElement.SetActiveCombineButton(false);
         itemInfoElement.SetActiveSellButton(false);
+    }
+
+    private void OnRefreshPlayerStatus(int _statusNum)
+    {
+        Character character = characterManager.GetPlayerCharacter;
+
+        BaseCharacterStatus characterStatus = character.GetPlayerStatus((ECharacterStatus)_statusNum);
+
+        statusElementList[_statusNum].SetStatusValue(characterStatus.multiplierApplyStatus.ToString());
     }
 }

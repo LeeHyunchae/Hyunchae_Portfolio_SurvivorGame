@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class Character
 
     public CharacterModel GetCharacterModel => characterModel;
     public BaseCharacterStatus GetPlayerStatus(ECharacterStatus _status) => characterStatus[(int)_status];
+
+    public Action<int> onRefreshStatusAction;
 
     public Character()
     {
@@ -26,6 +29,8 @@ public class Character
     {
         characterModel = _model;
 
+        ResetStatus();
+
         int count = characterModel.variances.Count;
 
         List<StatusVariance> variances = characterModel.variances;
@@ -36,8 +41,8 @@ public class Character
 
             characterStatus[statusNum].baseStatus = variances[i].variance;
             characterStatus[statusNum].multiplierApplyStatus = variances[i].variance;
-            
-            Debug.Log(variances[i].characterStatus.ToString() + " = " + characterStatus[statusNum].baseStatus);
+            characterStatus[statusNum].statusRatioMultiplier = 1;
+
         }
 
         characterStatus[(int)ECharacterStatus.PLAYER_MAXHP].baseStatus += BASEHP;
@@ -53,7 +58,7 @@ public class Character
         for (int i = 0; i < count; i++)
         {
             characterStatus[i].statusValueMultiplier = 0;
-            characterStatus[i].statusRatioMultiplier = 0;
+            characterStatus[i].statusRatioMultiplier = 1;
             characterStatus[i].multiplierApplyStatus = 0;
         }
     }
@@ -67,8 +72,7 @@ public class Character
         status.multiplierApplyStatus =
             (status.baseStatus + status.statusValueMultiplier) * status.statusRatioMultiplier;
 
-        Debug.Log(_variance.characterStatus.ToString() + " + " + _variance.variance);
-        Debug.Log(_variance.characterStatus.ToString() + " multiplierApplyStatus : " + status.multiplierApplyStatus);
+        onRefreshStatusAction?.Invoke((int)_variance.characterStatus);
     }
 
     public void UpdateStatusRatio(StatusVariance _variance)
@@ -79,6 +83,8 @@ public class Character
 
         status.multiplierApplyStatus =
             (status.baseStatus + status.statusValueMultiplier) * status.statusRatioMultiplier;
+
+        onRefreshStatusAction?.Invoke((int)_variance.characterStatus);
     }
 
     //List<스텟증감형장비아이템ID>

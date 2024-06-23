@@ -259,7 +259,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_3",
             BulletName = "Tier1_Props_9",
-            ItemName = "Rifle"
+            ItemName = "Rifle",
+            ItemPrice = 2
         };
 
         weaponDatas.Add(jsonWeaponData1);
@@ -282,7 +283,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_3",
             BulletName = "Tier1_Props_9",
-            ItemName = "Rifle2"
+            ItemName = "Rifle2",
+            ItemPrice = 4
         };
 
         weaponDatas.Add(jsonWeaponData2);
@@ -305,7 +307,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_3",
             BulletName = "Tier1_Props_9",
-            ItemName = "Rifle3"
+            ItemName = "Rifle3",
+            ItemPrice = 6
         };
 
         weaponDatas.Add(jsonWeaponData3);
@@ -328,7 +331,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_3",
             BulletName = "Tier1_Props_9",
-            ItemName = "Rifle4"
+            ItemName = "Rifle4",
+            ItemPrice = 8
         };
 
         weaponDatas.Add(jsonWeaponData4);
@@ -351,7 +355,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_1",
             BulletName = "",
-            ItemName = "Spear"
+            ItemName = "Spear",
+            ItemPrice = 2
         };
 
         weaponDatas.Add(jsonWeaponData1);
@@ -374,7 +379,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_1",
             BulletName = "",
-            ItemName = "Spear2"
+            ItemName = "Spear2",
+            ItemPrice = 4
         };
 
         weaponDatas.Add(jsonWeaponData2);
@@ -397,7 +403,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_1",
             BulletName = "",
-            ItemName = "Spear3"
+            ItemName = "Spear3",
+            ItemPrice = 6
         };
 
         weaponDatas.Add(jsonWeaponData3);
@@ -420,7 +427,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_1",
             BulletName = "",
-            ItemName = "Spear4"
+            ItemName = "Spear4",
+            ItemPrice = 8
         };
 
         weaponDatas.Add(jsonWeaponData4);
@@ -443,7 +451,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_2",
             BulletName = "",
-            ItemName = "Scythe"
+            ItemName = "Scythe",
+            ItemPrice = 2
         };
 
         weaponDatas.Add(jsonWeaponData1);
@@ -466,7 +475,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_2",
             BulletName = "",
-            ItemName = "Scythe2"
+            ItemName = "Scythe2",
+            ItemPrice = 4
         };
 
         weaponDatas.Add(jsonWeaponData2);
@@ -489,7 +499,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_2",
             BulletName = "",
-            ItemName = "Scythe3"
+            ItemName = "Scythe3",
+            ItemPrice = 6
         };
 
         weaponDatas.Add(jsonWeaponData3);
@@ -512,7 +523,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_2",
             BulletName = "",
-            ItemName = "Scythe4"
+            ItemName = "Scythe4",
+            ItemPrice = 8
         };
 
         weaponDatas.Add(jsonWeaponData4);
@@ -535,7 +547,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_0",
             BulletName = "",
-            ItemName = "Shovel"
+            ItemName = "Shovel",
+            ItemPrice = 2
         };
 
         weaponDatas.Add(jsonWeaponData1);
@@ -558,7 +571,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_0",
             BulletName = "",
-            ItemName = "Shovel2"
+            ItemName = "Shovel2",
+            ItemPrice = 4
         };
 
         weaponDatas.Add(jsonWeaponData2);
@@ -581,7 +595,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_0",
             BulletName = "",
-            ItemName = "Shovel3"
+            ItemName = "Shovel3",
+            ItemPrice = 6
         };
 
         weaponDatas.Add(jsonWeaponData3);
@@ -604,7 +619,8 @@ public class MapEditor : Editor
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_0",
             BulletName = "",
-            ItemName = "Shovel4"
+            ItemName = "Shovel4",
+            ItemPrice = 8
         };
 
         weaponDatas.Add(jsonWeaponData4);
@@ -691,7 +707,8 @@ public class MapEditor : Editor
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.NONE,
             moveType = EMonsterMoveType.FOLLOW,
-            monsterStatus = new float[] { 10, 1, 5, 2, 5 }
+            monsterStatus = new float[] { 10, 1, 5, 2, 5 },
+            dropPieceCount = 1
         };
 
         monsterModels.Add(monsterModel1);
@@ -704,7 +721,8 @@ public class MapEditor : Editor
             logicType = EMonsterLogicType.SEQUENCE,
             skillType = EMonsterSkillType.DASH,
             moveType = EMonsterMoveType.FOLLOW,
-            monsterStatus = new float[] { 10,1,5,2,5}
+            monsterStatus = new float[] { 10,1,5,2,5},
+            dropPieceCount = 3
         };
 
         monsterModels.Add(monsterModel2);
@@ -717,7 +735,8 @@ public class MapEditor : Editor
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.SHOOTING,
             moveType = EMonsterMoveType.AWAY,
-            monsterStatus = new float[] { 10, 1, 5, 2, 5 }
+            monsterStatus = new float[] { 10, 1, 5, 2, 5 },
+            dropPieceCount = 2
         };
 
         monsterModels.Add(monsterModel3);
@@ -1027,7 +1046,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 1",
             ItemContent = "방어력 상승 이동속도 저하 아이템",
-            ItemPrice = 0
+            ItemPrice = 3
         };
 
         status_Variance = new ItemStatusVariance()
@@ -1060,7 +1079,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 2",
             ItemContent = "이동속도 상승 아이템",
-            ItemPrice = 0
+            ItemPrice = 5
         };
 
         status_Variance = new ItemStatusVariance()
@@ -1085,7 +1104,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 3",
             ItemContent = "플레이어 체력 상승, 몬스터 체력 상승 아이템",
-            ItemPrice = 0
+            ItemPrice = 3
         };
 
         status_Variance = new ItemStatusVariance()
@@ -1118,7 +1137,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 4",
             ItemContent = "플레이어 공격력 상승",
-            ItemPrice = 0
+            ItemPrice = 5
         };
 
         status_Variance = new ItemStatusVariance()
@@ -1143,7 +1162,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 5",
             ItemContent = "플레이어 근거리 공격력 상승, 플레이어 원거리 공격력 저하",
-            ItemPrice = 0
+            ItemPrice = 5
         };
 
         status_Variance = new ItemStatusVariance()
@@ -1176,7 +1195,7 @@ public class MapEditor : Editor
             BulletName = "",
             ItemName = "아이템 6",
             ItemContent = "플레이어 원거리 공격력 상승, 플레이어 근거리 공격력 저하",
-            ItemPrice = 0
+            ItemPrice = 5
         };
 
         status_Variance = new ItemStatusVariance()

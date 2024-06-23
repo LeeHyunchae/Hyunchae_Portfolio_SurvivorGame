@@ -12,7 +12,8 @@
       5.0,
       2.0,
       5.0
-    ]
+    ],
+    "dropPieceCount": 1
   },
   {
     "monsterUid": 1,
@@ -27,7 +28,8 @@
       5.0,
       2.0,
       5.0
-    ]
+    ],
+    "dropPieceCount": 3
   },
   {
     "monsterUid": 2,
@@ -42,6 +44,7 @@
       5.0,
       2.0,
       5.0
-    ]
+    ],
+    "dropPieceCount": 2
   }
 ]

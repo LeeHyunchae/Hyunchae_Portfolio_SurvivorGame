@@ -12,13 +12,12 @@ public abstract class MonsterBehaviour
     protected Action OnEndSkillAction;
     protected ITargetable target;
     protected DamageData damageData;
+    protected float[] monsterStatus;
 
     protected abstract void Excute();
     public abstract void Update();
 
     public Action GetOnSkillAction => OnStartSkillAction;
-
-    protected MonsterModel model;
 
     public virtual void SetMonsterTransform(Transform _transform)
     {
@@ -35,9 +34,9 @@ public abstract class MonsterBehaviour
         targetTransform = _transform;
     }
 
-    public virtual void SetMonsterModel(MonsterModel _model)
+    public virtual void SetMonsterStatus(float[] _monsterStatus)
     {
-        model = _model;
+        monsterStatus = _monsterStatus;
     }
 
     public abstract MonsterBehaviour DeepCopy();

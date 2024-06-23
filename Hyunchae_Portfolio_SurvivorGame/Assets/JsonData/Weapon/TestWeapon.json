@@ -16,7 +16,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier1_Props_3",
     "BulletName": "Tier1_Props_9",
-    "ItemName": "Rifle"
+    "ItemName": "Rifle",
+    "ItemPrice": 2
   },
   {
     "WeaponID": 1,
@@ -35,7 +36,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier2_Props_3",
     "BulletName": "Tier1_Props_9",
-    "ItemName": "Rifle2"
+    "ItemName": "Rifle2",
+    "ItemPrice": 4
   },
   {
     "WeaponID": 2,
@@ -54,7 +56,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier3_Props_3",
     "BulletName": "Tier1_Props_9",
-    "ItemName": "Rifle3"
+    "ItemName": "Rifle3",
+    "ItemPrice": 6
   },
   {
     "WeaponID": 3,
@@ -73,7 +76,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier4_Props_3",
     "BulletName": "Tier1_Props_9",
-    "ItemName": "Rifle4"
+    "ItemName": "Rifle4",
+    "ItemPrice": 8
   },
   {
     "WeaponID": 4,
@@ -92,7 +96,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier1_Props_1",
     "BulletName": "",
-    "ItemName": "Spear"
+    "ItemName": "Spear",
+    "ItemPrice": 2
   },
   {
     "WeaponID": 5,
@@ -111,7 +116,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier2_Props_1",
     "BulletName": "",
-    "ItemName": "Spear2"
+    "ItemName": "Spear2",
+    "ItemPrice": 4
   },
   {
     "WeaponID": 6,
@@ -130,7 +136,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier3_Props_1",
     "BulletName": "",
-    "ItemName": "Spear3"
+    "ItemName": "Spear3",
+    "ItemPrice": 6
   },
   {
     "WeaponID": 7,
@@ -149,7 +156,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier4_Props_1",
     "BulletName": "",
-    "ItemName": "Spear4"
+    "ItemName": "Spear4",
+    "ItemPrice": 8
   },
   {
     "WeaponID": 8,
@@ -168,7 +176,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier1_Props_2",
     "BulletName": "",
-    "ItemName": "Scythe"
+    "ItemName": "Scythe",
+    "ItemPrice": 2
   },
   {
     "WeaponID": 9,
@@ -187,7 +196,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier2_Props_2",
     "BulletName": "",
-    "ItemName": "Scythe2"
+    "ItemName": "Scythe2",
+    "ItemPrice": 4
   },
   {
     "WeaponID": 10,
@@ -206,7 +216,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier3_Props_2",
     "BulletName": "",
-    "ItemName": "Scythe3"
+    "ItemName": "Scythe3",
+    "ItemPrice": 6
   },
   {
     "WeaponID": 11,
@@ -225,7 +236,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier4_Props_2",
     "BulletName": "",
-    "ItemName": "Scythe4"
+    "ItemName": "Scythe4",
+    "ItemPrice": 8
   },
   {
     "WeaponID": 12,
@@ -244,7 +256,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier1_Props_0",
     "BulletName": "",
-    "ItemName": "Shovel"
+    "ItemName": "Shovel",
+    "ItemPrice": 2
   },
   {
     "WeaponID": 13,
@@ -263,7 +276,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier2_Props_0",
     "BulletName": "",
-    "ItemName": "Shovel2"
+    "ItemName": "Shovel2",
+    "ItemPrice": 4
   },
   {
     "WeaponID": 14,
@@ -282,7 +296,8 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier3_Props_0",
     "BulletName": "",
-    "ItemName": "Shovel3"
+    "ItemName": "Shovel3",
+    "ItemPrice": 6
   },
   {
     "WeaponID": 15,
@@ -301,6 +316,7 @@
     "WeaponStatusEffect": 0.0,
     "ItemImage": "Tier4_Props_0",
     "BulletName": "",
-    "ItemName": "Shovel4"
+    "ItemName": "Shovel4",
+    "ItemPrice": 8
   }
 ]

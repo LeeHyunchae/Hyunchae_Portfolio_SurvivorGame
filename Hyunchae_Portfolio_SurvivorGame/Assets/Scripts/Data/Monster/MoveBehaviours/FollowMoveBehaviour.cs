@@ -18,7 +18,7 @@ public class FollowMoveBehaviour : MonsterBehaviour
     {
         pos = monsterTransform.position;
 
-        float moveSpeed = model.monsterStatus[(int)EMonsterStatus.MONSTER_MOVESPEED];
+        float moveSpeed = monsterStatus[(int)EMonsterStatus.MONSTER_MOVESPEED];
 
         Vector2 direction = (targetTransform.position - monsterTransform.position).normalized;
 

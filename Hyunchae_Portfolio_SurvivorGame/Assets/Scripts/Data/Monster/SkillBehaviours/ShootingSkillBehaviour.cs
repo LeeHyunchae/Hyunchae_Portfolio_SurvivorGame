@@ -35,9 +35,9 @@ public class ShootingSkillBehaviour : MonsterBehaviour
     {
         targetDirection = (targetTransform.position - monsterTransform.position).normalized;
 
-        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+        float attackRange = monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
 
-        float cooldownTime = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKSPEED];
+        float cooldownTime = monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKSPEED];
 
         if (Vector2.Distance(targetPos, monsterTransform.position) < attackRange)
         {
@@ -56,7 +56,7 @@ public class ShootingSkillBehaviour : MonsterBehaviour
 
         Projectile projectile = itemManager.GetProjectile();
 
-        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+        float attackRange = monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
 
         damageData.direction = targetDirection;
 

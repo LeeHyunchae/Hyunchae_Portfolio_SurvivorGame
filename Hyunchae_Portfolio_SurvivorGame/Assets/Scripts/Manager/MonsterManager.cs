@@ -195,6 +195,21 @@ public class MonsterManager : Singleton<MonsterManager>
         return moveTypeDict[_moveType].Dequeue();
     }
 
+    public void ReleaseBehaviourLogic(EMonsterLogicType _logicType,BaseMonsterBehaviourLogic _logic)
+    {
+        logicTypeDict[_logicType].Enqueue(_logic);
+    }
+
+    public void ReleaseSkillBehaviour(EMonsterSkillType _skillType, MonsterBehaviour _behaviour)
+    {
+        skillTypeDict[_skillType].Enqueue(_behaviour);
+    }
+
+    public void ReleaseMoveBehaviour(EMonsterMoveType _moveType, MonsterBehaviour _behaviour)
+    {
+        moveTypeDict[_moveType].Enqueue(_behaviour);
+    }
+
     public void OnMonsterDie(MonsterController _monster)
     {
         MonsterController deadMonster = _monster;
@@ -226,5 +241,79 @@ public class MonsterManager : Singleton<MonsterManager>
             aliveMonsterLinkedList.Remove(currentNode);
             currentNode = nextNode;
         }
+    }
+}
+
+
+//..
+public class BaseMonsterInfo
+{
+    public int hp;
+    public int atk;
+    public int def;
+}
+
+public class MonsterData
+{
+    public BaseMonsterInfo info;
+}
+
+public class MonsterObject
+{
+    public MonsterData data;
+}
+
+
+public interface IAffectionData
+{
+    IAffectionData Get();
+}
+
+public class AffactionData : IAffectionData
+{
+    public IAffectionData Get()
+    {
+        return this;
+    }
+}
+
+public interface IAffectionController
+{
+}
+
+public class AffectionItemController : IAffectionController
+{
+
+}
+
+
+public class UpgradeData : IAffectionData
+{
+    public IAffectionData Get()
+    {
+        return this;
+    }
+}
+
+public class UpgradeControlelr : IAffectionController
+{
+
+}
+
+
+public class BuffManger : Singleton<BuffManger>
+{
+    private Dictionary<System.Type, IAffectionController> affectionDict = null;
+
+    public void AddValue<T>(int key, int val) where T : IAffectionController, new()
+    {
+        System.Type type = typeof(T);
+        if(affectionDict.TryGetValue(type, out var affectionController) == false)
+        {
+            affectionController = new T();
+            affectionDict.Add(type, affectionController);
+        }
+
+        //affectionController.Add(
     }
 }

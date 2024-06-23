@@ -19,9 +19,9 @@ public class AwayMoveBehaviour : MonsterBehaviour
         float distance = Vector2.Distance(targetTransform.position, monsterTransform.position);
         Vector2 direction = (targetTransform.position - monsterTransform.position).normalized;
 
-        float attackRange = model.monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
+        float attackRange = monsterStatus[(int)EMonsterStatus.MONSTER_ATTACKRANGE];
         float awayRange = attackRange * 0.5f;
-        float moveSpeed = model.monsterStatus[(int)EMonsterStatus.MONSTER_MOVESPEED];
+        float moveSpeed = monsterStatus[(int)EMonsterStatus.MONSTER_MOVESPEED];
 
 
         if (distance < awayRange)

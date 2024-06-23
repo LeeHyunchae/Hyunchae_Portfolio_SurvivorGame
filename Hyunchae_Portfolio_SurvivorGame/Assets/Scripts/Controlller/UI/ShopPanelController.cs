@@ -12,7 +12,7 @@ public class ShopPanelController : UIBaseController
     private UIManager uiManager;
     private GlobalData globalData;
 
-    [SerializeField] TextMeshProUGUI peiceCountText;
+    [SerializeField] TextMeshProUGUI pieceCountText;
     [SerializeField] Button nextWaveButton;
     [SerializeField] Button itemListRerollButton;
     [SerializeField] TextMeshProUGUI itemListRerollPriceText;
@@ -34,6 +34,9 @@ public class ShopPanelController : UIBaseController
         globalData = GlobalData.getInstance;
         itemManager = ItemManager.getInstance;
         nextWaveButton.onClick.AddListener(OnClickNextWave);
+
+        SetPieceCountText(globalData.GetPieceCount);
+        globalData.OnRefreshPieceAction += SetPieceCountText;
 
         InitButtons();
     }
@@ -90,6 +93,11 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
         }
     }
 
+    public void SetPieceCountText(int _pieceCount)
+    {
+        pieceCountText.text = _pieceCount.ToString();
+    }
+
     private void OnClickNextWave()
     {
         uiManager.Hide();
@@ -104,7 +112,19 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
 
     private void OnClickBuyButton(int _elementIndex)
     {
-        itemManager.OnBuyItem(curShowingItemArr[_elementIndex].itemUid);
+        BaseItemModel itemModel = curShowingItemArr[_elementIndex];
+
+        if(globalData.GetPieceCount < itemModel.itemPrice)
+        {
+            Debug.Log("Not enough Piece");
+            return;
+        }
+
+        globalData.DecreasePieceCount((int)itemModel.itemPrice);
+
+        Debug.Log("DecreasePieceCount");
+
+        itemManager.OnBuyItem(itemModel.itemUid);
     }
 
     private void OnClickLockButton(int _elementIndex)

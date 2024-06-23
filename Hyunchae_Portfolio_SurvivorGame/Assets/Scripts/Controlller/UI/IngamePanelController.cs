@@ -15,7 +15,7 @@ public class IngamePanelController : MonoBehaviour
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button itemBoxButton;
 
-    private ItemManager itemManager;
+    private GlobalData globalData;
     private float waveTime;
     private float curWaveTime;
     private Color whiteColor = Color.white;
@@ -28,7 +28,10 @@ public class IngamePanelController : MonoBehaviour
         pauseButton.onClick.AddListener(OnClickPauseButton);
         pauseButton.onClick.AddListener(OnClickItemBoxButton);
 
-        itemManager = ItemManager.getInstance;
+        globalData = GlobalData.getInstance;
+
+        SetPieceCountText(globalData.GetPieceCount);
+        globalData.OnRefreshPieceAction += SetPieceCountText;
     }
 
     private void OnClickPauseButton()
@@ -46,9 +49,10 @@ public class IngamePanelController : MonoBehaviour
         levelText.text = _level;
     }
 
-    public void SetPieceCountText(string _pieceCount)
+    public void SetPieceCountText(int _pieceCount)
     {
-        pieceCountText.text = _pieceCount;
+        Debug.Log("Refresh IngamePanel PieceCount");
+        pieceCountText.text = _pieceCount.ToString();
     }
 
     public void SetWaveText(string _wave)

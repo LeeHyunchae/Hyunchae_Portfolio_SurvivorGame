@@ -34,6 +34,7 @@ public class MonsterModel
     public EMonsterSkillType skillType;
     public EMonsterMoveType moveType;
     public float[] monsterStatus = new float[(int)EMonsterStatus.END];
+    public int dropPieceCount;
 }
 
 public enum EMonsterStatus
@@ -46,7 +47,7 @@ public enum EMonsterStatus
     END
 }
 
-public class Monster_Status_Variance
+public class MonsterStatusVariance
 {
     public EMonsterStatus monsterStatus;
     public float variance;

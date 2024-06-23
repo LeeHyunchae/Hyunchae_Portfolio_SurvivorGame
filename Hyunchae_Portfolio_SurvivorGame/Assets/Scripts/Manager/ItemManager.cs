@@ -80,7 +80,7 @@ public class ItemManager : Singleton<ItemManager>
             WeaponItemModel itemModel = new WeaponItemModel
             {
                 itemUid = weaponData.WeaponID,
-                itemPrice = 0,
+                itemPrice = weaponData.ItemPrice,
                 itemThumbnail = weaponData.ItemImage,
                 itemType = EItemType.WEAPON,
                 bulletImage = weaponData.BulletName,

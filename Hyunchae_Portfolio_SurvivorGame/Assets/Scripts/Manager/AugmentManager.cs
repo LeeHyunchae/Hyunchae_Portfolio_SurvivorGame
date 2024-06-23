@@ -153,6 +153,13 @@ public class AugmentManager : Singleton<AugmentManager>
 
             if (firstTypeNum != secondTypeNum)
             {
+                if (!curAugmentDict.ContainsKey(secondTypeNum))
+                {
+                    curAugmentDict[firstTypeNum] = new List<AugmentData>();
+                }
+
+                curAugmentDict[secondTypeNum].Add(data);
+
                 onRefreshAgumentActionDict[secondTypeNum]?.Invoke();
             }
         }

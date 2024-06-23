@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour , ITargetable
 
     private CharacterManager characterManager;
     private ItemManager itemManager;
-    private float moveSpeed;
     private AugmentManager augmentManager;
     private HpBarController hpBar;
     private int curPlayerHp;
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour , ITargetable
         playerCharacter = characterManager.GetPlayerCharacter;
 
         spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
-        moveSpeed = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus;
         curPlayerHp = (int)playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
     }
 
@@ -61,7 +59,7 @@ public class PlayerController : MonoBehaviour , ITargetable
 
     public void OnMoveJoystickDown(Vector2 _dir)
     {
-        pos += _dir.normalized * moveSpeed * Time.deltaTime;
+        pos += _dir.normalized * playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus * Time.deltaTime;
 
         myTransform.position = pos;
 
@@ -133,6 +131,41 @@ public class PlayerController : MonoBehaviour , ITargetable
     private void OnRefreshChracterAugment()
     {
         List<AugmentData> augmentDatas = augmentManager.GetCurAugmentList((int)EAugmentType.PLAYERSTATUS);
+
+        int lastIndex = augmentDatas.Count - 1;
+
+        AugmentData augmentData = augmentDatas[lastIndex];
+
+        int firstTypeNum = (int)augmentData.firstAugmentType / 100;
+
+        if(firstTypeNum == (int)EAugmentType.PLAYERSTATUS)
+        {
+            StatusVariance statusVariance = new StatusVariance()
+            {
+                characterStatus = (ECharacterStatus)firstTypeNum,
+                isRatio = false,
+                variance = augmentData.firstAugmentValue
+            };
+
+            playerCharacter.UpdateStatusAmount(statusVariance);
+        }
+
+        if (augmentData.secondAugmentType != 0)
+        {
+            int secondTypeNum = (int)augmentData.secondAugmentType / 100;
+
+            if (secondTypeNum == (int)EAugmentType.PLAYERSTATUS)
+            {
+                StatusVariance statusVariance = new StatusVariance()
+                {
+                    characterStatus = (ECharacterStatus)secondTypeNum,
+                    isRatio = false,
+                    variance = augmentData.secondAugmentValue
+                };
+
+                playerCharacter.UpdateStatusAmount(statusVariance);
+            }
+        }
     }
 
     private void AddPassiveItem()
@@ -167,6 +200,5 @@ public class PlayerController : MonoBehaviour , ITargetable
             playerCharacter.UpdateStatusAmount(statusVariance);
         }
 
-        //playerCharacter.UpdateStatusAmount()
     }
 }
