@@ -11,10 +11,7 @@ public class HpBarController : MonoBehaviour
 
     private Camera cam;
 
-    public void Init()
-    {
-        cam = Camera.main;
-    }
+    public void SetActive(bool _isActive) => gameObject.SetActive(_isActive);
 
     public void UpdatePos(Vector2 _playerPos)
     {
@@ -27,5 +24,20 @@ public class HpBarController : MonoBehaviour
     public void SetHPBarFillAmount(float _amount)
     {
         hpBarImage.fillAmount = _amount;
+    }
+
+    public void Init()
+    {
+        cam = Camera.main;
+    }
+
+    public void OnEnqueue()
+    {
+        SetActive(false);
+    }
+
+    public void OnDequeue()
+    {
+        SetActive(true);
     }
 }

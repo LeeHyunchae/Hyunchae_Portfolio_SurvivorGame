@@ -10,7 +10,7 @@ public class BossMonsterModel
     public float[] bossStatus = new float[(int)EMonsterStatus.END];
     public int dropPieceCount;
 
-    public List<BossPatternModel> bossPatternModels;
+    public List<BossPatternModel> bossPatternPhaseList;
 }
 
 public class BossPatternModel
@@ -25,5 +25,22 @@ public enum EBossMonsterSkill
     CIRCLESHOOT,
     TRIPLESHOOT,
     FOLLOWMOVE,
+    HEXAGONSHOOT,
+    SEQUENCECIRCLESHOOT,
     END
+}
+
+public class JsonBossMonsterModel
+{
+    public int BossUid;
+    public string BossName;
+    public string BossThumbnail;
+    public float[] BossStatus;
+    public int DropPieceCount;
+    public EMonsterLogicType FirstPhaseLogic;
+    public EBossMonsterSkill[] FirstPhasePattern;
+    public EMonsterLogicType SecondPhaseLogic;
+    public EBossMonsterSkill[] SecondPhasePattern;
+    public EMonsterLogicType ThirdPhaseLogic;
+    public EBossMonsterSkill[] ThirdPhasePattern;
 }

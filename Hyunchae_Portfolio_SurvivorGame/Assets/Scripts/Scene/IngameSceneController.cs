@@ -10,7 +10,7 @@ public class IngameSceneController : MonoBehaviour
     [SerializeField] private FollowCamera followCam;
     [SerializeField] private GameObject originPlayerObj;
     [SerializeField] private IngamePanelController ingamePanelController;
-    [SerializeField] private HpBarController hpBarController;
+    [SerializeField] private HpBarPanelController hpBarPanelController;
 
     private MapCreator mapCreator;
     private MapData mapData;
@@ -24,6 +24,9 @@ public class IngameSceneController : MonoBehaviour
     private StageController stageController;
 
     private ITargetable[] targetMonsterArr;
+    private ITargetable targetBossMonster;
+
+    private int stageIndex = 0;
 
     private void Awake()
     {
@@ -46,8 +49,7 @@ public class IngameSceneController : MonoBehaviour
         playerController.Init();
         playerController.SetJoystick(joystickControlller);
 
-        hpBarController.Init();
-        playerController.SetHPBar(hpBarController);
+        playerController.SetHPBar(hpBarPanelController.CreateHpBar());
     }
 
     private void InitCamera()
@@ -79,7 +81,7 @@ public class IngameSceneController : MonoBehaviour
         stageController.Init(playerController.GetTransform());
         stageController.SetMapData(mapData);
         stageController.SetIngamePanel(ingamePanelController);
-        stageController.SetStageIndex(0);
+        stageController.SetStageIndex(stageIndex);
     }
 
     private void InitMonster()
@@ -87,6 +89,14 @@ public class IngameSceneController : MonoBehaviour
         MonsterManager monsterManager = MonsterManager.getInstance;
         monsterManager.SetPlayer(playerController);
         targetMonsterArr = monsterManager.CreateMonsterObjects();
+        targetBossMonster = monsterManager.CreateBossObject(stageIndex);
+
+        targetMonsterArr[targetMonsterArr.Length -1] = targetBossMonster;
+
+        BossMonsterController boss = targetBossMonster as BossMonsterController;
+
+        boss.SetHPBar(hpBarPanelController.CreateHpBar());
+
     }
 
     private void Update()

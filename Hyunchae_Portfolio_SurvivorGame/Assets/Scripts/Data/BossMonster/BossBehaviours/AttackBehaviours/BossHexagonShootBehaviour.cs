@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossTripleShootBehaviour : BaseBossAttackBehaviour
+public class BossHexagonShootBehaviour : BaseBossAttackBehaviour
 {
-    private const int SHOOTCOUNT = 3;
+    private const int SHOOTCOUNT = 6;
+    private const float CIRClEDEGREE = 360f;
     private const float RELOADTIME = 0.5f;
-    private const int ANGLEOFFSET = 45;
+
+    private const float ANGLEOFFSET = 15;
 
     private bool isShoot = false;
     private float curReloadTime = 0;
@@ -22,11 +24,13 @@ public class BossTripleShootBehaviour : BaseBossAttackBehaviour
 
     public override void Excute()
     {
-        direction = (targetTransform.position - bossTransform.position).normalized;
+        float divideDegree = CIRClEDEGREE / SHOOTCOUNT;
+
+        direction = Vector2.zero;
 
         float firstAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        float angle = firstAngle - ANGLEOFFSET;
+        float angle = firstAngle + (ANGLEOFFSET * curShootCount);
 
         OnStartBehaviourAction?.Invoke();
 
@@ -44,7 +48,6 @@ public class BossTripleShootBehaviour : BaseBossAttackBehaviour
         {
             for (int i = 0; i < SHOOTCOUNT; i++)
             {
-                
                 Vector2 projectileDirection;
 
                 projectileDirection.x = Mathf.Cos(angle * Mathf.Deg2Rad);
@@ -54,26 +57,21 @@ public class BossTripleShootBehaviour : BaseBossAttackBehaviour
 
                 Projectile projectile = itemManager.GetProjectile();
 
-                if(angle == firstAngle)
-                {
-                    projectile.SetSprite("Tier2_Props_12");
-                }
-
+                projectile.SetSprite("Tier2_Props_12");
                 projectile.SetTarget(target);
                 projectile.SetPrjectileInfo(damageData, bossTransform.position, attackRange);
 
-                angle += ANGLEOFFSET;
-            }
+                angle += divideDegree;
 
+            }
             curShootCount++;
             isShoot = true;
         }
 
-        if(curShootCount == SHOOTCOUNT)
+        if (curShootCount >= SHOOTCOUNT)
         {
-            curReloadTime = 0;
-            isShoot = false;
             curShootCount = 0;
+            curReloadTime = 0;
             isEndBehaviour = true;
             OnEndBehaviourAction?.Invoke();
         }

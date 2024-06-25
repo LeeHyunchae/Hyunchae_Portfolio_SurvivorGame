@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour , ITargetable
     public void SetHPBar(HpBarController _hpBar)
     {
         hpBar = _hpBar;
+        hpBar.Init();
+        hpBar.SetActive(true);
     }
 
     public void OnMoveJoystickDown(Vector2 _dir)
@@ -107,8 +109,8 @@ public class PlayerController : MonoBehaviour , ITargetable
             return;
         }
 
-        Debug.Log("Player On Damage : " + _damageData.damage);
-        Debug.Log("Player HP : " + curPlayerHp);
+        //Debug.Log("Player On Damage : " + _damageData.damage);
+        //Debug.Log("Player HP : " + curPlayerHp);
 
         isDamaged = true;
 

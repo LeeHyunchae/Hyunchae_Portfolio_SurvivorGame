@@ -7,17 +7,21 @@ public class BossPatternSelector
     private List<BaseBossAttackBehaviour> bossAttackBehaviours = new List<BaseBossAttackBehaviour>();
     private List<BaseBossMoveBehaviour> bossMoveBehiavours = new List<BaseBossMoveBehaviour>();
 
+    private Dictionary<EBossMonsterSkill, IBossBehaviour> bossMonsterSkillDict = new Dictionary<EBossMonsterSkill, IBossBehaviour>();
+
     private Transform bossTransform;
     private ITargetable target;
     private float[] bossStatus;
+    List<BossPatternModel> patternModels = new List<BossPatternModel>();
 
     public void Init()
     {
-        BossTripleShootBehaviour bossCircleShootBehaviour = new BossTripleShootBehaviour();
-        bossCircleShootBehaviour.Init();
-
-        bossAttackBehaviours.Add(bossCircleShootBehaviour);
-        bossMoveBehiavours.Add(new BossFolllowMoveBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.DASH, new BossDashBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.CIRCLESHOOT, new BossCircleShootBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.TRIPLESHOOT, new BossTripleShootBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.FOLLOWMOVE, new BossFolllowMoveBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.HEXAGONSHOOT, new BossHexagonShootBehaviour());
+        bossMonsterSkillDict.Add(EBossMonsterSkill.SEQUENCECIRCLESHOOT, new BossSequenceCircleShoot());
     }
 
     public void SetBossTransform(Transform _transform)
@@ -35,22 +39,38 @@ public class BossPatternSelector
         bossStatus = _status;
     }
 
-    public BossPattern GetPattern()
+    public void SetBossPhase(List<BossPatternModel> _patternModels)
     {
+        patternModels = _patternModels;
+    }
+
+    public BossPattern GetPattern(int _curPhaseCount)
+    {
+        BossPatternModel patternModel = patternModels[_curPhaseCount];
+
+        int count = patternModel.skillList.Count;
+
+        IBossBehaviour[] bossBehaviours = new IBossBehaviour[count];
+
+        for(int i = 0; i < count; i ++)
+        {
+            bossMonsterSkillDict.TryGetValue(patternModel.skillList[i], out IBossBehaviour bossBehaviour);
+
+            if(bossBehaviour != null)
+            {
+                bossBehaviour.Init();
+                bossBehaviour.SetBossTransform(bossTransform);
+                bossBehaviour.SetStatus(bossStatus);
+                bossBehaviour.SetTarget(target);
+
+                bossBehaviours[i] = bossBehaviour;
+            }
+        }
+
         BossPattern pattern = new BossPattern();
 
-        bossAttackBehaviours[0].Init();
-        bossAttackBehaviours[0].SetBossTransform(bossTransform);
-        bossAttackBehaviours[0].SetStatus(bossStatus);
-        bossAttackBehaviours[0].SetTarget(target);
-
-        bossMoveBehiavours[0].Init();
-        bossMoveBehiavours[0].SetBossTransform(bossTransform);
-        bossMoveBehiavours[0].SetStatus(bossStatus);
-        bossMoveBehiavours[0].SetTarget(target);
-
-        pattern.SetPatternList(bossAttackBehaviours[0], bossMoveBehiavours[0]);
-        pattern.SetLogicType(EMonsterLogicType.LOOP);
+        pattern.SetPatternList(bossBehaviours);
+        pattern.SetLogicType(patternModel.logicType);
 
         return pattern;
     }

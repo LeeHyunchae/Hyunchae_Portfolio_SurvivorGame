@@ -1,0 +1,31 @@
+[
+  {
+    "BossUid": 0,
+    "BossName": "Boss_0",
+    "BossThumbnail": "Enemy 4",
+    "BossStatus": [
+      100.0,
+      3.0,
+      10.0,
+      5.0,
+      5.0
+    ],
+    "DropPieceCount": 50,
+    "FirstPhaseLogic": 0,
+    "FirstPhasePattern": [
+      4,
+      0,
+      2
+    ],
+    "SecondPhaseLogic": 1,
+    "SecondPhasePattern": [
+      3,
+      1
+    ],
+    "ThirdPhaseLogic": 1,
+    "ThirdPhasePattern": [
+      5,
+      0
+    ]
+  }
+]

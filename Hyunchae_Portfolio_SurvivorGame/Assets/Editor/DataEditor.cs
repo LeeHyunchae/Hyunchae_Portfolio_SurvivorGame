@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CustomEditor(typeof(MapSetting))]
-public class MapEditor : Editor
+public class DataEditor : Editor
 {
     private MapSetting mapSetting;
     private MapCreator mapCreator = new MapCreator();
@@ -88,6 +88,11 @@ public class MapEditor : Editor
         if (GUILayout.Button("임시 패시브 아이템 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             PassiveItemTest();
+        }
+
+        if (GUILayout.Button("임시 보스 몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        {
+            BossMonsterTest();
         }
 
         if (GUILayout.Button("임시 스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
@@ -1219,6 +1224,41 @@ public class MapEditor : Editor
         itemDatas.Add(model);
 
         TableLoader.SaveToJson("PassiveItem", itemDatas, "TestPassive");
+
+    }
+
+    public void BossMonsterTest()
+    {
+        List<JsonBossMonsterModel> jsonBossMonsterModels = new List<JsonBossMonsterModel>();
+
+        JsonBossMonsterModel jsonBossMonsterModel = new JsonBossMonsterModel()
+        {
+            BossUid = 0,
+            BossName = "Boss_0",
+            BossThumbnail = "Enemy 4",
+            DropPieceCount = 50,
+            FirstPhaseLogic = EMonsterLogicType.SEQUENCE,
+            FirstPhasePattern = new EBossMonsterSkill[] { EBossMonsterSkill.HEXAGONSHOOT, EBossMonsterSkill.DASH, EBossMonsterSkill.TRIPLESHOOT },
+            SecondPhaseLogic = EMonsterLogicType.LOOP,
+            SecondPhasePattern = new EBossMonsterSkill[] { EBossMonsterSkill.FOLLOWMOVE, EBossMonsterSkill.CIRCLESHOOT },
+            ThirdPhaseLogic = EMonsterLogicType.LOOP,
+            ThirdPhasePattern = new EBossMonsterSkill[] {EBossMonsterSkill.SEQUENCECIRCLESHOOT,EBossMonsterSkill.DASH}
+        };
+
+        float[] status = new float[]
+        {
+            100,
+            3,
+            10,
+            5,
+            5
+        };
+
+        jsonBossMonsterModel.BossStatus = status;
+
+        jsonBossMonsterModels.Add(jsonBossMonsterModel);
+
+        TableLoader.SaveToJson("Monster", jsonBossMonsterModels, "TestBossMonster");
 
     }
 }

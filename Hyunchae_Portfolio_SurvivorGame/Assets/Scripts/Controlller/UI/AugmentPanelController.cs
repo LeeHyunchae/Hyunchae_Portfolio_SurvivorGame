@@ -94,6 +94,7 @@ public class AugmentPanelController : UIBaseController
     private void OnClickSelectConfirmButton()
     {
         Hide();
+        augmentSelectPopup.SetActive(false);
         OnHideAugmentPanelAction?.Invoke();
         augmentManager.SelectAugment(augmentElements[curSelectAugmentIndex].GetAugmentUid);
     }

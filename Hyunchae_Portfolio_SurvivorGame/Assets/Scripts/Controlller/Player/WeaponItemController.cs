@@ -9,7 +9,7 @@ public class WeaponItemController : MonoBehaviour
     private BaseWeaponAttack attackType;
     private MonsterManager monsterManager;
     private ItemManager itemManager;
-    private MonsterController rotateTargetMonster = null;
+    private ITargetable rotateTargetMonster = null;
     private ObbCollisionObject obbCollision;
     private Transform myTransform;
     private ITargetable[] targetMonsters;
@@ -97,31 +97,37 @@ public class WeaponItemController : MonoBehaviour
 
     private void FindTarget()
     {
-        LinkedList<MonsterController> monsters = monsterManager.GetAllAliveMonsters;
+        int count = targetMonsters.Length;
 
         float minDistance = float.MaxValue;
 
         Vector2 myPos = myTransform.position;
 
-        foreach(MonsterController monster in monsters)
+        bool isAllMonsterDead = true;
+
+        for (int i = 0; i < count; i ++)
         {
-            if(!monster.GetMonsterTransform.gameObject.activeSelf)
+            ITargetable target = targetMonsters[i];
+
+            if(target.GetIsDead())
             {
                 continue;
             }
 
-            Vector2 monsterPos = monster.GetMonsterTransform.position;
+            isAllMonsterDead = false;
 
-            float distance = Vector2.Distance(monsterPos, myPos);
+            Vector2 targetPos = target.GetTransform().position;
 
-            if(distance < minDistance)
+            float distance = Vector2.Distance(targetPos, myPos);
+
+            if (distance < minDistance)
             {
                 minDistance = distance;
-                rotateTargetMonster = monster;
+                rotateTargetMonster = target;
             }
         }
 
-        if(rotateTargetMonster == null || monsters.Count == 0)
+        if (rotateTargetMonster == null || isAllMonsterDead)
         {
             rotateTargetMonster = null;
             attackType.RemoveTarget();
@@ -130,15 +136,60 @@ public class WeaponItemController : MonoBehaviour
             return;
         }
 
-        if(rotateTargetMonster.GetMonsterTransform.position.x < myPos.x)
+        if (rotateTargetMonster.GetTransform().position.x < myPos.x)
         {
             spriteRenderer.flipY = true;
-        }else
+        }
+        else
         {
             spriteRenderer.flipY = false;
         }
 
-        attackType.SetRotateTarget(rotateTargetMonster.GetMonsterTransform);
+        attackType.SetRotateTarget(rotateTargetMonster.GetTransform());
+
+
+        //LinkedList<MonsterController> monsters = monsterManager.GetAllAliveMonsters;
+
+        //float minDistance = float.MaxValue;
+
+        //Vector2 myPos = myTransform.position;
+
+        //foreach(MonsterController monster in monsters)
+        //{
+        //    if(!monster.GetMonsterTransform.gameObject.activeSelf)
+        //    {
+        //        continue;
+        //    }
+
+        //    Vector2 monsterPos = monster.GetMonsterTransform.position;
+
+        //    float distance = Vector2.Distance(monsterPos, myPos);
+
+        //    if(distance < minDistance)
+        //    {
+        //        minDistance = distance;
+        //        rotateTargetMonster = monster;
+        //    }
+        //}
+
+        //if(rotateTargetMonster == null || monsters.Count == 0)
+        //{
+        //    rotateTargetMonster = null;
+        //    attackType.RemoveTarget();
+        //    spriteRenderer.flipY = false;
+
+        //    return;
+        //}
+
+        //if(rotateTargetMonster.GetMonsterTransform.position.x < myPos.x)
+        //{
+        //    spriteRenderer.flipY = true;
+        //}else
+        //{
+        //    spriteRenderer.flipY = false;
+        //}
+
+        //attackType.SetRotateTarget(rotateTargetMonster.GetMonsterTransform);
 
     }
 

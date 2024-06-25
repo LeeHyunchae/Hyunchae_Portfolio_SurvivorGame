@@ -10,6 +10,7 @@ public class BossDashBehaviour : BaseBossMoveBehaviour
     private bool isStartDash = false;
     private bool isReadyDash = false;
     private float curReadyTime = 0;
+    private Vector2 targetPos;
 
     public override void Update()
     {
@@ -53,6 +54,7 @@ public class BossDashBehaviour : BaseBossMoveBehaviour
                 {
                     isStartDash = true;
                     dashStartPos = pos;
+                    targetPos = targetTransform.position;
                 }
             }
 
@@ -61,14 +63,25 @@ public class BossDashBehaviour : BaseBossMoveBehaviour
         {
             pos = bossTransform.position;
 
-            pos.x += direction.x * Time.deltaTime * moveSpeed * 2;
-            pos.y += direction.y * Time.deltaTime * moveSpeed * 2;
+            pos.x += direction.x * Time.deltaTime * moveSpeed * 3;
+            pos.y += direction.y * Time.deltaTime * moveSpeed * 3;
 
             bossTransform.position = pos;
 
-            float dashDistance = Vector2.Distance(dashStartPos, pos);
+            float dashDistanceToTarget = Vector2.Distance(targetPos, pos);
 
-            if(dashDistance >= attackRange)
+            if(dashDistanceToTarget <= 0.25f)
+            {
+                isStartDash = false;
+                isEndBehaviour = false;
+                isReadyDash = false;
+                curReadyTime = 0;
+                OnEndBehaviourAction?.Invoke();
+            }
+
+            float dashDistanceToStartPos = Vector2.Distance(dashStartPos, pos);
+
+            if (dashDistanceToStartPos >= attackRange)
             {
                 isStartDash = false;
                 isEndBehaviour = false;

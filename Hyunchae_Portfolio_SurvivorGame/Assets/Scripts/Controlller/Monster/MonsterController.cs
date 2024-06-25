@@ -167,8 +167,8 @@ public class MonsterController : MonoBehaviour , ITargetable
     {
         curMonsterHp -= _damageData.damage;
 
-        Debug.Log("Monster On Damage : " + _damageData.damage);
-        Debug.Log("Monster HP : " + curMonsterHp);
+        //Debug.Log("Monster On Damage : " + _damageData.damage);
+        //Debug.Log("Monster HP : " + curMonsterHp);
 
         if (curMonsterHp <= 0)
         {

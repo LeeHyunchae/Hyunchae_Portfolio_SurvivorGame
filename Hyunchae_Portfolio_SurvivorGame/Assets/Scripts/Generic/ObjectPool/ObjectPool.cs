@@ -36,6 +36,20 @@ public class ObjectPool<T> : IPool where T : IPoolable
         isInitilaze = true;
     }
 
+    public void Init(string _prefabPath, Transform _parentTransform , int _increaseSize = 4)
+    {
+        var originPrefab = Resources.Load(_prefabPath);
+
+        parentTransform = _parentTransform;
+
+        originPrefab_GameObj = originPrefab as GameObject;
+        increaseSize = _increaseSize;
+
+        IncreasePool();
+
+        isInitilaze = true;
+    }
+
     ~ObjectPool()
     {
         OnRelease();

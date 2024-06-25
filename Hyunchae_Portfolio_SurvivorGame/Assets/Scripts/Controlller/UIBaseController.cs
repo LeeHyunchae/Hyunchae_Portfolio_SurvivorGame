@@ -29,7 +29,7 @@ public class UIBaseController : MonoBehaviour
         isShow = true;
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         canvas.enabled = false;
         raycaster.enabled = false;

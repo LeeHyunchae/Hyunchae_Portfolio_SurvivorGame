@@ -17,7 +17,7 @@ public class StageController
     private int curStage = 0;
     private int curWave = -1;
 
-    private int[] monsterGroupUIDarr;
+    private int[] monsterGroupUidArr;
     private MonsterGroupData curMonsterGroupData;
 
     private float waveEndTime = 50;
@@ -25,6 +25,8 @@ public class StageController
 
     private bool isWaveEnd = false;
     private IngamePanelController ingamePanel;
+
+    private bool isBossWave = false;
 
     public void Init(Transform _playerTransform)
     {
@@ -50,7 +52,7 @@ public class StageController
 
         StageData stageData = stageManager.GetStageData(curStage);
 
-        monsterGroupUIDarr = stageData.WaveMonsterGroupID;
+        monsterGroupUidArr = stageData.WaveMonsterGroupID;
 
         StartWave();
     }
@@ -81,7 +83,7 @@ public class StageController
 
     public void Update()
     {
-        TestInputKey();
+        //TestInputKey();
 
         if (isWaveEnd)
         {
@@ -111,7 +113,7 @@ public class StageController
 
         Debug.Log("Boss");
         
-        BossMonsterController boss = monsterManager.GetBoss();
+        BossMonsterController boss = monsterManager.GetBossMonster();
         boss.GetTransform().position = new Vector2(0,0);
         boss.gameObject.SetActive(true);
     }
@@ -124,6 +126,11 @@ public class StageController
         {
             EndWave();
             return;
+        }
+
+        if(isBossWave)
+        {
+            SpawnBossMonster();
         }
 
         int count = curMonsterGroupData.monsterSpawnDatas.Count;
@@ -228,12 +235,21 @@ public class StageController
         curWaveTime = 0;
         curWave++;
 
-        if(curWave >= monsterGroupUIDarr.Length)
-        {
-            curWave = monsterGroupUIDarr.Length - 1;
+        //if(curWave == monsterGroupUidArr.Length -1)
+        //{
+        //    isBossWave = true;
+        //}
 
-            //Todo GameResult && SceneChange
+        if (curWave == 0)
+        {
+            isBossWave = true;
+        }
+
+        if (curWave >= monsterGroupUidArr.Length)
+        {
+            //Todo GameResultPanel && SceneChange
             SceneChanger.getInstance.ChangeScene("MainScene");
+            return;
         }
 
         SetMonsterToCurWave();
@@ -242,7 +258,7 @@ public class StageController
 
     private void SetMonsterToCurWave()
     {
-        curMonsterGroupData = stageManager.GetMonsterGroupData(monsterGroupUIDarr[curWave]);
+        curMonsterGroupData = stageManager.GetMonsterGroupData(monsterGroupUidArr[curWave]);
     }
 
     private void OnHideAugmentPanel()
@@ -253,5 +269,17 @@ public class StageController
     private void OnRefreshAugment()
     {
 
+    }
+
+    private void SpawnBossMonster()
+    {
+        isBossWave = false;
+
+        BossMonsterController boss = monsterManager.GetBossMonster();
+
+        GetSpawnPosition(out Vector2 monPos);
+
+        boss.GetTransform().position = monPos;
+        boss.SpawnBoss();
     }
 }

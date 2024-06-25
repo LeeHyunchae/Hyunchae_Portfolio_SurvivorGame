@@ -87,4 +87,17 @@ public class StageManager : Singleton<StageManager>
 
         return data;
     }
+
+    public int GetBossMonsterUid(int _stageIndex)
+    {
+        stageDataDict.TryGetValue(_stageIndex, out StageData stageData);
+
+        if(stageData == null)
+        {
+            Debug.Log("Wrong Stage Index");
+            return -1;
+        }
+
+        return stageData.BossMonsterID;
+    }
 }

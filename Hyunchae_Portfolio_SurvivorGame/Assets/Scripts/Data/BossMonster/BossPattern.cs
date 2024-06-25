@@ -7,10 +7,20 @@ public class BossPattern
 {
     private IBossBehaviour[] behaviourList;
     private EMonsterLogicType logicType;
-    private int curSequenceNum;
-    private int curLoopNum;
+
+    private int curEndBehaviourCount;
 
     public Action OnEndPatternAction;
+
+    public void InitPatterns()
+    {
+        int count = behaviourList.Length;
+
+        for(int i = 0; i < count; i ++)
+        {
+            behaviourList[i].Init();
+        }
+    }
 
     public void SetPatternList(params IBossBehaviour[] _pattern)
     {
@@ -43,22 +53,14 @@ public class BossPattern
 
         for (int i = 0; i < count; i++)
         {
-            if (logicType == EMonsterLogicType.SEQUENCE)
-            {
-                behaviourList[i].SetOnEndBehaviourAction(EndSequenceBehaviour);
-            }
-            else
-            {
-                behaviourList[i].SetOnEndBehaviourAction(EndLoopBehaviour);
-            }
-
+            behaviourList[i].SetOnEndBehaviourAction(EndBehaviour);
         }
 
     }
 
     private void UpdateSequenceType()
     {
-        behaviourList[curSequenceNum].Update();
+        behaviourList[curEndBehaviourCount].Update();
     }
 
     private void UpdateLoopType()
@@ -71,26 +73,16 @@ public class BossPattern
         }
     }
 
-    private void EndLoopBehaviour()
+    private void EndBehaviour()
     {
-        curLoopNum++;
+        curEndBehaviourCount++;
 
-        if(curLoopNum >= behaviourList.Length)
+        if(curEndBehaviourCount >= behaviourList.Length)
         {
             Debug.Log("Pattern End!");
+            curEndBehaviourCount = 0;
             OnEndPatternAction?.Invoke();
         }
     }
 
-    private void EndSequenceBehaviour()
-    {
-        curSequenceNum++;
-
-        if(curSequenceNum >= behaviourList.Length)
-        {
-            //Todo Pattern Exit
-            Debug.Log("Pattern End!");
-            OnEndPatternAction?.Invoke();
-        }
-    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MonsterManager : Singleton<MonsterManager>
@@ -12,7 +13,11 @@ public class MonsterManager : Singleton<MonsterManager>
     private Dictionary<int, MonsterModel> monsterModelDict = new Dictionary<int, MonsterModel>();
     private List<MonsterModel> monsterModelList = new List<MonsterModel>();
 
+    private List<BossMonsterModel> bossMonsterModelList = new List<BossMonsterModel>();
+    private Dictionary<int, BossMonsterModel> bossMonsterModelDict = new Dictionary<int, BossMonsterModel>();
+
     private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
+    private Dictionary<int, Sprite> bossMonsterSpriteDict = new Dictionary<int, Sprite>();
 
     private BaseMonsterBehaviourLogic[] logicTypeArr = new BaseMonsterBehaviourLogic[(int)EMonsterLogicType.END];
     private Dictionary<EMonsterLogicType, Queue<BaseMonsterBehaviourLogic>> logicTypeDict = new Dictionary<EMonsterLogicType, Queue<BaseMonsterBehaviourLogic>>();
@@ -29,7 +34,7 @@ public class MonsterManager : Singleton<MonsterManager>
     private Transform parentTransform;
     private PlayerController player;
 
-    private BossMonsterController boss;
+    private BossMonsterController bossMonster;
 
     public override bool Initialize()
     {
@@ -76,48 +81,45 @@ public class MonsterManager : Singleton<MonsterManager>
             Sprite monsterSprite = Resources.Load<Sprite>(SPRITELOADPATH + model.monsterThumbnail);
             monsterSpriteDict.Add(model.monsterUid, monsterSprite);
         }
-    }
 
-    private void InitBoss()
-    {
-        BossMonsterController originMonster = Resources.Load<BossMonsterController>("Prefabs/BossMonster");
+        List<JsonBossMonsterModel> jsonBossMonsterModels = TableLoader.LoadFromFile<List<JsonBossMonsterModel>>("Monster/TestBossMonster");
 
+        count = jsonBossMonsterModels.Count;
 
-        BossMonsterModel bossModel = new BossMonsterModel
+        for(int i = 0; i <count; i ++)
         {
-            bossUid = 0,
-            bossName = "boss_0",
-            bossThumbnail = SPRITELOADPATH + "Enemy 4",
-        };
+            JsonBossMonsterModel jsonBossModel = jsonBossMonsterModels[i];
+            BossMonsterModel bossModel = new BossMonsterModel()
+            {
+                bossUid = jsonBossModel.BossUid,
+                bossName = jsonBossModel.BossName,
+                bossThumbnail = jsonBossModel.BossThumbnail,
+                bossStatus = jsonBossModel.BossStatus,
+                dropPieceCount = jsonBossModel.DropPieceCount,
+                bossPatternPhaseList = new List<BossPatternModel>()
+            };
 
-        float[] status = new float[]
-        {
-            100,
-            3,
-            10,
-            5,
-            5
-        };
+            BossPatternModel patternModel = new BossPatternModel();
+            patternModel.logicType = jsonBossModel.FirstPhaseLogic;
+            patternModel.skillList = jsonBossModel.FirstPhasePattern.ToList();
+            bossModel.bossPatternPhaseList.Add(patternModel);
 
-        bossModel.bossStatus = status;
+            patternModel = new BossPatternModel();
+            patternModel.logicType = jsonBossModel.SecondPhaseLogic;
+            patternModel.skillList = jsonBossModel.SecondPhasePattern.ToList();
+            bossModel.bossPatternPhaseList.Add(patternModel);
 
-        List<BossPatternModel> patternModels = new List<BossPatternModel>();
+            patternModel = new BossPatternModel();
+            patternModel.logicType = jsonBossModel.ThirdPhaseLogic;
+            patternModel.skillList = jsonBossModel.ThirdPhasePattern.ToList();
+            bossModel.bossPatternPhaseList.Add(patternModel);
 
-        BossPatternModel patternModel = new BossPatternModel();
-        patternModel.logicType = EMonsterLogicType.SEQUENCE;
-        patternModel.skillList = new List<EBossMonsterSkill>();
-        patternModel.skillList.Add(EBossMonsterSkill.TRIPLESHOOT);
-        patternModel.skillList.Add(EBossMonsterSkill.DASH);
+            bossMonsterModelList.Add(bossModel);
+            bossMonsterModelDict.Add(bossModel.bossUid, bossModel);
 
-        patternModels.Add(patternModel);
-
-        bossModel.bossPatternModels = patternModels;
-
-        boss = GameObject.Instantiate<BossMonsterController>(originMonster);
-        boss.Init(player);
-        boss.SetModel(bossModel);
-        boss.gameObject.SetActive(false);
-
+            Sprite bossSprite = Resources.Load<Sprite>(SPRITELOADPATH + bossModel.bossThumbnail);
+            bossMonsterSpriteDict.Add(bossModel.bossUid, bossSprite);
+        }
     }
 
     public void SetPlayer(PlayerController _playerController)
@@ -131,7 +133,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
         MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
 
-        ITargetable[] monsterArr = new ITargetable[MAX_MONSTER_CAPACITY];
+        ITargetable[] monsterArr = new ITargetable[MAX_MONSTER_CAPACITY + 1];
 
         for (int i = 0; i < MAX_MONSTER_CAPACITY; i++)
         {
@@ -144,9 +146,27 @@ public class MonsterManager : Singleton<MonsterManager>
             monsterArr[i] = monster;
         }
 
-        InitBoss();
-
         return monsterArr;
+    }
+
+
+    public ITargetable CreateBossObject(int _bossUid)
+    {
+        bossMonsterModelDict.TryGetValue(_bossUid, out BossMonsterModel bossMonsterModel);
+
+        if(bossMonsterModel == null)
+        {
+            Debug.Log("Wrong Boss Uid");
+        }
+
+        BossMonsterController originMonster = Resources.Load<BossMonsterController>("Prefabs/BossMonster");
+
+        bossMonster = GameObject.Instantiate<BossMonsterController>(originMonster);
+        bossMonster.Init(player);
+        bossMonster.SetModel(bossMonsterModel);
+        bossMonster.SetActive(false);
+
+        return bossMonster;
     }
 
     public MonsterModel GetMonsterModelToUid(int _uid)
@@ -178,6 +198,21 @@ public class MonsterManager : Singleton<MonsterManager>
 #endif
 
         return monsterSprite;
+    }
+
+    public Sprite GetBossMonsterSpriteToUid(int _uid)
+    {
+        bossMonsterSpriteDict.TryGetValue(_uid, out Sprite bossSprite);
+
+#if UNITY_EDITOR
+
+        if (bossSprite == null)
+        {
+            Debug.Log("Not Exist Sprite");
+        }
+#endif
+
+        return bossSprite;
     }
 
     public MonsterController GetMonster()
@@ -289,13 +324,13 @@ public class MonsterManager : Singleton<MonsterManager>
         }
     }
 
-    public BossMonsterController GetBoss()
+    public BossMonsterController GetBossMonster()
     {
-        return boss;
+        return bossMonster;
     }
 }
 
-
+#region SampleCode
 //.. SampleCode
 public class BaseMonsterInfo
 {
@@ -368,3 +403,5 @@ public class BuffManger : Singleton<BuffManger>
         //affectionController.Add(
     }
 }
+
+#endregion
