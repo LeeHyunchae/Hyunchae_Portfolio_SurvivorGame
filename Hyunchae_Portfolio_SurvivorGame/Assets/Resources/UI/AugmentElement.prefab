@@ -288,7 +288,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!114 &8968402458089650469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,9 +349,6 @@ MonoBehaviour:
   thumbnailImage: {fileID: 29670182290477002}
   augmentNameText: {fileID: 8079094270142704708}
   augmentInfoText: {fileID: 4317954301615805185}
-  GetSelectButtonClickEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7193000770721570870
 GameObject:
   m_ObjectHideFlags: 0
