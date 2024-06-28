@@ -6,6 +6,10 @@ using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour , ITargetable
 {
+    private const float DAMAGETIME = 0.25f;
+    private const float SPAWNWAITTIME = 1;
+
+    [SerializeField] private Sprite spawnWaitSprite;
 
     private SpriteRenderer spriteRenderer;
     private MonsterModel monsterModel;
@@ -34,6 +38,12 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private MonsterBehaviour skillBehaviour;
     private MonsterBehaviour moveBehaviour;
+
+    private bool isDamaged = false;
+    private float curDamagedTime = 0;
+
+    private bool isSpawnWait = false;
+    private float curSpawnWaitTime = 0;
 
     public void Init(PlayerController _playerController)
     {
@@ -69,10 +79,7 @@ public class MonsterController : MonoBehaviour , ITargetable
     public void SetMonsterModel(MonsterModel _monsterModel)
     {
         monsterModel = _monsterModel;
-        Sprite sprite = monsterManager.GetMonsterSpriteToUid(monsterModel.monsterUid);
-
-        spriteRenderer.sprite = sprite;
-
+        
         SetMonsterBehaviour();
 
         SetStatusToModel();
@@ -124,13 +131,53 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private void Update()
     {
-        if (monsterModel == null || targetTransform == null)
+        if (isSpawnWait)
+        {
+            SpawnWait();
+            return;
+        }
+        else if (monsterModel == null || targetTransform == null || isDead)
         {
             return;
         }
 
         behaviourLogic.Update();
         rectCollisionCalculator.Update();
+
+        if (isDamaged)
+        {
+            SwapColor();
+        }
+    }
+
+    private void SpawnWait()
+    {
+        curSpawnWaitTime += Time.deltaTime;
+
+        if(curSpawnWaitTime >= SPAWNWAITTIME)
+        {
+            Sprite sprite = monsterManager.GetMonsterSpriteToUid(monsterModel.monsterUid);
+
+            spriteRenderer.sprite = sprite;
+
+            curSpawnWaitTime = 0;
+            isSpawnWait = false;
+            isDead = false;
+        }
+    }
+
+    private void SwapColor()
+    {
+        curDamagedTime += Time.deltaTime;
+
+        spriteRenderer.color = Color.yellow;
+
+        if(curDamagedTime >= DAMAGETIME)
+        {
+            spriteRenderer.color = Color.white;
+            curDamagedTime = 0;
+            isDamaged = false;
+        }
     }
 
     public void OnEnqueue()
@@ -142,7 +189,9 @@ public class MonsterController : MonoBehaviour , ITargetable
     public void OnDequeue()
     {
         gameObject.SetActive(true);
-        isDead = false;
+        isSpawnWait = true;
+        spriteRenderer.sprite = spawnWaitSprite;
+
     }
 
     private void OnMonsterDie()
@@ -167,8 +216,16 @@ public class MonsterController : MonoBehaviour , ITargetable
     {
         curMonsterHp -= _damageData.damage;
 
-        //Debug.Log("Monster On Damage : " + _damageData.damage);
-        //Debug.Log("Monster HP : " + curMonsterHp);
+        isDamaged = true;
+
+        Vector2 pos = myTransform.position;
+
+        Vector2 direction = _damageData.direction.normalized;
+
+        pos.x += direction.x * _damageData.knockback;
+        pos.y += direction.y * _damageData.knockback;
+
+        myTransform.position = pos;
 
         if (curMonsterHp <= 0)
         {

@@ -240,7 +240,7 @@ public class StageController
         //    isBossWave = true;
         //}
 
-        if (curWave == 0)
+        if (curWave == 2)
         {
             isBossWave = true;
         }

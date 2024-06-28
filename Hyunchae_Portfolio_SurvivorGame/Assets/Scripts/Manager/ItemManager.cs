@@ -330,20 +330,26 @@ public class ItemManager : Singleton<ItemManager>
         attackTypeDict[_attackType].Enqueue(_attack);
     }
 
-    public void OnBuyItem(int _itemUid)
+    public bool OnBuyItem(int _itemUid)
     {
+        bool isSuccess = true;
+
         if (GetItemModel(_itemUid).itemType == EItemType.WEAPON)
         {
-            AddEquipWeaponItem(_itemUid);
+            isSuccess = AddEquipWeaponItem(_itemUid);
         }
         else
         {
             AddEquipPassiveItem(_itemUid);
         }
+
+        return isSuccess;
     }
 
-    private void AddEquipWeaponItem(int _itemUid)
+    private bool AddEquipWeaponItem(int _itemUid)
     {
+        bool isSucess = false;
+
         for(int i = 0; i <WEAPON_CAPACITY; i++)
         {
             if(equipWeaponModelArr[i] != null)
@@ -351,9 +357,12 @@ public class ItemManager : Singleton<ItemManager>
                 continue;
             }
 
+            isSucess = true;
             SetEquipWeaponItem(GetItemModel(_itemUid), i);
             break;
         }
+
+        return isSucess;
     }
 
     private void AddEquipPassiveItem(int _itemUid)

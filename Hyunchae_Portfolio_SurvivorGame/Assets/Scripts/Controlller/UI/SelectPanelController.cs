@@ -4,9 +4,18 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ESELECTPHASE
+{
+    CHARACTER = 0,
+    WEAPON,
+    STAGE,
+    END
+}
+
 public class SelectPanelController : UIBaseController
 {
     private const int BUTTON_CAPACITY = 20;
+    private const int STAGECOUNT = 5;
 
     [SerializeField] private GameObject originSelectButtonItem;
     [SerializeField] private Transform selectButtonListBG;
@@ -24,15 +33,20 @@ public class SelectPanelController : UIBaseController
 
     private CharacterModel selectCharacter = null;
     private WeaponItemModel selectWeapon = null;
+    private int selectStage = -1;
 
     private CharacterManager characterManager;
     private ItemManager itemManager;
+    private StageManager stageManager;
+
+    private ESELECTPHASE selectPhase;
 
     private void Start()
     {
         characterManager = CharacterManager.getInstance;
         itemManager = ItemManager.getInstance;
         uiManager = UIManager.getInstance;
+        stageManager = StageManager.getInstance;
 
         nextButton.onClick.AddListener(OnClickNextButton);
         prevButton.onClick.AddListener(OnClickPrevButton);
@@ -45,6 +59,8 @@ public class SelectPanelController : UIBaseController
         statusInfo.SetActiveCloseButton(false);
         statusInfo.SetActiveSellButton(false);
         statusInfo.SetActiveCombineButton(false);
+
+        selectPhase = ESELECTPHASE.CHARACTER;
     }
 
     private void InitData()
@@ -68,6 +84,18 @@ public class SelectPanelController : UIBaseController
         }
     }
 
+    private void ClearButtons()
+    {
+        for (int i = 0; i < BUTTON_CAPACITY; i++)
+        {
+            SelectButtonElement element = selectButtons[i];
+
+            element.Init();
+
+            element.SetActive(false);
+        }
+    }
+
     private void CreateSelectButton()
     {
         for (int i = 0; i < BUTTON_CAPACITY; i++)
@@ -86,6 +114,8 @@ public class SelectPanelController : UIBaseController
 
     private void SetCharacterButton()
     {
+        ClearButtons();
+
         int count = characters.Count;
 
         for(int i = 0; i < count; i++)
@@ -95,6 +125,7 @@ public class SelectPanelController : UIBaseController
             SelectButtonElement element = selectButtons[i];
 
             element.SetThumbnail(characterManager.GetCharacterSprite(characters[i].characterUid));
+            element.SetThumbnailText(string.Empty);
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickCharacterButton(index));
 
@@ -104,6 +135,8 @@ public class SelectPanelController : UIBaseController
 
     private void SetWeaponButton()
     {
+        ClearButtons();
+        
         int count = weapons.Count;
 
         for (int i = 0; i < count; i++)
@@ -113,8 +146,30 @@ public class SelectPanelController : UIBaseController
             SelectButtonElement element = selectButtons[i];
 
             element.SetThumbnail(itemManager.GetItemSprite(weapons[i].itemUid));
+            element.SetThumbnailText(string.Empty);
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickWeaponButton(index));
+
+            element.SetActive(true);
+        }
+    }
+
+    private void SetStageButton()
+    {
+        ClearButtons();
+
+        Debug.Log("SetStageButton");
+
+        for (int i = 0; i <= STAGECOUNT; i++)
+        {
+            int index = i;
+
+            SelectButtonElement element = selectButtons[i];
+
+            element.SetThumbnail(null);
+            element.SetThumbnailText(index.ToString());
+            element.GetButtonClickedEvent.RemoveAllListeners();
+            element.GetButtonClickedEvent.AddListener(() => OnClickStageButton(index));
 
             element.SetActive(true);
         }
@@ -160,43 +215,78 @@ public class SelectPanelController : UIBaseController
         statusInfo.SetInfoText(sb.ToString());
     }
 
+    private void OnClickStageButton(int _index)
+    {
+        selectStage = _index;
+
+        statusInfo.SetName(string.Empty);
+        statusInfo.SetTumbnail(null);
+        statusInfo.SetActive(true);
+        statusInfo.SetInfoText("Stage : " + _index);
+    }
+
     private void OnClickNextButton()
     {
-        if(selectCharacter != null && selectWeapon != null)
+        int selectPhaseIndex = (int)selectPhase;
+        selectPhaseIndex++;
+        selectPhase = (ESELECTPHASE)selectPhaseIndex;
+
+        Debug.Log(selectPhase);
+
+        if (selectPhase == ESELECTPHASE.END)
         {
             //Game Start
+
             itemManager.OnBuyItem(selectWeapon.itemUid);
             characterManager.SelectCharacterModel(selectCharacter.characterUid);
+            //stageManager.
             SceneChanger.getInstance.ChangeScene("IngameScene");
         }
 
-        if(selectCharacter == null)
-        {
-            return;
-        }
+        RefreshSelectPage(selectPhase);
 
         statusInfo.SetActive(false);
-
-        SetWeaponButton();
 
         prevButton.gameObject.SetActive(true);
     }
 
     private void OnClickPrevButton()
     {
-        selectWeapon = null;
+        int selectPhaseIndex = (int)selectPhase;
+        selectPhaseIndex--;
+        selectPhase = (ESELECTPHASE)selectPhaseIndex;
 
-        prevButton.gameObject.SetActive(false);
-
+        if (selectPhase == ESELECTPHASE.CHARACTER)
+        {
+            prevButton.gameObject.SetActive(false);
+        }
+        
         statusInfo.SetActive(false);
 
-        SetCharacterButton();
+        RefreshSelectPage(selectPhase);
     }
 
     private void OnClickCloseButton()
     {
         selectCharacter = null;
         selectWeapon = null;
+        selectStage = -1;
         uiManager.Hide();
+    }
+
+    private void RefreshSelectPage(ESELECTPHASE _selectPhase)
+    {
+        switch(_selectPhase)
+        {
+            case ESELECTPHASE.CHARACTER:
+                SetCharacterButton();
+                break;
+            case ESELECTPHASE.WEAPON:
+                SetWeaponButton();
+                break;
+            case ESELECTPHASE.STAGE:
+                SetStageButton();
+                break;
+        }
     }
 }

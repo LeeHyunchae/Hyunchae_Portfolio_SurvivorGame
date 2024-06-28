@@ -120,11 +120,19 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
             return;
         }
 
-        globalData.DecreasePieceCount((int)itemModel.itemPrice);
+        bool isBuySuccess = itemManager.OnBuyItem(itemModel.itemUid);
 
-        Debug.Log("DecreasePieceCount");
+        if (isBuySuccess)
+        {
+            globalData.DecreasePieceCount((int)itemModel.itemPrice);
+            Debug.Log("DecreasePieceCount");
+        }
+        else
+        {
+            Debug.Log("Item Buy Failed");
+        }
 
-        itemManager.OnBuyItem(itemModel.itemUid);
+
     }
 
     private void OnClickLockButton(int _elementIndex)

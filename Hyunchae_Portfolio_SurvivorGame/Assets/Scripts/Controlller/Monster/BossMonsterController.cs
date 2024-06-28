@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class BossMonsterController : MonoBehaviour ,ITargetable
 {
+    private const float DAMAGETIME = 0.25f;
+    private const float SPAWNWAITTIME = 1;
+
+    [SerializeField] private Sprite spawnWaitSprite;
+
     private GlobalData globalData;
     private MonsterManager monsterManager;
     private ItemManager itemManager;
@@ -20,12 +25,18 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     private HpBarController hpBar;
     private DamageData damageData;
 
-    private bool isDead = false;
+    private bool isDead = true;
     private float curBossHp;
 
     private int curPhaseCount = 0;
 
     private float[] monsterStatusVariances = new float[(int)EMonsterStatus.END];
+
+    private bool isDamaged = false;
+    private float curDamagedTime = 0;
+
+    private bool isSpawnWait = false;
+    private float curSpawnWaitTime = 0;
 
     public void Init(PlayerController _playerController)
     {
@@ -85,10 +96,55 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     }
     private void Update()
     {
+        if(isSpawnWait)
+        {
+            SpawnWait();
+            return;
+        }
+        else if(isDead)
+        {
+            return;
+        }
+
         hpBar.UpdatePos(myTransform.position);
 
         pattern.Update();
         rectCollisionCalculator.Update();
+
+        if(isDamaged)
+        {
+            SwapColor();
+        }
+    }
+
+    private void SpawnWait()
+    {
+        curSpawnWaitTime += Time.deltaTime;
+
+        if (curSpawnWaitTime >= SPAWNWAITTIME)
+        {
+            spriteRenderer.sprite = monsterManager.GetBossMonsterSpriteToUid(bossMonsterModel.bossUid);
+
+            curSpawnWaitTime = 0;
+            isSpawnWait = false;
+            isDead = false;
+            hpBar.SetActive(true);
+            SetPattern();
+        }
+    }
+
+    private void SwapColor()
+    {
+        curDamagedTime += Time.deltaTime;
+
+        spriteRenderer.color = Color.yellow;
+
+        if (curDamagedTime >= DAMAGETIME)
+        {
+            spriteRenderer.color = Color.white;
+            curDamagedTime = 0;
+            isDamaged = false;
+        }
     }
 
     private void SetPattern()
@@ -125,6 +181,8 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     public void OnDamaged(DamageData _damageData)
     {
         curBossHp -= _damageData.damage;
+
+        isDamaged = true;
 
         if(curBossHp <= 0)
         {
@@ -168,10 +226,9 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     
     public void SpawnBoss()
     {
-        isDead = false;
         SetActive(true);
-        hpBar.SetActive(true);
-        SetPattern();
+        isSpawnWait = true;
+        spriteRenderer.sprite = spawnWaitSprite;
     }
 
     public void AddPassiveItem()

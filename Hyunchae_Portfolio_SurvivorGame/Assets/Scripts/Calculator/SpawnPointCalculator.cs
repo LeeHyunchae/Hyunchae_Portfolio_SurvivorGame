@@ -99,21 +99,21 @@ public class SpawnPointCalculator
 
     private bool GetCrossPosition(Vector2 _mapLineFirstDot, Vector2 _mapLineSecondDot, out Vector2 _intersectionPos)
     {
-        float fistLineDotX, firstLineDotY, secondLineDotX,secondLineDotY;
+        float firstLineDotX, firstLineDotY, secondLineDotX,secondLineDotY;
 
-        fistLineDotX = _mapLineFirstDot.x;
+        firstLineDotX = _mapLineFirstDot.x;
         firstLineDotY = _mapLineFirstDot.y;
 
         secondLineDotX = _mapLineSecondDot.x;
         secondLineDotY = _mapLineSecondDot.y;
 
-        float isCross = (fistLineDotX - secondLineDotX) * (playerPos.y - randomDirectionPos.y) - (firstLineDotY - secondLineDotY) * (playerPos.x - randomDirectionPos.x);
+        float isCross = (firstLineDotX - secondLineDotX) * (playerPos.y - randomDirectionPos.y) - (firstLineDotY - secondLineDotY) * (playerPos.x - randomDirectionPos.x);
 
-        _intersectionPos.x = ((fistLineDotX * secondLineDotY - firstLineDotY * secondLineDotX)
-            * (playerPos.x - randomDirectionPos.x) - (fistLineDotX - secondLineDotX)
+        _intersectionPos.x = ((firstLineDotX * secondLineDotY - firstLineDotY * secondLineDotX)
+            * (playerPos.x - randomDirectionPos.x) - (firstLineDotX - secondLineDotX)
             * (playerPos.x * randomDirectionPos.y - playerPos.y * randomDirectionPos.x)) / isCross;
 
-        _intersectionPos.y = ((fistLineDotX * secondLineDotY - firstLineDotY * secondLineDotX)
+        _intersectionPos.y = ((firstLineDotX * secondLineDotY - firstLineDotY * secondLineDotX)
             * (playerPos.y - randomDirectionPos.y) - (firstLineDotY - secondLineDotY)
             * (playerPos.x * randomDirectionPos.y - playerPos.y * randomDirectionPos.x)) / isCross;
 
