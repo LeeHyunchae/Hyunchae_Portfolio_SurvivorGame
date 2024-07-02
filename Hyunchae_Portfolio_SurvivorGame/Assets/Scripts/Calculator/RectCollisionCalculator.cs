@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RectCollisionCalculator
 {
+    private float BOUNDSIZE_CORRECTION = 0.7f;
+
     private ITargetable myTargetable;
     private ITargetable playerTargetable;
 
@@ -33,8 +35,8 @@ public class RectCollisionCalculator
             return;
         }
 
-        Rect monsterRect = new Rect(myTargetable.GetPosition(), myTargetable.GetSpriteBounds().size);
-        Rect playerRect = new Rect(playerTargetable.GetPosition(), playerTargetable.GetSpriteBounds().size);
+        Rect monsterRect = new Rect(myTargetable.GetPosition(), myTargetable.GetSpriteBounds().size * BOUNDSIZE_CORRECTION);
+        Rect playerRect = new Rect(playerTargetable.GetPosition(), playerTargetable.GetSpriteBounds().size * BOUNDSIZE_CORRECTION);
 
         if (playerRect.Overlaps(monsterRect))
         {

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GlobalData : Singleton<GlobalData>
 {
     private int piece;
+    private bool isPause;
 
     public Action<int> OnRefreshPieceAction;
 
@@ -21,5 +22,16 @@ public class GlobalData : Singleton<GlobalData>
     {
         piece -= _decreaseValue;
         OnRefreshPieceAction?.Invoke(piece);
+    }
+
+    public void SetPause(bool _isPause) => isPause = _isPause;
+
+    public bool GetPause => isPause;
+
+    public void UnloadScene()
+    {
+        piece = 0;
+        isPause = false;
+        OnRefreshPieceAction = null;
     }
 }

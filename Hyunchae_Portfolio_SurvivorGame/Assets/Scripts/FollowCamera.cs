@@ -9,7 +9,7 @@ public class FollowCamera : MonoBehaviour
     [SerializeField]
     private Vector2 mapSize;
 
-    private float cameraMoveSpeed = 1;
+    private float cameraMoveSpeed = 2;
     private float height;
     private float width;
 

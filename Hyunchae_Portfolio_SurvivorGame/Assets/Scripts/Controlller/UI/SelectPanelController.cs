@@ -167,7 +167,7 @@ public class SelectPanelController : UIBaseController
             SelectButtonElement element = selectButtons[i];
 
             element.SetThumbnail(null);
-            element.SetThumbnailText(index.ToString());
+            element.SetThumbnailText((index+1).ToString());
             element.GetButtonClickedEvent.RemoveAllListeners();
             element.GetButtonClickedEvent.AddListener(() => OnClickStageButton(index));
 
@@ -222,7 +222,7 @@ public class SelectPanelController : UIBaseController
         statusInfo.SetName(string.Empty);
         statusInfo.SetTumbnail(null);
         statusInfo.SetActive(true);
-        statusInfo.SetInfoText("Stage : " + _index);
+        statusInfo.SetInfoText("Stage : " + (_index + 1));
     }
 
     private void OnClickNextButton()
@@ -239,7 +239,7 @@ public class SelectPanelController : UIBaseController
 
             itemManager.OnBuyItem(selectWeapon.itemUid);
             characterManager.SelectCharacterModel(selectCharacter.characterUid);
-            //stageManager.
+            stageManager.SetCurStage(selectStage + 1);
             SceneChanger.getInstance.ChangeScene("IngameScene");
         }
 

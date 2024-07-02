@@ -1,53 +1,114 @@
 [
   {
     "characterUid": 0,
-    "character_Name": "테스트캐릭터",
+    "characterName": "테스트캐릭터",
     "unlockID": 1,
-    "unique_Ability_IDArr": [
+    "uniqueAbilityIDArr": [
       1,
       2
     ],
-    "characterThumbnail": "Sprites/Farmer 0",
+    "characterThumbnail": "Sprites/Character_1",
     "variances": [
       {
         "characterStatus": 0,
+        "isRatio": false,
         "variance": 5.0
       },
       {
         "characterStatus": 7,
+        "isRatio": false,
         "variance": 3.0
       },
       {
         "characterStatus": 6,
+        "isRatio": false,
         "variance": -5.0
       },
       {
-        "characterStatus": 11,
-        "variance": 50.0
+        "characterStatus": 9,
+        "isRatio": false,
+        "variance": 5.0
       }
     ]
   },
   {
     "characterUid": 1,
-    "character_Name": "테스트캐릭터2",
+    "characterName": "테스트캐릭터2",
     "unlockID": 2,
-    "unique_Ability_IDArr": [
+    "uniqueAbilityIDArr": [
       3,
       4
     ],
-    "characterThumbnail": "Sprites/Farmer 1",
+    "characterThumbnail": "Sprites/Character_2",
     "variances": [
       {
         "characterStatus": 0,
+        "isRatio": false,
         "variance": -5.0
       },
       {
         "characterStatus": 3,
+        "isRatio": false,
         "variance": 25.0
       },
       {
+        "characterStatus": 0,
+        "isRatio": false,
+        "variance": 5.0
+      }
+    ]
+  },
+  {
+    "characterUid": 2,
+    "characterName": "테스트캐릭터3",
+    "unlockID": 2,
+    "uniqueAbilityIDArr": [
+      3,
+      4
+    ],
+    "characterThumbnail": "Sprites/Character_3",
+    "variances": [
+      {
+        "characterStatus": 0,
+        "isRatio": false,
+        "variance": 50.0
+      },
+      {
         "characterStatus": 11,
-        "variance": 30.0
+        "isRatio": false,
+        "variance": 25.0
+      },
+      {
+        "characterStatus": 0,
+        "isRatio": false,
+        "variance": 10.0
+      }
+    ]
+  },
+  {
+    "characterUid": 3,
+    "characterName": "테스트캐릭터4",
+    "unlockID": 2,
+    "uniqueAbilityIDArr": [
+      3,
+      4
+    ],
+    "characterThumbnail": "Sprites/Character_4",
+    "variances": [
+      {
+        "characterStatus": 0,
+        "isRatio": false,
+        "variance": 25.0
+      },
+      {
+        "characterStatus": 6,
+        "isRatio": false,
+        "variance": 25.0
+      },
+      {
+        "characterStatus": 9,
+        "isRatio": false,
+        "variance": 15.0
       }
     ]
   }

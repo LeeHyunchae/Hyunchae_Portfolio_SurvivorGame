@@ -6,12 +6,20 @@ public class StageManager : Singleton<StageManager>
 {
     private Dictionary<int, StageData> stageDataDict = new Dictionary<int, StageData>();
     private Dictionary<int, MonsterGroupData> monsterGroupDataDict = new Dictionary<int, MonsterGroupData>();
+    private int curStage = -1;
+    private int curWave = -1;
 
     public override bool Initialize()
     {
         LoadData();
         return base.Initialize();
     }
+
+    public void SetCurStage(int _stageIndex) => curStage = _stageIndex;
+    public int GetCurStage => curStage;
+
+    public void SetCurWave(int _waveIndex) => curWave = _waveIndex;
+    public int GetCurWave => curWave;
 
     private void LoadData()
     {

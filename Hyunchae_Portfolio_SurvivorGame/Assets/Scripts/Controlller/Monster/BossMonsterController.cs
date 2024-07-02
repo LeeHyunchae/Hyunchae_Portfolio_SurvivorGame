@@ -5,10 +5,11 @@ using UnityEngine.AI;
 
 public class BossMonsterController : MonoBehaviour ,ITargetable
 {
+    private const string ANIM_BOSSMONSTER_ID = "BossMonsterID";
+    private const string ANIM_BOSSMONSTER_STATE = "BossMonsterState";
     private const float DAMAGETIME = 0.25f;
     private const float SPAWNWAITTIME = 1;
-
-    [SerializeField] private Sprite spawnWaitSprite;
+    private const float DEADTIME = 1f;
 
     private GlobalData globalData;
     private MonsterManager monsterManager;
@@ -16,6 +17,7 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
     private Transform myTransform;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private Transform targetTransform;
     private ITargetable target;
     private BossPatternSelector patternSelector;
@@ -26,6 +28,7 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     private DamageData damageData;
 
     private bool isDead = true;
+    private float curDeadTime = 0;
     private float curBossHp;
 
     private int curPhaseCount = 0;
@@ -38,10 +41,13 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     private bool isSpawnWait = false;
     private float curSpawnWaitTime = 0;
 
+    private bool isDeadWait = false;
+
     public void Init(PlayerController _playerController)
     {
         myTransform = gameObject.transform;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
 
         monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
@@ -79,13 +85,14 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     {
         bossMonsterModel = _model;
 
-        spriteRenderer.sprite = monsterManager.GetBossMonsterSpriteToUid(bossMonsterModel.bossUid);
-
         curBossHp = bossMonsterModel.bossStatus[(int)EMonsterStatus.MONSTER_HP];
 
         patternSelector.SetBossPhase(bossMonsterModel.bossPatternPhaseList);
 
         SetStatusApplyToModel();
+
+        animator.SetInteger(ANIM_BOSSMONSTER_ID, bossMonsterModel.bossUid);
+        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
     }
 
     public void SetHPBar(HpBarController _hpBar)
@@ -96,13 +103,19 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     }
     private void Update()
     {
-        if(isSpawnWait)
+        if (globalData.GetPause)
+        {
+            return;
+        }
+
+        if (isSpawnWait)
         {
             SpawnWait();
             return;
         }
-        else if(isDead)
+        else if(isDeadWait)
         {
+            DeadWait();
             return;
         }
 
@@ -123,7 +136,7 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
         if (curSpawnWaitTime >= SPAWNWAITTIME)
         {
-            spriteRenderer.sprite = monsterManager.GetBossMonsterSpriteToUid(bossMonsterModel.bossUid);
+            animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.RUN);
 
             curSpawnWaitTime = 0;
             isSpawnWait = false;
@@ -144,6 +157,17 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
             spriteRenderer.color = Color.white;
             curDamagedTime = 0;
             isDamaged = false;
+        }
+    }
+    private void DeadWait()
+    {
+        curDeadTime += Time.deltaTime;
+
+        if (curDeadTime >= DEADTIME)
+        {
+            isDeadWait = false;
+            curDeadTime = 0;
+            ReleaseData();
         }
     }
 
@@ -211,10 +235,19 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
     public void OnMonsterDie()
     {
+        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.DEAD);
         isDead = true;
-        SetActive(false);
+        isDeadWait = true;
         hpBar.SetActive(false);
         globalData.IncreasePieceCount(bossMonsterModel.dropPieceCount);
+    }
+
+    private void ReleaseData()
+    {
+        SetActive(false);
+
+        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
+
     }
 
     private void OnCollisionPlayer()
@@ -228,7 +261,6 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     {
         SetActive(true);
         isSpawnWait = true;
-        spriteRenderer.sprite = spawnWaitSprite;
     }
 
     public void AddPassiveItem()

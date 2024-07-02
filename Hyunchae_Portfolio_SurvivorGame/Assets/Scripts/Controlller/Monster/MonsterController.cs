@@ -4,14 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EMonsterState
+{
+    RUN,
+    DEAD,
+    SPAWNWAIT
+}
+
 public class MonsterController : MonoBehaviour , ITargetable
 {
+    private const string ANIM_MONSTER_ID = "MonsterID";
+    private const string ANIM_MONSTER_STATE = "MonsterState";
     private const float DAMAGETIME = 0.25f;
     private const float SPAWNWAITTIME = 1;
-
-    [SerializeField] private Sprite spawnWaitSprite;
+    private const float DEADTIME = 1f;
 
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private MonsterModel monsterModel;
     private Transform myTransform;
     private Transform targetTransform;
@@ -29,6 +38,7 @@ public class MonsterController : MonoBehaviour , ITargetable
     private ItemManager itemManager;
 
     private bool isDead = true;
+    private float curDeadTime = 0;
 
     private DamageData damageData = new DamageData();
 
@@ -45,11 +55,14 @@ public class MonsterController : MonoBehaviour , ITargetable
     private bool isSpawnWait = false;
     private float curSpawnWaitTime = 0;
 
+    private bool isDeadWait = false;
+
     public void Init(PlayerController _playerController)
     {
         myTransform = gameObject.transform;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
+        animator = gameObject.GetComponent<Animator>();
+        
         monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
         globalData = GlobalData.getInstance;
@@ -83,7 +96,10 @@ public class MonsterController : MonoBehaviour , ITargetable
         SetMonsterBehaviour();
 
         SetStatusToModel();
-        
+
+        animator.SetInteger(ANIM_MONSTER_ID, monsterModel.monsterUid);
+        animator.SetInteger(ANIM_MONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
+
     }
 
     public void SetStatusToModel()
@@ -131,13 +147,20 @@ public class MonsterController : MonoBehaviour , ITargetable
 
     private void Update()
     {
+        if (globalData.GetPause || monsterModel == null || targetTransform == null)
+        {
+            return;
+        }
+
+
         if (isSpawnWait)
         {
             SpawnWait();
             return;
         }
-        else if (monsterModel == null || targetTransform == null || isDead)
+        else if (isDeadWait)
         {
+            DeadWait();
             return;
         }
 
@@ -156,13 +179,12 @@ public class MonsterController : MonoBehaviour , ITargetable
 
         if(curSpawnWaitTime >= SPAWNWAITTIME)
         {
-            Sprite sprite = monsterManager.GetMonsterSpriteToUid(monsterModel.monsterUid);
-
-            spriteRenderer.sprite = sprite;
-
             curSpawnWaitTime = 0;
             isSpawnWait = false;
             isDead = false;
+
+            animator.SetInteger(ANIM_MONSTER_STATE, (int)EMonsterState.RUN);
+
         }
     }
 
@@ -180,6 +202,18 @@ public class MonsterController : MonoBehaviour , ITargetable
         }
     }
 
+    private void DeadWait()
+    {
+        curDeadTime += Time.deltaTime;
+
+        if(curDeadTime >= DEADTIME)
+        {
+            curDeadTime = 0;
+            isDeadWait = false;
+            ReleaseData();
+        }    
+    }
+
     public void OnEnqueue()
     {
         gameObject.SetActive(false);
@@ -190,21 +224,32 @@ public class MonsterController : MonoBehaviour , ITargetable
     {
         gameObject.SetActive(true);
         isSpawnWait = true;
-        spriteRenderer.sprite = spawnWaitSprite;
 
     }
 
     private void OnMonsterDie()
     {
+        animator.SetInteger(ANIM_MONSTER_STATE, (int)EMonsterState.DEAD);
         isDead = true;
+        isDeadWait = true;
+        spriteRenderer.color = Color.white;
+        curDamagedTime = 0;
+        isDamaged = false;
+        globalData.IncreasePieceCount(monsterModel.dropPieceCount);
 
+    }
+
+    private void ReleaseData()
+    {
         monsterManager.ReleaseBehaviourLogic(monsterModel.logicType, behaviourLogic);
         monsterManager.ReleaseSkillBehaviour(monsterModel.skillType, skillBehaviour);
         monsterManager.ReleaseMoveBehaviour(monsterModel.moveType, moveBehaviour);
 
-        globalData.IncreasePieceCount(monsterModel.dropPieceCount);
-
         OnMonsterDieAction?.Invoke(this);
+
+        monsterModel = null;
+
+        animator.SetInteger(ANIM_MONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
     }
 
     public bool GetIsDead()

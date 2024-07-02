@@ -176,7 +176,7 @@ public class DataEditor : Editor
             characterName = "테스트캐릭터",
             unlockID = 1,
             uniqueAbilityIDArr = new int[]{ 1, 2 },
-            characterThumbnail = "Sprites/Enemy 0"
+            characterThumbnail = "Sprites/Character_1"
         };
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
@@ -215,7 +215,7 @@ public class DataEditor : Editor
             characterName = "테스트캐릭터2",
             unlockID = 2,
             uniqueAbilityIDArr = new int[] { 3, 4 },
-            characterThumbnail = "Sprites/Enemy 1"
+            characterThumbnail = "Sprites/Character_2"
         };
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
@@ -239,6 +239,66 @@ public class DataEditor : Editor
 
         characters.Add(characterModel2);
 
+        CharacterModel characterModel3 = new CharacterModel
+        {
+            characterUid = 2,
+            characterName = "테스트캐릭터3",
+            unlockID = 2,
+            uniqueAbilityIDArr = new int[] { 3, 4 },
+            characterThumbnail = "Sprites/Character_3"
+        };
+
+        variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
+        variance.variance = 50;
+        variance.isRatio = false;
+
+        characterModel3.variances.Add(variance);
+        variance = new StatusVariance();
+
+        variance.characterStatus = ECharacterStatus.PLAYER_ATTACK_RANGE;
+        variance.variance = 25;
+        variance.isRatio = false;
+
+        characterModel3.variances.Add(variance);
+        variance = new StatusVariance();
+        variance.isRatio = false;
+        variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
+        variance.variance = -5;
+
+        characterModel3.variances.Add(variance);
+
+        characters.Add(characterModel3);
+
+        CharacterModel characterModel4 = new CharacterModel
+        {
+            characterUid = 3,
+            characterName = "테스트캐릭터4",
+            unlockID = 2,
+            uniqueAbilityIDArr = new int[] { 3, 4 },
+            characterThumbnail = "Sprites/Character_4"
+        };
+
+        variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
+        variance.variance = 25;
+        variance.isRatio = false;
+
+        characterModel4.variances.Add(variance);
+        variance = new StatusVariance();
+
+        variance.characterStatus = ECharacterStatus.PLAYER_ATTACKSPEED;
+        variance.variance = 25;
+        variance.isRatio = false;
+
+        characterModel4.variances.Add(variance);
+        variance = new StatusVariance();
+        variance.isRatio = false;
+        variance.characterStatus = ECharacterStatus.PLAYER_MOVE_SPEED;
+        variance.variance = 25;
+
+        characterModel4.variances.Add(variance);
+
+        characters.Add(characterModel4);
+
         TableLoader.SaveToJson("Character", characters, "TestCharacter");
     }
 
@@ -259,7 +319,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 1,
             WeaponRange = 10,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1,
+            WeaponCoolDown = 0.5f,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_3",
@@ -283,7 +343,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 10,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1,
+            WeaponCoolDown = 0.5f,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_3",
@@ -307,7 +367,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 3,
             WeaponRange = 10,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1,
+            WeaponCoolDown = 0.5f,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_3",
@@ -331,7 +391,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 4,
             WeaponRange = 10,
             WeaponSpeed = 5,
-            WeaponCoolDown = 0.8f,
+            WeaponCoolDown = 0.5f,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_3",
@@ -355,7 +415,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 1,
             WeaponRange = 5,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_1",
@@ -379,7 +439,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 5,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_1",
@@ -403,7 +463,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 3,
             WeaponRange = 5,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_1",
@@ -427,7 +487,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 4,
             WeaponRange = 5,
             WeaponSpeed = 5,
-            WeaponCoolDown = 1.25f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_1",
@@ -547,7 +607,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 2,
             WeaponSpeed = 6,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier1_Props_0",
@@ -571,7 +631,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 2,
             WeaponSpeed = 6,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier2_Props_0",
@@ -595,7 +655,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 2,
             WeaponSpeed = 6,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier3_Props_0",
@@ -619,7 +679,7 @@ public class DataEditor : Editor
             WeaponTypeDamage = 2,
             WeaponRange = 2,
             WeaponSpeed = 6,
-            WeaponCoolDown = 1.5f,
+            WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
             WeaponStatusEffect = 0,
             ItemImage = "Tier4_Props_0",
@@ -712,8 +772,8 @@ public class DataEditor : Editor
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.NONE,
             moveType = EMonsterMoveType.FOLLOW,
-            monsterStatus = new float[] { 10, 1, 5, 2, 5 },
-            dropPieceCount = 1
+            monsterStatus = new float[] { 7, 1, 3, 2, 5 },
+            dropPieceCount = 3
         };
 
         monsterModels.Add(monsterModel1);
@@ -726,7 +786,7 @@ public class DataEditor : Editor
             logicType = EMonsterLogicType.SEQUENCE,
             skillType = EMonsterSkillType.DASH,
             moveType = EMonsterMoveType.FOLLOW,
-            monsterStatus = new float[] { 10,1,5,2,5},
+            monsterStatus = new float[] { 10,1,3,2,5},
             dropPieceCount = 3
         };
 
@@ -740,8 +800,8 @@ public class DataEditor : Editor
             logicType = EMonsterLogicType.LOOP,
             skillType = EMonsterSkillType.SHOOTING,
             moveType = EMonsterMoveType.AWAY,
-            monsterStatus = new float[] { 10, 1, 5, 2, 5 },
-            dropPieceCount = 2
+            monsterStatus = new float[] { 7, 1, 3, 2, 5 },
+            dropPieceCount = 5
         };
 
         monsterModels.Add(monsterModel3);
@@ -843,7 +903,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000001,
             BuildUpGrade = 1,
-            BuildUpName = "UI_Text_BuildUp_Name_6000001",
+            BuildUpName = "유토피아",
             BuildUpImage = "BuildUpImage_6000001.png",
             BuildUpContent = "Mosnter SpawnTime+",
             BuildUpType = 101,
@@ -860,7 +920,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000002,
             BuildUpGrade = 2,
-            BuildUpName = "UI_Text_BuildUp_Name_6000002",
+            BuildUpName = "유토피아+",
             BuildUpImage = "BuildUpImage_6000002.png",
             BuildUpContent = "Mosnter SpawnTime++",
             BuildUpType = 101,
@@ -876,7 +936,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000003,
             BuildUpGrade = 3,
-            BuildUpName = "UI_Text_BuildUp_Name_6000003",
+            BuildUpName = "유토피아++",
             BuildUpImage = "BuildUpImage_6000003.png",
             BuildUpContent = "Mosnter SpawnTime+++",
             BuildUpType = 101,
@@ -892,7 +952,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000004,
             BuildUpGrade = 1,
-            BuildUpName = "UI_Text_BuildUp_Name_6000004",
+            BuildUpName = "디스토피아",
             BuildUpImage = "BuildUpImage_6000004.png",
             BuildUpContent = "Mosnter SpawnTime-",
             BuildUpType = 101,
@@ -908,7 +968,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000005,
             BuildUpGrade = 2,
-            BuildUpName = "UI_Text_BuildUp_Name_6000005",
+            BuildUpName = "디스토피아+",
             BuildUpImage = "BuildUpImage_6000005.png",
             BuildUpContent = "Mosnter SpawnTime--",
             BuildUpType = 101,
@@ -924,7 +984,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000006,
             BuildUpGrade = 3,
-            BuildUpName = "UI_Text_BuildUp_Name_6000006",
+            BuildUpName = "디스토피아++",
             BuildUpImage = "BuildUpImage_6000006.png",
             BuildUpContent = "Mosnter SpawnTime---",
             BuildUpType = 101,
@@ -940,7 +1000,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000007,
             BuildUpGrade = 1,
-            BuildUpName = "UI_Text_BuildUp_Name_6000007",
+            BuildUpName = "안전한 삶",
             BuildUpImage = "BuildUpImage_6000007.png",
             BuildUpContent = "Mosnter MoveSpeed-",
             BuildUpType = 302,
@@ -956,7 +1016,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000008,
             BuildUpGrade = 2,
-            BuildUpName = "UI_Text_BuildUp_Name_6000008",
+            BuildUpName = "안전한 삶+",
             BuildUpImage = "BuildUpImage_6000008.png",
             BuildUpContent = "Mosnter MoveSpeed--, Monster HP+",
             BuildUpType = 302,
@@ -972,7 +1032,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000009,
             BuildUpGrade = 3,
-            BuildUpName = "UI_Text_BuildUp_Name_6000009",
+            BuildUpName = "안전한 삶++",
             BuildUpImage = "BuildUpImage_6000009.png",
             BuildUpContent = "Mosnter MoveSpeed---, Monster HP++",
             BuildUpType = 302,
@@ -988,7 +1048,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000010,
             BuildUpGrade = 1,
-            BuildUpName = "UI_Text_BuildUp_Name_6000010",
+            BuildUpName = "튼튼한 몸",
             BuildUpImage = "BuildUpImage_6000010.png",
             BuildUpContent = "Player Max HP +",
             BuildUpType = 201,
@@ -1004,7 +1064,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000011,
             BuildUpGrade = 2,
-            BuildUpName = "UI_Text_BuildUp_Name_6000011",
+            BuildUpName = "튼튼한 몸+",
             BuildUpImage = "BuildUpImage_6000011.png",
             BuildUpContent = "Player Max HP ++",
             BuildUpType = 201,
@@ -1020,7 +1080,7 @@ public class DataEditor : Editor
         {
             BuildUpID = 6000012,
             BuildUpGrade = 3,
-            BuildUpName = "UI_Text_BuildUp_Name_6000012",
+            BuildUpName = "튼튼한 몸++",
             BuildUpImage = "BuildUpImage_6000012.png",
             BuildUpContent = "Player Max HP +++",
             BuildUpType = 201,

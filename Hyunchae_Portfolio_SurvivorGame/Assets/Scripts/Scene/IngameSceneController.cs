@@ -15,9 +15,6 @@ public class IngameSceneController : MonoBehaviour
     private MapCreator mapCreator;
     private MapData mapData;
 
-    private CharacterManager characterManager;
-    private ItemManager itemManager;
-
     private PlayerController playerController;
     private ItemController itemController;
 
@@ -42,8 +39,6 @@ public class IngameSceneController : MonoBehaviour
 
     private void InitPlayerController()
     {
-        characterManager = CharacterManager.getInstance;
-
         playerController = Instantiate<GameObject>(originPlayerObj).GetComponent<PlayerController>();
 
         playerController.Init();
@@ -59,8 +54,6 @@ public class IngameSceneController : MonoBehaviour
 
     private void InitItemController()
     {
-        itemManager = ItemManager.getInstance;
-
         itemController = new ItemController();
 
         itemController.SetTargetMonsters(targetMonsterArr);
@@ -78,7 +71,7 @@ public class IngameSceneController : MonoBehaviour
     private void InitStageController()
     {
         stageController = new StageController();
-        stageController.Init(playerController.GetTransform());
+        stageController.Init(playerController);
         stageController.SetMapData(mapData);
         stageController.SetIngamePanel(ingamePanelController);
         stageController.SetStageIndex(stageIndex);

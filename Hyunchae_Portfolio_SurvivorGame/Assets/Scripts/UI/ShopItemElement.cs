@@ -9,11 +9,9 @@ public class ShopItemElement : MonoBehaviour
     [SerializeField] private Image itemThumbnail;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemInfo;
-    [SerializeField] private Button LockButton;
     [SerializeField] private Button BuyButton;
     [SerializeField] private TextMeshProUGUI itemPriceText;
 
-    public Button.ButtonClickedEvent GetLockButtomClickListner => LockButton.onClick;
     public Button.ButtonClickedEvent GetBuyButtonClickListner => BuyButton.onClick;
 
     public void SetThumbnail(Sprite _image)
@@ -31,4 +29,6 @@ public class ShopItemElement : MonoBehaviour
     {
         itemInfo.text = _info;
     }
+
+    public void SetActive(bool _isActive) => gameObject.SetActive(_isActive);
 }

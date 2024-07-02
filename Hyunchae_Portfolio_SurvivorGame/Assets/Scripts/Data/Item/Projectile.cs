@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour , IPoolable
 {
     private const float SPEED = 10f;
 
+    private GlobalData globalData;
+
     private ItemManager itemManager;
     private SpriteRenderer spriteRenderer;
     private Vector2 pos;
@@ -19,6 +21,8 @@ public class Projectile : MonoBehaviour , IPoolable
 
     public void Init()
     {
+        globalData = GlobalData.getInstance;
+
         myTransform = gameObject.GetComponent<RectTransform>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         obbCollision = gameObject.GetComponent<ObbCollisionObject>();
@@ -67,7 +71,12 @@ public class Projectile : MonoBehaviour , IPoolable
 
     private void Update()
     {
-        if(direction == Vector2.zero)
+        if (globalData.GetPause)
+        {
+            return;
+        }
+
+        if (direction == Vector2.zero)
         {
             return;
         }

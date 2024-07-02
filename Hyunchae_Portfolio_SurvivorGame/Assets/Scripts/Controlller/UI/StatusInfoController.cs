@@ -137,10 +137,6 @@ public class StatusInfoController : MonoBehaviour
     {
         curInfoItemSlotNum = _itemSlotNum;
 
-        //itemInfoElement.SetTumbnail(itemManager.GetSpriteToName(_itemUid));
-        //itemInfoElement.SetName(itemManager.GetWeaponItemModel(_itemUid).itemName);
-        //itemInfoElement.SetCharacterInfo(itemManager.GetWeaponItemModel(_itemUid).status);
-
         dimImage.enabled = true;
 
         WeaponItemModel model = itemManager.GetItemModel(_itemUid) as WeaponItemModel;
@@ -154,7 +150,16 @@ public class StatusInfoController : MonoBehaviour
         itemInfoElement.SetInfoText(weaponInfo);
         itemInfoElement.SetItemPrice(model.itemPrice.ToString());
 
-        itemInfoElement.SetActiveCombineButton(itemManager.CheckCombineItemExistence(model));
+        if(globalData.GetPause)
+        {
+            itemInfoElement.SetActiveSellButton(false);
+            itemInfoElement.SetActiveCombineButton(false);
+        }
+        else
+        {
+            itemInfoElement.SetActiveCombineButton(itemManager.CheckCombineItemExistence(model));
+            itemInfoElement.SetActiveSellButton(true);
+        }
     }
 
     private void OnClickWeaponItemInfoCloseButton()

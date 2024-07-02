@@ -9,6 +9,9 @@ using UnityEngine.UI;
 public class ShopPanelController : UIBaseController
 {
     private const int SHOWING_ITEM_COUNT = 4;
+    private const int FIRST_REROLL_PRICE = 3;
+    private const int ADDED_REROLL_PRICE = 2;
+
     private UIManager uiManager;
     private GlobalData globalData;
 
@@ -22,9 +25,10 @@ public class ShopPanelController : UIBaseController
     public Action OnClickNextWaveAction;
     private ItemManager itemManager;
 
-    private List<BaseItemModel> items = new List<BaseItemModel>();
+    private List<BaseItemModel> randomItems = new List<BaseItemModel>();
 
     private BaseItemModel[] curShowingItemArr = new BaseItemModel[SHOWING_ITEM_COUNT];
+    private int curRerollPrice;
 
     protected override void Init()
     {
@@ -53,7 +57,6 @@ public class ShopPanelController : UIBaseController
 
             ShopItemElement element = shopItemElements[i];
 
-            element.GetLockButtomClickListner.AddListener(() => OnClickLockButton(index));
             element.GetBuyButtonClickListner.AddListener(() => OnClickBuyButton(index));
         }
     }
@@ -62,34 +65,51 @@ public class ShopPanelController : UIBaseController
     {
         base.Show();
 
-        SetItemList();
+        SetRandomItemList();
+
+        curRerollPrice = FIRST_REROLL_PRICE;
+        itemListRerollPriceText.text = curRerollPrice.ToString();
     }
 
-    private void SetItemList()
+    private void SetRandomItemList()
     {
-        items = itemManager.GetRandomItemList();
+        randomItems = itemManager.GetRandomItemList();
 
-        int count = items.Count;
+        int count = randomItems.Count;
 
         for (int i = 0; i < count; i++)
         {
 
             ShopItemElement element = shopItemElements[i];
 
-element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
-            element.SetItemData(items[i]);
+            element.SetThumbnail(itemManager.GetItemSprite(randomItems[i].itemUid));
+            element.SetItemData(randomItems[i]);
+            element.SetActive(true);
 
-            if(items[i].itemType == EItemType.WEAPON)
+            if(randomItems[i].itemType == EItemType.WEAPON)
             {
-                StringBuilder stringBuilder = (items[i] as WeaponItemModel).GetWeaponInfo();
+                StringBuilder stringBuilder = (randomItems[i] as WeaponItemModel).GetWeaponInfo();
                 element.SetItemInfo(stringBuilder.ToString());
             }
             else
             {
-                element.SetItemInfo((items[i] as PassiveItemModel).itemInfo);
+                element.SetItemInfo((randomItems[i] as PassiveItemModel).itemInfo);
             }
 
-            curShowingItemArr[i] = items[i];
+            curShowingItemArr[i] = randomItems[i];
+        }
+    }
+
+    private void RemoveBuyItemToItemList()
+    {
+        int count = curShowingItemArr.Length;
+
+        for (int i = 0; i < count; i++)
+        {
+            if(curShowingItemArr[i] == null)
+            {
+                shopItemElements[i].SetActive(false);
+            }
         }
     }
 
@@ -107,7 +127,12 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
 
     private void OnClickRerollButton()
     {
-        SetItemList();
+        globalData.DecreasePieceCount(curRerollPrice);
+
+        curRerollPrice += ADDED_REROLL_PRICE;
+        itemListRerollPriceText.text = curRerollPrice.ToString();
+
+        SetRandomItemList();
     }
 
     private void OnClickBuyButton(int _elementIndex)
@@ -124,6 +149,8 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
 
         if (isBuySuccess)
         {
+            curShowingItemArr[_elementIndex] = null;
+            RemoveBuyItemToItemList();
             globalData.DecreasePieceCount((int)itemModel.itemPrice);
             Debug.Log("DecreasePieceCount");
         }
@@ -135,8 +162,4 @@ element.SetThumbnail(itemManager.GetItemSprite(items[i].itemUid));
 
     }
 
-    private void OnClickLockButton(int _elementIndex)
-    {
-        Debug.Log("LockButtonClick idx : " + _elementIndex + " itemModelName : " + curShowingItemArr[_elementIndex].itemName);
-    }
 }

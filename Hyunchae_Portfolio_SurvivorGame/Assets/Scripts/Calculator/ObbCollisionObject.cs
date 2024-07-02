@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ObbCollisionObject : MonoBehaviour
 {
+    private float BOUNDSIZE_CORRECTION = 0.7f;
     private ITargetable[] targetArr;
 
     private Transform myTransform;
@@ -29,7 +30,7 @@ public class ObbCollisionObject : MonoBehaviour
 
     public void RefreshSprite()
     {
-        spriteSize = spriteRenderer.bounds.size;
+        spriteSize = spriteRenderer.bounds.size * BOUNDSIZE_CORRECTION;
     }
 
     private void Update()
@@ -139,8 +140,8 @@ public class ObbCollisionObject : MonoBehaviour
 
     private Vector2 GetTargetHeightVector(ITargetable _target)
     {
-        float x = _target.GetSpriteBounds().size.y * Mathf.Cos(Deg2Rad(_target.GetTransform().eulerAngles.z - 90f)) * 0.5f;
-        float y = _target.GetSpriteBounds().size.y * Mathf.Sin(Deg2Rad(_target.GetTransform().eulerAngles.z - 90f)) * 0.5f;
+        float x = _target.GetSpriteBounds().size.y * BOUNDSIZE_CORRECTION * Mathf.Cos(Deg2Rad(_target.GetTransform().eulerAngles.z - 90f)) * 0.5f;
+        float y = _target.GetSpriteBounds().size.y * BOUNDSIZE_CORRECTION * Mathf.Sin(Deg2Rad(_target.GetTransform().eulerAngles.z - 90f)) * 0.5f;
 
         return new Vector2(x, y);
     }
@@ -155,8 +156,8 @@ public class ObbCollisionObject : MonoBehaviour
 
     private Vector2 GetTargetWidthVector(ITargetable _target)
     {
-        float x = _target.GetSpriteBounds().size.x * Mathf.Cos(Deg2Rad(_target.GetTransform().eulerAngles.z)) * 0.5f;
-        float y = _target.GetSpriteBounds().size.x * Mathf.Sin(Deg2Rad(_target.GetTransform().eulerAngles.z)) * 0.5f;
+        float x = _target.GetSpriteBounds().size.x * BOUNDSIZE_CORRECTION * Mathf.Cos(Deg2Rad(_target.GetTransform().eulerAngles.z)) * 0.5f;
+        float y = _target.GetSpriteBounds().size.x * BOUNDSIZE_CORRECTION * Mathf.Sin(Deg2Rad(_target.GetTransform().eulerAngles.z)) * 0.5f;
 
         return new Vector2(x, y);
     }

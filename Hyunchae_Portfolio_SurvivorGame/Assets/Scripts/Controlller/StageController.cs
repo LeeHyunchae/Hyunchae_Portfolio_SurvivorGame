@@ -8,7 +8,8 @@ using Debug = UnityEngine.Debug;
 public class StageController
 {
     private MonsterManager monsterManager;
-    private Transform playerTransform;
+    private GlobalData globalData;
+    private PlayerController playerController;
     private SpawnPointCalculator spawnPointCalculater;
     private StageManager stageManager;
     private UIManager uiManager;
@@ -27,15 +28,18 @@ public class StageController
     private IngamePanelController ingamePanel;
 
     private bool isBossWave = false;
+    private MapData mapData;
 
-    public void Init(Transform _playerTransform)
+    public void Init(PlayerController _player)
     {
         stageManager = StageManager.getInstance;
         monsterManager = MonsterManager.getInstance;
         augmentManager = AugmentManager.getInstance;
         uiManager = UIManager.getInstance;
+        globalData = GlobalData.getInstance;
+        SetPlayerController(_player);
+
         spawnPointCalculater = new SpawnPointCalculator();
-        SetPlayerTransform(_playerTransform);
 
         ShopPanelController shopPanel = uiManager.AddCachePanel<ShopPanelController>("UI/ShopPanel");
         shopPanel.OnClickNextWaveAction = StartWave;
@@ -59,7 +63,8 @@ public class StageController
 
     public void SetMapData(MapData _mapData)
     {
-        spawnPointCalculater.SetMapData(_mapData);
+        mapData = _mapData;
+        spawnPointCalculater.SetMapData(mapData);
     }
 
     public void SetIngamePanel(IngamePanelController _ingamePanelController)
@@ -67,23 +72,17 @@ public class StageController
         ingamePanel = _ingamePanelController;
     }
 
-    private void SetPlayerTransform(Transform _transform)
+    private void SetPlayerController(PlayerController _player)
     {
-        playerTransform = _transform;
-    }
-
-    private void TestInputKey()
-    {
-       
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TestSpawnBossMonster();
-        }
+        playerController = _player;
     }
 
     public void Update()
     {
-        //TestInputKey();
+        if (globalData.GetPause)
+        {
+            return;
+        }
 
         if (isWaveEnd)
         {
@@ -91,31 +90,6 @@ public class StageController
         }
 
         CheckSpawnTime();
-    }
-
-    public void TestSpawnBossMonster()
-    {
-
-        //MonsterModel model = monsterManager.GetMonsterModelToUid(2);
-        //MonsterController monster = monsterManager.GetMonster();
-
-        //if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out Vector2 monPos))
-        //{
-        //    monster.GetMonsterTransform.position = monPos;
-        //    monster.SetMonsterModel(model);
-        //}
-        //else
-        //{
-        //    TestSpawnBossMonster();
-        //}
-
-        //GetSpawnPosition(out Vector2 monPos);
-
-        Debug.Log("Boss");
-        
-        BossMonsterController boss = monsterManager.GetBossMonster();
-        boss.GetTransform().position = new Vector2(0,0);
-        boss.gameObject.SetActive(true);
     }
 
     public void CheckSpawnTime()
@@ -170,7 +144,7 @@ public class StageController
 
     public void GetSpawnPosition(out Vector2 monPos)
     {
-        if (spawnPointCalculater.GetSpawnPosition(playerTransform.position, out monPos))
+        if (spawnPointCalculater.GetSpawnPosition(playerController.transform.position, out monPos))
         {
             return;
         }
@@ -189,12 +163,19 @@ public class StageController
         {
             //sw.Start();
 
-            SpawnMonster(spawnData);
-            await UniTask.Delay((int)(spawnData.respawnCycleTime * 1000)); // respawnCycleTime as milliSec
+            if (globalData.GetPause)
+            {
+                await UniTask.Yield();
+            }
+            else
+            {
+                SpawnMonster(spawnData);
+                await UniTask.Delay((int)(spawnData.respawnCycleTime * 1000)); // respawnCycleTime as milliSec
+            }
+
 
             //sw.Stop();
             //UnityEngine.Debug.Log($"WATCH :> {sw.ElapsedMilliseconds}ms");
-
 
         }
 
@@ -234,6 +215,9 @@ public class StageController
         isWaveEnd = false;
         curWaveTime = 0;
         curWave++;
+        SetPlayerPos();
+
+        stageManager.SetCurWave(curWave + 1);
 
         //if(curWave == monsterGroupUidArr.Length -1)
         //{
@@ -248,6 +232,8 @@ public class StageController
         if (curWave >= monsterGroupUidArr.Length)
         {
             //Todo GameResultPanel && SceneChange
+            globalData.UnloadScene();
+            uiManager.UnloadScene();
             SceneChanger.getInstance.ChangeScene("MainScene");
             return;
         }
@@ -281,5 +267,15 @@ public class StageController
 
         boss.GetTransform().position = monPos;
         boss.SpawnBoss();
+    }
+
+    private void SetPlayerPos()
+    {
+        Vector2 pos = Vector2.zero;
+
+        pos.x = Random.Range(-mapData.mapWidth * 0.5f, mapData.mapWidth * 0.5f);
+        pos.x = Random.Range(-mapData.mapHeight * 0.5f, mapData.mapHeight * 0.5f);
+
+        playerController.StartWave(pos);
     }
 }

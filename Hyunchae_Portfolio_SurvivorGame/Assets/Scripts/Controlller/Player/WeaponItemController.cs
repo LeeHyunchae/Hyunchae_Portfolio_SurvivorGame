@@ -7,8 +7,9 @@ public class WeaponItemController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private WeaponItemModel itemModel;
     private BaseWeaponAttack attackType;
-    private MonsterManager monsterManager;
     private ItemManager itemManager;
+    private GlobalData globalData;
+
     private ITargetable rotateTargetMonster = null;
     private ObbCollisionObject obbCollision;
     private Transform myTransform;
@@ -18,8 +19,8 @@ public class WeaponItemController : MonoBehaviour
 
     public void Init()
     {
-        monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
+        globalData = GlobalData.getInstance;
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -73,6 +74,11 @@ public class WeaponItemController : MonoBehaviour
 
     private void Update()
     {
+        if (globalData.GetPause)
+        {
+            return;
+        }
+
         if (itemModel == null && rotateTargetMonster == null)
         {
             return;

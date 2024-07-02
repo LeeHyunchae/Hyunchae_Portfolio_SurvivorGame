@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ECharacterState
+{
+    IDLE = 0,
+    RUN,
+    DEAD
+}
+
 public class PlayerController : MonoBehaviour , ITargetable
 {
+    private string ANIM_CHAR_ID = "CharacterID";
+    private string ANIM_CHAR_STATE = "CharacterState";
+
     private const int RECOVERY_TIME = 1;
 
     private Transform myTransform;
@@ -14,22 +24,27 @@ public class PlayerController : MonoBehaviour , ITargetable
     private CharacterManager characterManager;
     private ItemManager itemManager;
     private AugmentManager augmentManager;
+    private GlobalData globalData;
     private HpBarController hpBar;
-    private int curPlayerHp;
+    private float curPlayerHp;
     private Character playerCharacter;
+    private Animator animator;
 
     private bool isDamaged = false;
+    private bool isDead = false;
     private float curRecoveryTime = 0;
 
     public void Init()
     {
         characterManager = CharacterManager.getInstance;
         itemManager = ItemManager.getInstance;
+        globalData = GlobalData.getInstance;
 
         itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
 
         myTransform = gameObject.GetComponent<Transform>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
 
         pos = myTransform.position;
 
@@ -43,13 +58,16 @@ public class PlayerController : MonoBehaviour , ITargetable
     {
         playerCharacter = characterManager.GetPlayerCharacter;
 
+        animator.SetInteger(ANIM_CHAR_ID, playerCharacter.GetCharacterModel.characterUid);
+
         spriteRenderer.sprite = characterManager.GetCharacterSprite(playerCharacter.GetCharacterModel.characterUid);
-        curPlayerHp = (int)playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
+        curPlayerHp = playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
     }
 
     public void SetJoystick(JoystickControlller moveJoystick)
     {
-        moveJoystick.OnPointerDownAction = OnMoveJoystickDown;
+        moveJoystick.OnPointerDownAction = OnDownJoystick;
+        moveJoystick.OnPointerUpAction = OnUpJoystick;
     }
 
     public void SetHPBar(HpBarController _hpBar)
@@ -59,18 +77,35 @@ public class PlayerController : MonoBehaviour , ITargetable
         hpBar.SetActive(true);
     }
 
-    public void OnMoveJoystickDown(Vector2 _dir)
+    private void OnDownJoystick(Vector2 _dir)
     {
+        if(isDead)
+        {
+            return;
+        }
+
         pos += _dir.normalized * playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus * Time.deltaTime;
 
         myTransform.position = pos;
 
         spriteRenderer.flipX = _dir.x < 0;
+
+        animator.SetInteger(ANIM_CHAR_STATE, (int)ECharacterState.RUN);
+    }
+
+    private void OnUpJoystick()
+    {
+        animator.SetInteger(ANIM_CHAR_STATE, (int)ECharacterState.IDLE);
     }
 
     private void Update()
-    {
+    { 
         hpBar.UpdatePos(pos);
+
+        if (globalData.GetPause)
+        {
+            return;
+        }
 
         if(isDamaged)
         {
@@ -92,9 +127,17 @@ public class PlayerController : MonoBehaviour , ITargetable
         }
     }
 
+    private void OnPlayerDie()
+    {
+        isDead = true;
+        animator.SetInteger(ANIM_CHAR_STATE, (int)ECharacterState.DEAD);
+        UIManager.getInstance.Show<ResultPanelController>("UI/ResultPanel");
+        globalData.SetPause(true);
+    }
+
     public bool GetIsDead()
     {
-        return false;
+        return isDead;
     }
 
     public Bounds GetSpriteBounds()
@@ -114,10 +157,15 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         isDamaged = true;
 
-        int damage = (int)(_damageData.damage * (1 - (playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_ARMOUR).multiplierApplyStatus / 15)));
+        float damage = _damageData.damage * (1 - (playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_ARMOUR).multiplierApplyStatus / 15));
         curPlayerHp -= damage;
 
         hpBar.SetHPBarFillAmount(curPlayerHp / playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus);
+
+        if(curPlayerHp <= 0)
+        {
+            OnPlayerDie();
+        }
     }
 
     public Vector2 GetPosition()
@@ -182,12 +230,12 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         List<ItemStatusVariance> statusVariances = itemModel.status_Variances;
 
-        for(int i = 0; i <varianceCount; i++)
+        for (int i = 0; i < varianceCount; i++)
         {
             ItemStatusVariance itemStatusVariance = statusVariances[i];
             int isPlayerStatus = (int)itemStatusVariance.itemStatusType / 100;
 
-            if(isPlayerStatus != (int)EItemStatusTarget.PLAYER)
+            if (isPlayerStatus != (int)EItemStatusTarget.PLAYER)
             {
                 continue;
             }
@@ -202,5 +250,13 @@ public class PlayerController : MonoBehaviour , ITargetable
             playerCharacter.UpdateStatusAmount(statusVariance);
         }
 
+    }
+
+    public void StartWave(Vector2 _pos)
+    {
+        myTransform.position = _pos;
+        pos = _pos;
+
+        curPlayerHp = playerCharacter.GetPlayerStatus((int)ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
     }
 }
