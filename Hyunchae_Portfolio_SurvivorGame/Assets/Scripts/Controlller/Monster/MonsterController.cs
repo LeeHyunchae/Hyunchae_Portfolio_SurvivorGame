@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public enum EMonsterState
 {
@@ -36,6 +37,7 @@ public class MonsterController : MonoBehaviour , ITargetable
     private GlobalData globalData;
     private MonsterManager monsterManager;
     private ItemManager itemManager;
+    private SoundManager soundManager;
 
     private bool isDead = true;
     private float curDeadTime = 0;
@@ -66,6 +68,7 @@ public class MonsterController : MonoBehaviour , ITargetable
         monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
         globalData = GlobalData.getInstance;
+        soundManager = SoundManager.getInstance;
 
         itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
         OnMonsterDieAction = monsterManager.OnMonsterDie;
@@ -223,6 +226,7 @@ public class MonsterController : MonoBehaviour , ITargetable
     public void OnDequeue()
     {
         gameObject.SetActive(true);
+        spriteRenderer.color = Color.white;
         isSpawnWait = true;
 
     }
@@ -277,6 +281,10 @@ public class MonsterController : MonoBehaviour , ITargetable
             OnMonsterDie();
         }
 
+
+        int soundIndex = Random.Range((int)EAudioClip.MELEE_ONE, (int)EAudioClip.SELECT);
+
+        soundManager.PlaySFX((EAudioClip)soundIndex);
     }
     public Bounds GetSpriteBounds()
     {

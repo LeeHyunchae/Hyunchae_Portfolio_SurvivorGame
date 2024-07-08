@@ -33,12 +33,12 @@ public class DataEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("임시 맵 생성", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("맵 미리보기 생성", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth,mapSetting.mapDatas.mapHeight);
         }
 
-        if (GUILayout.Button("임시 맵 제거", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("저장된 맵 데이터 제거", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
             tilemap.ClearAllTiles();
         }
@@ -65,39 +65,39 @@ public class DataEditor : Editor
             mapCreator.GenerateMap(mapSetting.mapDatas.mapWidth, mapSetting.mapDatas.mapHeight);
         }
 
-        if (GUILayout.Button("임시 캐릭터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("캐릭터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            CharacterTest();
+            CharacterDataEdit();
         }
 
-        if (GUILayout.Button("임시 무기 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("무기 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            WeaponTest();
+            WeaponDataEdit();
         }
 
-        if (GUILayout.Button("임시 몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            MonsterTest();
+            MonsterDataEdit();
         }
 
-        if (GUILayout.Button("임시 증강체 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("증강체 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            AugmentTest();
+            AugmentDataEdit();
         }
 
-        if (GUILayout.Button("임시 패시브 아이템 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("패시브 아이템 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            PassiveItemTest();
+            PassiveItemDataEdit();
         }
 
-        if (GUILayout.Button("임시 보스 몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("보스 몬스터 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            BossMonsterTest();
+            BossMonsterDataEdit();
         }
 
-        if (GUILayout.Button("임시 스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
+        if (GUILayout.Button("스테이지 데이터 저장", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
         {
-            StageTest();
+            StageDataEdit();
         }
 
         //if (GUILayout.Button("맵 읽읽읽기", GUILayout.MinWidth(300), GUILayout.MaxWidth(600)))
@@ -165,7 +165,7 @@ public class DataEditor : Editor
         mapSetting.mapDatas.tileDatas = tileDatas;
     }
 
-    private void CharacterTest()
+    private void CharacterDataEdit()
     {
         List<CharacterModel> characters = new List<CharacterModel>();
         StatusVariance variance = new StatusVariance();
@@ -180,7 +180,7 @@ public class DataEditor : Editor
         };
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
-        variance.variance = 5;
+        variance.variance = 25;
         variance.isRatio = false;
 
         characterModel.variances.Add(variance);
@@ -219,7 +219,7 @@ public class DataEditor : Editor
         };
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
-        variance.variance = -5;
+        variance.variance = 15;
         variance.isRatio = false;
 
         characterModel2.variances.Add(variance);
@@ -249,7 +249,7 @@ public class DataEditor : Editor
         };
 
         variance.characterStatus = ECharacterStatus.PLAYER_MAXHP;
-        variance.variance = 50;
+        variance.variance = 100;
         variance.isRatio = false;
 
         characterModel3.variances.Add(variance);
@@ -302,7 +302,7 @@ public class DataEditor : Editor
         TableLoader.SaveToJson("Character", characters, "TestCharacter");
     }
 
-    private void WeaponTest()
+    private void WeaponDataEdit()
     {
         List<JsonWeaponData> weaponDatas = new List<JsonWeaponData>();
 
@@ -314,7 +314,7 @@ public class DataEditor : Editor
             WeaponSynergy = 0,
             WeaponType = EWeaponType.SHOOT,
             WeaponAttackType = EWeaponAttackType.NONE,
-            WeaponDamage = 3,
+            WeaponDamage = 5,
             WeaponCritical = 1,
             WeaponTypeDamage = 1,
             WeaponRange = 10,
@@ -338,7 +338,7 @@ public class DataEditor : Editor
             WeaponSynergy = 0,
             WeaponType = EWeaponType.SHOOT,
             WeaponAttackType = EWeaponAttackType.NONE,
-            WeaponDamage = 4,
+            WeaponDamage = 6,
             WeaponCritical = 2,
             WeaponTypeDamage = 2,
             WeaponRange = 10,
@@ -362,7 +362,7 @@ public class DataEditor : Editor
             WeaponSynergy = 0,
             WeaponType = EWeaponType.SHOOT,
             WeaponAttackType = EWeaponAttackType.NONE,
-            WeaponDamage = 5,
+            WeaponDamage = 7,
             WeaponCritical = 3,
             WeaponTypeDamage = 3,
             WeaponRange = 10,
@@ -386,7 +386,7 @@ public class DataEditor : Editor
             WeaponSynergy = 0,
             WeaponType = EWeaponType.SHOOT,
             WeaponAttackType = EWeaponAttackType.NONE,
-            WeaponDamage = 6,
+            WeaponDamage = 8,
             WeaponCritical = 4,
             WeaponTypeDamage = 4,
             WeaponRange = 10,
@@ -413,7 +413,7 @@ public class DataEditor : Editor
             WeaponDamage = 5,
             WeaponCritical = 1,
             WeaponTypeDamage = 1,
-            WeaponRange = 5,
+            WeaponRange = 4,
             WeaponSpeed = 5,
             WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
@@ -437,7 +437,7 @@ public class DataEditor : Editor
             WeaponDamage = 6,
             WeaponCritical = 2,
             WeaponTypeDamage = 2,
-            WeaponRange = 5,
+            WeaponRange = 4,
             WeaponSpeed = 5,
             WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
@@ -461,7 +461,7 @@ public class DataEditor : Editor
             WeaponDamage = 7,
             WeaponCritical = 3,
             WeaponTypeDamage = 3,
-            WeaponRange = 5,
+            WeaponRange = 4,
             WeaponSpeed = 5,
             WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
@@ -485,7 +485,7 @@ public class DataEditor : Editor
             WeaponDamage = 8,
             WeaponCritical = 4,
             WeaponTypeDamage = 4,
-            WeaponRange = 5,
+            WeaponRange = 4,
             WeaponSpeed = 5,
             WeaponCoolDown = 1,
             WeaponKnockback = 0.3f,
@@ -691,76 +691,9 @@ public class DataEditor : Editor
         weaponDatas.Add(jsonWeaponData4);
 
         TableLoader.SaveToJson("Weapon", weaponDatas, "TestWeapon");
-
-
-        //List<WeaponItemModel> itemModels = new List<WeaponItemModel>();
-        //WeaponItemModel itemModel = new WeaponItemModel
-        //{
-        //    itemUid = 0,
-        //    itemType = EItemType.ATTACKABLE,
-        //    itemPrice = 3,
-        //    itemThumbnail = "Weapon 3",
-        //    bulletImage = "Bullet 3",
-        //    itemName = "Gun",
-        //    WeaponType = EWeaponType.SHOOT,
-        //    uniqueAbilityIDArr = new int[] { 1, 2, 3 }
-
-        //};
-
-        //WeaponStatus weaponStatus = new WeaponStatus();
-        //weaponStatus.damage = 3;
-        //weaponStatus.cooldown = 3;
-
-        //itemModel.status = weaponStatus;
-
-        //itemModels.Add(itemModel);
-
-        //WeaponItemModel itemModel2 = new WeaponItemModel
-        //{
-        //    itemUid = 1,
-        //    itemType = EItemType.ATTACKABLE,
-        //    itemPrice = 8,
-        //    itemThumbnail = "Weapon 1",
-        //    bulletImage = string.Empty,
-        //    itemName = "Spear",
-        //    WeaponType = EWeaponType.STING,
-        //    uniqueAbilityIDArr = new int[] { 3, 4, 5 }
-
-        //};
-
-        //WeaponStatus weaponStatus2 = new WeaponStatus();
-        //weaponStatus.damage = 5;
-        //weaponStatus.cooldown = 5;
-
-        //itemModel2.status = weaponStatus2;
-
-        //itemModels.Add(itemModel2);
-
-        //WeaponItemModel itemModel3 = new WeaponItemModel
-        //{
-        //    itemUid = 2,
-        //    itemType = EItemType.ATTACKABLE,
-        //    itemPrice = 8,
-        //    itemThumbnail = "Weapon 2",
-        //    bulletImage = string.Empty,
-        //    itemName = "Scythe",
-        //    WeaponType = EWeaponType.SWING,
-        //    uniqueAbilityIDArr = new int[] { 3, 4, 5 }
-
-        //};
-
-        //WeaponStatus weaponStatus3 = new WeaponStatus();
-        //weaponStatus.damage = 5;
-        //weaponStatus.cooldown = 5;
-
-        //itemModel2.status = weaponStatus3;
-
-        //itemModels.Add(itemModel3);
-
-        //TableLoader.SaveToJson("Weapon", itemModels, "TestWeapon");
     }
 
-    private void MonsterTest()
+    private void MonsterDataEdit()
     {
         List<MonsterModel> monsterModels = new List<MonsterModel>();
 
@@ -810,7 +743,7 @@ public class DataEditor : Editor
 
     }
 
-    private void StageTest()
+    private void StageDataEdit()
     {
         StageData[] stageDatas = new StageData[6];
 
@@ -844,7 +777,7 @@ public class DataEditor : Editor
         {
             MonsterGroupID = 0,
             MonsterID = 0,
-            MonsterNumber = 4,
+            MonsterNumber = 2,
             FirstSpawnTime = 5,
             EndSpawnTime = 90,
             RespawnCycle = 4
@@ -854,7 +787,7 @@ public class DataEditor : Editor
         {
             MonsterGroupID = 1,
             MonsterID = 0,
-            MonsterNumber = 4,
+            MonsterNumber = 2,
             FirstSpawnTime = 3,
             EndSpawnTime = 90,
             RespawnCycle = 5
@@ -874,7 +807,7 @@ public class DataEditor : Editor
         {
             MonsterGroupID = 2,
             MonsterID = 0,
-            MonsterNumber = 1,
+            MonsterNumber = 2,
             FirstSpawnTime = 3,
             EndSpawnTime = 90,
             RespawnCycle = 5
@@ -884,7 +817,7 @@ public class DataEditor : Editor
         {
             MonsterGroupID = 2,
             MonsterID = 2,
-            MonsterNumber = 4,
+            MonsterNumber = 2,
             FirstSpawnTime = 5,
             EndSpawnTime = 90,
             RespawnCycle = 2
@@ -895,7 +828,7 @@ public class DataEditor : Editor
     }
 
 
-    private void AugmentTest()
+    private void AugmentDataEdit()
     {
         List<JsonAugmentData> augmentDatas = new List<JsonAugmentData>();
 
@@ -1096,7 +1029,7 @@ public class DataEditor : Editor
 
     }
 
-    public void PassiveItemTest()
+    public void PassiveItemDataEdit()
     {
         List<JsonPassiveItemModel> itemDatas = new List<JsonPassiveItemModel>();
 
@@ -1287,7 +1220,7 @@ public class DataEditor : Editor
 
     }
 
-    public void BossMonsterTest()
+    public void BossMonsterDataEdit()
     {
         List<JsonBossMonsterModel> jsonBossMonsterModels = new List<JsonBossMonsterModel>();
 

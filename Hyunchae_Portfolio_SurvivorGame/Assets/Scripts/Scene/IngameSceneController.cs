@@ -45,11 +45,13 @@ public class IngameSceneController : MonoBehaviour
         playerController.SetJoystick(joystickControlller);
 
         playerController.SetHPBar(hpBarPanelController.CreateHpBar());
+        playerController.SetMapData(mapData);
     }
 
     private void InitCamera()
     {
         followCam.SetTarget(playerController.GetTransform());
+        followCam.SetMapData(mapData);
     }
 
     private void InitItemController()

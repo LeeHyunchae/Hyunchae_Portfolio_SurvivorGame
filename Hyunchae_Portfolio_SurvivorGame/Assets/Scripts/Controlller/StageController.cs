@@ -94,6 +94,7 @@ public class StageController
 
     public void CheckSpawnTime()
     {
+        //현재 웨이브 시간 체크
         curWaveTime += Time.deltaTime;
 
         if(curWaveTime >= waveEndTime)
@@ -117,7 +118,7 @@ public class StageController
             {
                 continue;
             }
-
+            // 몬스터 그룹 데이터에 저장된 스폰 시간을 초과하면 UniTask로 구현한 주기적 몬스터 스폰 함수 호출
             if(spawnData.spawnStartTime <= curWaveTime)
             {
                 spawnData.isSpawnStart = true;
@@ -144,6 +145,12 @@ public class StageController
 
     public void GetSpawnPosition(out Vector2 monPos)
     {
+        if(playerController == null)
+        {
+            monPos = Vector2.zero;
+            return;
+        }
+
         if (spawnPointCalculater.GetSpawnPosition(playerController.transform.position, out monPos))
         {
             return;
@@ -156,29 +163,26 @@ public class StageController
 
     private async UniTaskVoid SpawnMonsterPeriodically(MonsterSpawnData spawnData)
     {
-        Stopwatch sw = new Stopwatch();
-        
-
         while (curWaveTime < spawnData.spawnEndTime && !isWaveEnd)
         {
-            //sw.Start();
-
-            if (globalData.GetPause)
+            if(globalData.GetGameEnd)
+            {
+                spawnData.isSpawnStart = false;
+                break;
+            }
+            else if (globalData.GetPause)
             {
                 await UniTask.Yield();
             }
             else
             {
                 SpawnMonster(spawnData);
-                await UniTask.Delay((int)(spawnData.respawnCycleTime * 1000)); // respawnCycleTime as milliSec
+                await UniTask.Delay((int)(spawnData.respawnCycleTime * 1000));
             }
-
-
-            //sw.Stop();
-            //UnityEngine.Debug.Log($"WATCH :> {sw.ElapsedMilliseconds}ms");
 
         }
 
+        spawnData.isSpawnStart = false;
         UnityEngine.Debug.Log("Stop Spawn Monster ID : " + spawnData.monsterUID + " Count :" + spawnData.monsterCount);
     }
 
@@ -200,7 +204,14 @@ public class StageController
 
         monsterManager.ReleaseAllAliveMonster();
 
-        if(curWave % 5 == 0)
+        if (curWave == 2)
+        {
+            ResultPanelController resultPanel = uiManager.Show<ResultPanelController>("UI/ResultPanel");
+            resultPanel.OnClearText();
+            return;
+        }
+
+        if (curWave % 5 == 0)
         {
             uiManager.Show<AugmentPanelController>("UI/AugmentPanel");
         }
@@ -227,15 +238,6 @@ public class StageController
         if (curWave == 2)
         {
             isBossWave = true;
-        }
-
-        if (curWave >= monsterGroupUidArr.Length)
-        {
-            //Todo GameResultPanel && SceneChange
-            globalData.UnloadScene();
-            uiManager.UnloadScene();
-            SceneChanger.getInstance.ChangeScene("MainScene");
-            return;
         }
 
         SetMonsterToCurWave();
@@ -273,8 +275,8 @@ public class StageController
     {
         Vector2 pos = Vector2.zero;
 
-        pos.x = Random.Range(-mapData.mapWidth * 0.5f, mapData.mapWidth * 0.5f);
-        pos.x = Random.Range(-mapData.mapHeight * 0.5f, mapData.mapHeight * 0.5f);
+        pos.x = Random.Range(-mapData.mapWidth * 0.5f + 1, mapData.mapWidth * 0.5f - 1);
+        pos.x = Random.Range(-mapData.mapHeight * 0.5f + 1, mapData.mapHeight * 0.5f - 1);
 
         playerController.StartWave(pos);
     }

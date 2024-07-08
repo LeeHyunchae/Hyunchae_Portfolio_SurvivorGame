@@ -55,6 +55,7 @@ public class SpawnPointCalculator
         randomDirection = new Vector2(Random.Range(mapData.mapWidth * 0.5f * -1, mapData.mapWidth * 0.5f), Random.Range(mapData.mapHeight * 0.5f * -1, mapData.mapHeight * 0.5f));
         randomDirection.Normalize();
 
+        // 플레이어의 위치로부터 뻗어나가는 무작위 방향 벡터 생성
         randomDirectionPos = playerPos + randomDirection * RANDOM_DIRECTION_LINE_LENGTH;
 
         isRight = randomDirection.x >= 0;
@@ -63,7 +64,7 @@ public class SpawnPointCalculator
 
     private bool CompareMapLineToRandomDirection(out Vector2 _intersectionPos)
     {
-
+        // 무작위 방향의 x,y 값에 따라 맵의 상하단, 좌우 두번에 걸쳐 교점 확인
         if (isTop)
         {
             if(GetCrossPosition(mapLines[(int)EMapLine.MAP_LEFT_TOP], mapLines[(int)EMapLine.MAP_RIGHT_TOP], out _intersectionPos))

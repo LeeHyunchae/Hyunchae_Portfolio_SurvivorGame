@@ -51,8 +51,6 @@ public class PausePanelController : UIBaseController
 
     private void OnClickMainSceneButton()
     {
-        globalData.UnloadScene();
-        uiManager.UnloadScene();
         SceneChanger.getInstance.ChangeScene("MainScene");
     }
 

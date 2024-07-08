@@ -12,7 +12,7 @@
       {
         "characterStatus": 0,
         "isRatio": false,
-        "variance": 5.0
+        "variance": 25.0
       },
       {
         "characterStatus": 7,
@@ -27,7 +27,7 @@
       {
         "characterStatus": 9,
         "isRatio": false,
-        "variance": 5.0
+        "variance": 50.0
       }
     ]
   },
@@ -44,7 +44,7 @@
       {
         "characterStatus": 0,
         "isRatio": false,
-        "variance": -5.0
+        "variance": 15.0
       },
       {
         "characterStatus": 3,
@@ -54,7 +54,7 @@
       {
         "characterStatus": 0,
         "isRatio": false,
-        "variance": 5.0
+        "variance": 100.0
       }
     ]
   },
@@ -71,7 +71,7 @@
       {
         "characterStatus": 0,
         "isRatio": false,
-        "variance": 50.0
+        "variance": 100.0
       },
       {
         "characterStatus": 11,
@@ -81,7 +81,7 @@
       {
         "characterStatus": 0,
         "isRatio": false,
-        "variance": 10.0
+        "variance": 25.0
       }
     ]
   },
@@ -108,7 +108,7 @@
       {
         "characterStatus": 9,
         "isRatio": false,
-        "variance": 15.0
+        "variance": 25.0
       }
     ]
   }

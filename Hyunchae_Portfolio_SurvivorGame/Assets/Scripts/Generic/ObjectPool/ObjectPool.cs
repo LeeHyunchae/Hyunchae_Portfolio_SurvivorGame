@@ -36,25 +36,10 @@ public class ObjectPool<T> : IPool where T : IPoolable
         isInitilaze = true;
     }
 
-    public void Init(string _prefabPath, Transform _parentTransform , int _increaseSize = 4)
-    {
-        var originPrefab = Resources.Load(_prefabPath);
-
-        parentTransform = _parentTransform;
-
-        originPrefab_GameObj = originPrefab as GameObject;
-        increaseSize = _increaseSize;
-
-        IncreasePool();
-
-        isInitilaze = true;
-    }
-
     ~ObjectPool()
     {
         OnRelease();
     }
-    public bool IsInit => isInitilaze;
 
     public void EnqueueObject(T _obj)
     {
@@ -64,8 +49,10 @@ public class ObjectPool<T> : IPool where T : IPoolable
 
     public T GetObject()
     {
+        // 오브젝트 가져오기
         T obj;
 
+        // 풀이 비어있을 시 풀 확장
         if (!objectQueue.TryDequeue(out obj))
         {
             IncreasePool();
@@ -92,6 +79,5 @@ public class ObjectPool<T> : IPool where T : IPoolable
     public void OnRelease()
     {
         objectQueue.Clear();
-        objectQueue = null;
     }
 }

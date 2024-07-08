@@ -54,7 +54,6 @@ public class IngamePanelController : MonoBehaviour
 
     public void SetPieceCountText(int _pieceCount)
     {
-        Debug.Log("Refresh IngamePanel PieceCount");
         pieceCountText.text = _pieceCount.ToString();
     }
 
@@ -81,6 +80,11 @@ public class IngamePanelController : MonoBehaviour
 
     private void Update()
     {
+        if(globalData.GetPause)
+        {
+            return;
+        }
+
         if(isWaveEnd)
         {
             return;

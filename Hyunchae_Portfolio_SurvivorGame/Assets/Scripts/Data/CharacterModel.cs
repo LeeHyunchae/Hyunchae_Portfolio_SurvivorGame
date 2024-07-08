@@ -57,9 +57,7 @@ public class Character
 
         for (int i = 0; i < count; i++)
         {
-            characterStatus[i].statusValueMultiplier = 0;
-            characterStatus[i].statusRatioMultiplier = 1;
-            characterStatus[i].multiplierApplyStatus = 0;
+            characterStatus[i] = new BaseCharacterStatus();
         }
     }
 
@@ -135,6 +133,6 @@ public class BaseCharacterStatus
 {
     public float baseStatus;
     public float statusValueMultiplier;
-    public float statusRatioMultiplier;
+    public float statusRatioMultiplier = 1;
     public float multiplierApplyStatus;
 }

@@ -237,10 +237,11 @@ public class SelectPanelController : UIBaseController
         {
             //Game Start
 
+            SceneChanger.getInstance.ChangeScene("IngameScene");
             itemManager.OnBuyItem(selectWeapon.itemUid);
             characterManager.SelectCharacterModel(selectCharacter.characterUid);
             stageManager.SetCurStage(selectStage + 1);
-            SceneChanger.getInstance.ChangeScene("IngameScene");
+            GlobalData.getInstance.SetGameEnd(false);
         }
 
         RefreshSelectPage(selectPhase);

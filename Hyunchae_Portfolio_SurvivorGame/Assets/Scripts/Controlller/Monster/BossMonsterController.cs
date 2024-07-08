@@ -12,13 +12,12 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     private const float DEADTIME = 1f;
 
     private GlobalData globalData;
-    private MonsterManager monsterManager;
     private ItemManager itemManager;
+    private SoundManager soundManager;
 
     private Transform myTransform;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-    private Transform targetTransform;
     private ITargetable target;
     private BossPatternSelector patternSelector;
     private RectCollisionCalculator rectCollisionCalculator;
@@ -49,9 +48,9 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponent<Animator>();
 
-        monsterManager = MonsterManager.getInstance;
         itemManager = ItemManager.getInstance;
         globalData = GlobalData.getInstance;
+        soundManager = SoundManager.getInstance;
 
         itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
         //OnMonsterDieAction = monsterManager.OnMonsterDie;
@@ -60,7 +59,6 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        targetTransform = _playerController.GetTransform();
         target = _playerController;
 
         patternSelector = new BossPatternSelector();
@@ -91,8 +89,6 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
         SetStatusApplyToModel();
 
-        animator.SetInteger(ANIM_BOSSMONSTER_ID, bossMonsterModel.bossUid);
-        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
     }
 
     public void SetHPBar(HpBarController _hpBar)
@@ -136,6 +132,7 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
         if (curSpawnWaitTime >= SPAWNWAITTIME)
         {
+            Debug.Log("SpawnBoss");
             animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.RUN);
 
             curSpawnWaitTime = 0;
@@ -167,6 +164,8 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
         {
             isDeadWait = false;
             curDeadTime = 0;
+            animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
+
             ReleaseData();
         }
     }
@@ -217,6 +216,9 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
 
         hpBar.SetHPBarFillAmount(curBossHp / bossMonsterModel.bossStatus[(int)EMonsterStatus.MONSTER_HP]);
 
+        int soundIndex = Random.Range((int)EAudioClip.MELEE_ONE, (int)EAudioClip.SELECT);
+
+        soundManager.PlaySFX((EAudioClip)soundIndex);
     }
 
     private void CheckNextPhase()
@@ -245,9 +247,6 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     private void ReleaseData()
     {
         SetActive(false);
-
-        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
-
     }
 
     private void OnCollisionPlayer()
@@ -260,6 +259,9 @@ public class BossMonsterController : MonoBehaviour ,ITargetable
     public void SpawnBoss()
     {
         SetActive(true);
+
+        animator.SetInteger(ANIM_BOSSMONSTER_ID, bossMonsterModel.bossUid);
+        animator.SetInteger(ANIM_BOSSMONSTER_STATE, (int)EMonsterState.SPAWNWAIT);
         isSpawnWait = true;
     }
 

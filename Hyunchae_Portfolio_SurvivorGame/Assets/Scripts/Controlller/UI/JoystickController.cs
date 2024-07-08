@@ -35,12 +35,14 @@ public class JoystickControlller : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void OnDrag(PointerEventData eventData)
     {
+        // 클릭 후 드래그 시
         moveValue = eventData.position - (Vector2)FrameTransform.position;
         LeverTransform.localPosition = Vector2.ClampMagnitude(moveValue, radius);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        // 클릭 시
         joystickFrame.SetActive(true);
         FrameTransform.position = eventData.position;
         LeverTransform.position = eventData.position;
@@ -50,6 +52,7 @@ public class JoystickControlller : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        // 클릭 해제 시
         joystickFrame.SetActive(false);
         LeverTransform.position = Vector3.zero;
         FrameTransform.position = Vector3.zero;
@@ -64,6 +67,7 @@ public class JoystickControlller : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (isDown)
         {
+            // 타겟(플레이어)에게 조이스틱 방향 보내기
             SendDirectionToTarget();
         }
     }

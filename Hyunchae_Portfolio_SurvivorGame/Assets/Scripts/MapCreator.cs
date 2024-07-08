@@ -11,30 +11,18 @@ public class MapCreator
     public void Init(Tilemap _tileMap = null)
     {
         tilemap = _tileMap;
-
+        //저장된 타일 데이터 불러오기
         tileBase = (TileBase)Resources.Load("Tiles/MapTiles");
 
     }
 
     public void GenerateMap(int _width,int _height)
     {
+        // 로드된 맵 데이터의 크기를 통해 타일 맵 배치
         tilemap.ClearAllTiles();
 
         int halfWidth = (int)(_width * 0.5f);
         int halfHeight = (int)(_height * 0.5f);
-
-        //bool isEvenWidth = _width % 2 == 0;
-        //bool isEvenHeight = _height % 2 == 0;
-
-        //if(isEvenWidth)
-        //{
-        //    //halfWidth -= 0.5f;
-        //}
-
-        //if(isEvenHeight)
-        //{
-        //    //halfHeight -= 0.5f;
-        //}
 
         for(int i = -halfWidth; i < halfWidth; i++)
         {

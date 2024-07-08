@@ -33,6 +33,7 @@ public class ItemManager : Singleton<ItemManager>
     {
         LoadData();
         InitAttackTypeArr();
+        SceneChanger.getInstance.OnUnloadSceneAction += UnloadScene;
 
         return base.Initialize();
     }
@@ -470,5 +471,22 @@ public class ItemManager : Singleton<ItemManager>
 
         Debug.Log("Not Exist Next Tier Item");
         return false;
+    }
+
+    private void UnloadScene()
+    {
+        equipPassiveModelList.Clear();
+
+        for(int i = 0; i < WEAPON_CAPACITY; i++)
+        {
+            equipWeaponModelArr[i] = null;
+        }
+
+        OnRefreshEquipWeaponList = null;
+
+        if(projectilePool != null)
+        {
+            projectilePool.OnRelease();
+        }
     }
 }

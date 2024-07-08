@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//몬스터의 행동을 구현하는 클래스들의 부모 클래스
 public abstract class MonsterBehaviour
 {
     protected Transform monsterTransform; 

@@ -25,20 +25,27 @@ public class PlayerController : MonoBehaviour , ITargetable
     private ItemManager itemManager;
     private AugmentManager augmentManager;
     private GlobalData globalData;
+    private SoundManager soundManager;
+
     private HpBarController hpBar;
     private float curPlayerHp;
     private Character playerCharacter;
     private Animator animator;
+    private MapData mapData;
 
     private bool isDamaged = false;
     private bool isDead = false;
     private float curRecoveryTime = 0;
+
+    private float mapHeight;
+    private float mapWidth;
 
     public void Init()
     {
         characterManager = CharacterManager.getInstance;
         itemManager = ItemManager.getInstance;
         globalData = GlobalData.getInstance;
+        soundManager = SoundManager.getInstance;
 
         itemManager.OnRefreshEquipPassiveList += AddPassiveItem;
 
@@ -77,6 +84,13 @@ public class PlayerController : MonoBehaviour , ITargetable
         hpBar.SetActive(true);
     }
 
+    public void SetMapData(MapData _mapData)
+    {
+        mapData = _mapData;
+        mapHeight = mapData.mapHeight * 0.5f -1;
+        mapWidth = mapData.mapWidth * 0.5f -1;
+    }
+
     private void OnDownJoystick(Vector2 _dir)
     {
         if(isDead)
@@ -85,6 +99,16 @@ public class PlayerController : MonoBehaviour , ITargetable
         }
 
         pos += _dir.normalized * playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MOVE_SPEED).multiplierApplyStatus * Time.deltaTime;
+
+        if(Mathf.Abs(pos.y) >= mapHeight)
+        {
+            pos.y = myTransform.position.y;
+        }
+
+        if(Mathf.Abs(pos.x) >= mapWidth)
+        {
+            pos.x = myTransform.position.x;
+        }
 
         myTransform.position = pos;
 
@@ -131,8 +155,11 @@ public class PlayerController : MonoBehaviour , ITargetable
     {
         isDead = true;
         animator.SetInteger(ANIM_CHAR_STATE, (int)ECharacterState.DEAD);
-        UIManager.getInstance.Show<ResultPanelController>("UI/ResultPanel");
+        ResultPanelController resultPanel = UIManager.getInstance.Show<ResultPanelController>("UI/ResultPanel");
+        resultPanel.OnDeadText();
         globalData.SetPause(true);
+
+        soundManager.PlaySFX(EAudioClip.LOSE);
     }
 
     public bool GetIsDead()
@@ -162,7 +189,11 @@ public class PlayerController : MonoBehaviour , ITargetable
 
         hpBar.SetHPBarFillAmount(curPlayerHp / playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus);
 
-        if(curPlayerHp <= 0)
+        int soundIndex = Random.Range((int)EAudioClip.HIT_ONE, (int)EAudioClip.LEVELUP);
+
+        soundManager.PlaySFX((EAudioClip)soundIndex);
+
+        if (curPlayerHp <= 0)
         {
             OnPlayerDie();
         }
@@ -258,5 +289,7 @@ public class PlayerController : MonoBehaviour , ITargetable
         pos = _pos;
 
         curPlayerHp = playerCharacter.GetPlayerStatus((int)ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus;
+        hpBar.SetHPBarFillAmount(curPlayerHp / playerCharacter.GetPlayerStatus(ECharacterStatus.PLAYER_MAXHP).multiplierApplyStatus);
+
     }
 }

@@ -70,6 +70,11 @@ public class ItemController
         {
             WeaponItemModel model = itemManager.GetEquipWeaponItemModel(i) as WeaponItemModel;
 
+            if(equipWeaponList[i] == null)
+            {
+                break;
+            }
+
             if (model != null)
             {
                 equipWeaponList[i].SetWeaponItemModel(model);

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    private Transform target;
+    private const float HEIGHTCORRECT = 0.15f;
+    private const float WIDTHCORRECT = 0.3f;
 
-    [SerializeField]
-    private Vector2 mapSize;
+    private Transform target;
 
     private float cameraMoveSpeed = 2;
     private float height;
@@ -15,12 +15,10 @@ public class FollowCamera : MonoBehaviour
 
     private Transform _transform;
     private Vector3 pos;
+    private MapData mapData;
 
     private void Start()
     {
-        height = mapSize.y * 0.9f;
-        width = mapSize.x * 0.75f;
-
         _transform = this.transform;
         pos = _transform.position;
     }
@@ -28,6 +26,14 @@ public class FollowCamera : MonoBehaviour
     public void SetTarget(Transform _target)
     {
         target = _target;
+    }
+
+    public void SetMapData(MapData _mapData)
+    {
+        mapData = _mapData;
+
+        height = mapData.mapHeight * HEIGHTCORRECT;
+        width = mapData.mapWidth * WIDTHCORRECT;
     }
 
     private void FixedUpdate()
@@ -40,14 +46,16 @@ public class FollowCamera : MonoBehaviour
         pos = Vector3.Lerp(pos, target.position, Time.deltaTime * cameraMoveSpeed);
 
         pos.z = -10;
-        //float lx = mapSize.x - width;
-        //float clampX = Mathf.Clamp(pos.x, -lx + center.x, lx + center.x);
+        
+        if(Mathf.Abs(pos.y) >= height)
+        {
+            pos.y = _transform.position.y;
+        }
 
-        //float ly = mapSize.y - height;
-        //float clampY = Mathf.Clamp(pos.y, -ly + center.y, ly + center.y);
-
-        //pos.x = clampX;
-        //pos.y = clampY;
+        if(Mathf.Abs(pos.x) >= width)
+        {
+            pos.x = _transform.position.x;
+        }
 
         _transform.position = pos;
     }

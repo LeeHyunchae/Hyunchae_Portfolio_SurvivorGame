@@ -97,6 +97,7 @@ public class ObbCollisionObject : MonoBehaviour
     private bool IsCollision(ITargetable _target)
     {
         Vector2 distance = GetCenterDistanceVector(_target);
+        // 검사할 타겟과 자신의 높이, 너비 벡터 구하기
         Vector2[] vec = new Vector2[4]
         {
             GetMyHeightVector(),
@@ -106,6 +107,8 @@ public class ObbCollisionObject : MonoBehaviour
         };
 
         Vector2 unitVec;
+
+        // 타겟과 자신의 높이, 너비벡터를 단위벡터로 하는 길이 검사 실시
         for (int i = 0; i < 4; i++)
         {
             float sum = 0f;

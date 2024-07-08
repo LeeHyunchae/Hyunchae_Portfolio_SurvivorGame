@@ -7,10 +7,18 @@ public class GlobalData : Singleton<GlobalData>
 {
     private int piece;
     private bool isPause;
+    private bool isGameEnd;
 
     public Action<int> OnRefreshPieceAction;
 
     public int GetPieceCount => piece;
+
+    public override bool Initialize()
+    {
+        SceneChanger.getInstance.OnUnloadSceneAction += UnloadScene;
+
+        return base.Initialize();
+    }
 
     public void IncreasePieceCount(int _increaseValue)
     {
@@ -34,4 +42,8 @@ public class GlobalData : Singleton<GlobalData>
         isPause = false;
         OnRefreshPieceAction = null;
     }
+
+    public bool GetGameEnd => isGameEnd;
+
+    public void SetGameEnd(bool _isGameEnd) => isGameEnd = _isGameEnd;
 }

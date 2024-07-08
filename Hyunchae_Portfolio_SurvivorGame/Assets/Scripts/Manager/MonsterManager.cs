@@ -129,6 +129,9 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public ITargetable[] CreateMonsterObjects()
     {
+        aliveMonsterLinkedList.Clear();
+        deadMonsterQueue.Clear();
+
         parentTransform = new GameObject(MONSTER_PARENT).GetComponent<Transform>();
 
         MonsterController originMonster = Resources.Load<MonsterController>("Prefabs/Monster");
@@ -219,8 +222,10 @@ public class MonsterManager : Singleton<MonsterManager>
     {
         MonsterController monster = null;
 
+        // 죽은 몬스터가 하나도 없이 몬스터가 모두 스폰 되었을 때
         if(deadMonsterQueue.Count == 0)
         {
+            // 가장 최초에 스폰된 몬스터를 수거하고 다시 반환
             LinkedListNode<MonsterController> firstMonsterNode = aliveMonsterLinkedList.First;
             aliveMonsterLinkedList.RemoveFirst();
             aliveMonsterLinkedList.AddLast(firstMonsterNode);

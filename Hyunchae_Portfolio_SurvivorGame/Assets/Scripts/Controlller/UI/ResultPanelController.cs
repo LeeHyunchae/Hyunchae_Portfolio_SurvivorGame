@@ -9,6 +9,9 @@ public class ResultPanelController : UIBaseController
     [SerializeField] private TextMeshProUGUI pieceCountText;
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private Button mainSceneButton;
+    [SerializeField] private GameObject deadTextObject;
+    [SerializeField] private GameObject clearTextObject;
+
 
     private GlobalData globalData;
     private UIManager uiManager;
@@ -44,13 +47,24 @@ public class ResultPanelController : UIBaseController
 
     private void OnClickMainSceneButton()
     {
-        globalData.UnloadScene();
-        uiManager.UnloadScene();
+        globalData.SetGameEnd(true);
         SceneChanger.getInstance.ChangeScene("MainScene");
     }
 
     private void SetPieceCountText(int _count)
     {
         pieceCountText.text = _count.ToString();
+    }
+
+    public void OnDeadText()
+    {
+        deadTextObject.SetActive(true);
+        clearTextObject.SetActive(false);
+    }
+
+    public void OnClearText()
+    {
+        deadTextObject.SetActive(false);
+        clearTextObject.SetActive(true);
     }
 }
